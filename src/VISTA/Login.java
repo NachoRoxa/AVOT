@@ -99,7 +99,7 @@ public class Login extends javax.swing.JFrame {
         this.setVisible(false);
         Index x = new Index();
         x.setVisible(true);
-        AgenteDaoImp.existe();
+        //AgenteDaoImp.existe();
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
