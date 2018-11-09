@@ -100,7 +100,10 @@ public class Login extends javax.swing.JFrame {
         this.setVisible(false);
         Index x = new Index();
         x.setVisible(true);
-        //AgenteDaoImp.existe();
+        //Estoy intentando ver como conectar esto a la DB.
+        AgenteDaoImp ad = new AgenteDaoImp();
+        ad.existe(false);
+                
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
