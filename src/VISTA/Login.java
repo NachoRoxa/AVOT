@@ -95,6 +95,7 @@ public class Login extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    //Boton para iniciar el login del usuario
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         this.setVisible(false);
         Index x = new Index();
