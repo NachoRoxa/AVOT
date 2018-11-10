@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class ActividadDaoImp implements BaseDao {
+public class ActividadGiraDaoImp implements BaseDao {
 
     @Override
     public boolean insertar(Object dto) {

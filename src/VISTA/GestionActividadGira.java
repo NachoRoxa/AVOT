@@ -7,7 +7,7 @@
 package VISTA;
 
 import CONEXION.Conexion;
-import DAO.ActividadDaoImp;
+import DAO.ActividadGiraDaoImp;
 import DTO.ActividadGira;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +30,7 @@ public class GestionActividadGira extends javax.swing.JFrame {
     
     public void MostrarActividadGira(){
         int iterador = 0;
-        listaActiviadGira = new ActividadDaoImp().listar();
+        listaActiviadGira = new ActividadGiraDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("ID");
         modelo.addColumn("TIPO");
