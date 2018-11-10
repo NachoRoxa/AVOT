@@ -51,9 +51,9 @@ public class GestionarAgente extends javax.swing.JFrame {
                     admin = "SI";
                 }
                 if (agente.getEstado() == 0) {
-                    estado = "Inactivo";
+                    estado = "INACTIVO";
                 } else {
-                    estado = "Activo";
+                    estado = "ACTIVO";
                 }
                 modelo.addRow(new Object[]{
                     agente.getRun(),
