@@ -5,22 +5,24 @@
  */
 package DTO;
 
+import java.util.Date;
+
 /**
  *
  * @author pedro
  */
-public class AbonosPersonales {
+public class AbonoPersonal {
     
     private int id_abono_personal;
     private int monto;
     private int num_registro_abono;
-    private String fecha_abono;
+    private Date fecha_abono;
     private Alumno alumno;
 
-    public AbonosPersonales() {
+    public AbonoPersonal() {
     }
 
-    public AbonosPersonales(int id_abono_personal, int monto, int num_registro_abono, String fecha_abono, Alumno alumnos) {
+    public AbonoPersonal(int id_abono_personal, int monto, int num_registro_abono, Date fecha_abono, Alumno alumnos) {
         this.id_abono_personal = id_abono_personal;
         this.monto = monto;
         this.num_registro_abono = num_registro_abono;
@@ -75,14 +77,14 @@ public class AbonosPersonales {
     /**
      * @return the fecha_abono
      */
-    public String getFecha_abono() {
+    public Date getFecha_abono() {
         return fecha_abono;
     }
 
     /**
      * @param fecha_abono the fecha_abono to set
      */
-    public void setFecha_abono(String fecha_abono) {
+    public void setFecha_abono(Date fecha_abono) {
         this.fecha_abono = fecha_abono;
     }
 

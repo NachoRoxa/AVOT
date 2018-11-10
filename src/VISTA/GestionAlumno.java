@@ -6,12 +6,10 @@
 package VISTA;
 
 import CONEXION.Conexion;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import DAO.AlumnoDaoImp;
+import DTO.Alumno;
+import DTO.Apoderado;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +17,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Seba
  */
 public class GestionAlumno extends javax.swing.JFrame {
+    ArrayList<Alumno> listaAlumnos;
+    Conexion obj = new Conexion();
+    DefaultTableModel modelo;
 
     /**
      * Creates new form GestionAlumno
@@ -29,33 +30,31 @@ public class GestionAlumno extends javax.swing.JFrame {
         MostrarAlumnos();
     }
     
-    Conexion obj = new Conexion();
-    DefaultTableModel tabla = new DefaultTableModel();
+    
     public void MostrarAlumnos(){
-        tabla.addColumn("RUN");
-        tabla.addColumn("NOMBRE");
-        tabla.addColumn("APELLIDOS");
-        tabla.addColumn("MONTO PERSONAL");
-        tabla.addColumn("APODERADO");
-        tabla.addColumn("");
-        
-        try {
-            Connection con = obj.getConnection();
-            Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("SELECT a.run,a.nombre,a.apellido_paterno||' '||a.apellido_materno,a.monto_personal,ap.nombre||' '||ap.apellido FROM ALUMNOS A JOIN APODERADOS AP ON A.APODERADOS_RUN = AP.RUN");
-            String datos[] = new String[7];
-            while(re.next()){
-                datos[0] = re.getString(1);
-                datos[1] = re.getString(2);
-                datos[2] = re.getString(3);
-                datos[3] = re.getString(4);
-                datos[4] = re.getString(5);
-                datos[5] = "";
-                tabla.addRow(datos);
+        int iterador = 0;
+        listaAlumnos = new AlumnoDaoImp().listar();
+        modelo = new DefaultTableModel();
+        modelo.addColumn("RUN");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("APELLIDO");
+        modelo.addColumn("MONTO PERSONAL");
+        modelo.addColumn("NOMBRE APODERADO");
+        modelo.addColumn("APELLIDO APODERADO");
+        modelo.addColumn("");
+        if (listaAlumnos.size() > 0) {
+            for (Alumno alumno : listaAlumnos) {
+                modelo.addRow(new Object[]{
+                    alumno.getRun(),
+                    alumno.getNombre(),
+                    alumno.getApellido_paterno(),
+                    alumno.getMonto_personal(),
+                    alumno.getApoderado().getNombre(),
+                    alumno.getApoderado().getApellido(),
+                    "ELIMINAR"}
+                );
             }
-        tablaAlumnos.setModel(tabla);
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionApoderado.class.getName()).log(Level.SEVERE, null, ex);
+            tablaAlumnos.setModel(modelo);
         }
     }
 
