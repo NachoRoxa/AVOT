@@ -60,6 +60,25 @@ public class AgenteDaoImp implements BaseDao{
 
     @Override
     public ArrayList listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CONEXION.Conexion obj = new Conexion();
+        ArrayList<Agente> lista = new ArrayList<>();
+        try {
+            Connection con = obj.getConnection();
+            Statement st = con.createStatement();
+            ResultSet re = st.executeQuery("select id_actividad,tipo_actividad,costo,descripcion,estado from actividades_gira");
+            while (re.next()) {
+                Agente agente = new Agente();
+                agente.set(re.getInt(1));
+                agente.setTipo_actividad(re.getString(2));
+                agente.setCosto(re.getInt(3));
+                agente.setDescripcion(re.getString(4));
+                agente.setEstado(re.getInt(5));
+                lista.add(agente);
+            }
+
+        } catch (Exception e) {
+            return lista;
+        }
+        return lista;
     }   
 }
