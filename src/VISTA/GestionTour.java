@@ -6,10 +6,13 @@
 package VISTA;
 
 import CONEXION.Conexion;
+import DAO.TourDaoImp;
+import DTO.Tour;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -19,45 +22,49 @@ import javax.swing.table.DefaultTableModel;
  * @author Seba
  */
 public class GestionTour extends javax.swing.JFrame {
-
+    ArrayList<Tour> listaTour;
+    Conexion obj = new Conexion();
+    DefaultTableModel modelo;
     /**
      * Creates new form GestionTour
      */
     public GestionTour() {
         initComponents();
         this.setLocationRelativeTo(null);
-        MostrarEstadias();
+        MostrarTours();
     }
     
-    Conexion obj = new Conexion();
-    DefaultTableModel tabla = new DefaultTableModel();
-    public void MostrarEstadias(){
-        tabla.addColumn("ID");
-        tabla.addColumn("NOMBRE");
-        tabla.addColumn("COSTO");
-        tabla.addColumn("DIRECCION");
-        tabla.addColumn("ESTADO");
-        tabla.addColumn("CAPACIDAD");
-        tabla.addColumn("");
-        
-        try {
-            Connection con = obj.getConnection();
-            Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("select id_estadia,nombre,costo_por_dia,direccion,estado,capatidad from estadias");
-            String datos[] = new String[7];
-            while(re.next()){
-                datos[0] = re.getString(1);
-                datos[1] = re.getString(2);
-                datos[2] = re.getString(3);
-                datos[3] = re.getString(4);
-                datos[4] = re.getString(5);
-                datos[5] = re.getString(6);
-                datos[6] = "";
-                tabla.addRow(datos);
+    
+    public void MostrarTours(){
+        int iterador = 0;
+        listaTour = new TourDaoImp().listar();
+        modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("TOTAL");
+        modelo.addColumn("DESCRIPCION");
+        modelo.addColumn("NUMERO CONTRATO");
+        modelo.addColumn("NOMBRE AGENTE");
+        modelo.addColumn("APELLIDO P");
+        modelo.addColumn("APELLIDO M");
+        modelo.addColumn("CREACION");
+        modelo.addColumn("INICIO");
+        modelo.addColumn("");
+        if (listaTour.size() > 0) {
+            for (Tour tour : listaTour) {
+                modelo.addRow(new Object[]{
+                    tour.getId_tour(),
+                    tour.getValor_total(),
+                    tour.getDescripcion(),
+                    tour.getNumero_contrato(),
+                    tour.getAgente().getNombre(),
+                    tour.getAgente().getApellido_paterno(),
+                    tour.getAgente().getApellido_materno(),
+                    tour.getFecha_creacion(),
+                    tour.getFecha_inicio(),
+                    "ELIMINAR"}
+                );
             }
-        tablaEstadias.setModel(tabla);
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionApoderado.class.getName()).log(Level.SEVERE, null, ex);
+            tablaTours.setModel(modelo);
         }
     }
 
@@ -75,10 +82,11 @@ public class GestionTour extends javax.swing.JFrame {
         btnInicio = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaEstadias = new javax.swing.JTable();
+        tablaTours = new javax.swing.JTable();
         btnAgregarEstadia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(30, 160, 250));
 
@@ -96,7 +104,7 @@ public class GestionTour extends javax.swing.JFrame {
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("Lista Estadia");
+        lblTitulo.setText("Lista Tours");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,7 +131,7 @@ public class GestionTour extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tablaEstadias.setModel(new javax.swing.table.DefaultTableModel(
+        tablaTours.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -134,9 +142,9 @@ public class GestionTour extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tablaEstadias);
+        jScrollPane1.setViewportView(tablaTours);
 
-        btnAgregarEstadia.setText("Agregar Estadia");
+        btnAgregarEstadia.setText("Agregar Tour");
         btnAgregarEstadia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarEstadiaActionPerformed(evt);
@@ -162,10 +170,10 @@ public class GestionTour extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnAgregarEstadia)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -191,6 +199,6 @@ public class GestionTour extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTable tablaEstadias;
+    private javax.swing.JTable tablaTours;
     // End of variables declaration//GEN-END:variables
 }

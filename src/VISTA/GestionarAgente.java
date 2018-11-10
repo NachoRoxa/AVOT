@@ -68,7 +68,6 @@ public class GestionarAgente extends javax.swing.JFrame {
             }
             tablaAgentes.setModel(modelo);
         }
-
     }
 
     /**
