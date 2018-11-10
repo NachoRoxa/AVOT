@@ -6,12 +6,9 @@
 package VISTA;
 
 import CONEXION.Conexion;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import DAO.EstadiaDaoImp;
+import DTO.Estadia;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +16,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Seba
  */
 public class GestionEstadia extends javax.swing.JFrame {
+    ArrayList<Estadia> listaEstadia;
+    Conexion obj = new Conexion();
+    DefaultTableModel modelo;
 
     /**
      * Creates new form GestionEstadia
@@ -29,35 +29,36 @@ public class GestionEstadia extends javax.swing.JFrame {
         MostrarEstadias();
     }
     
-    Conexion obj = new Conexion();
-    DefaultTableModel tabla = new DefaultTableModel();
     public void MostrarEstadias(){
-        tabla.addColumn("ID");
-        tabla.addColumn("NOMBRE");
-        tabla.addColumn("COSTO");
-        tabla.addColumn("DIRECCION");
-        tabla.addColumn("ESTADO");
-        tabla.addColumn("CAPACIDAD");
-        tabla.addColumn("");
-        
-        try {
-            Connection con = obj.getConnection();
-            Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("select id_estadia,nombre,costo_por_dia,direccion,estado,capatidad from estadias");
-            String datos[] = new String[7];
-            while(re.next()){
-                datos[0] = re.getString(1);
-                datos[1] = re.getString(2);
-                datos[2] = re.getString(3);
-                datos[3] = re.getString(4);
-                datos[4] = re.getString(5);
-                datos[5] = re.getString(6);
-                datos[6] = "";
-                tabla.addRow(datos);
+        int iterador = 0;
+        listaEstadia = new EstadiaDaoImp().listar();
+        modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("DIRECCION");
+        modelo.addColumn("COSTO");
+        modelo.addColumn("ESTADO");
+        modelo.addColumn("CAPACIDAD");
+        modelo.addColumn("");
+        if (listaEstadia.size() > 0) {
+            for (Estadia estadia : listaEstadia) {
+                String estado;
+                if (estadia.getEstado() == 0) {
+                    estado = "Inactivo";
+                } else {
+                    estado = "Activo";
+                }
+                modelo.addRow(new Object[]{
+                    estadia.getId_estadia(),
+                    estadia.getNombre(),
+                    estadia.getDireccion(),
+                    estadia.getCosto_por_dia(),
+                    estado,
+                    estadia.getCapacidad(),
+                    "ELIMINAR"}
+                );
             }
-        tablaEstadias.setModel(tabla);
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionApoderado.class.getName()).log(Level.SEVERE, null, ex);
+            tablaEstadias.setModel(modelo);
         }
     }
 
@@ -74,9 +75,9 @@ public class GestionEstadia extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnInicio = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
+        btnAgregarEstadia = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaEstadias = new javax.swing.JTable();
-        btnAgregarEstadia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -108,7 +109,7 @@ public class GestionEstadia extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(73, 73, 73)
                 .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 510, Short.MAX_VALUE)
                 .addComponent(btnInicio)
                 .addContainerGap())
         );
@@ -124,6 +125,13 @@ public class GestionEstadia extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        btnAgregarEstadia.setText("Agregar Estadia");
+        btnAgregarEstadia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarEstadiaActionPerformed(evt);
+            }
+        });
+
         tablaEstadias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -137,36 +145,33 @@ public class GestionEstadia extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaEstadias);
 
-        btnAgregarEstadia.setText("Agregar Estadia");
-        btnAgregarEstadia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarEstadiaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAgregarEstadia)
-                .addGap(27, 27, 27))
+                .addGap(30, 30, 30))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 402, Short.MAX_VALUE)
                 .addComponent(btnAgregarEstadia)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(56, 56, 56)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addGap(56, 56, 56)))
         );
 
         pack();
