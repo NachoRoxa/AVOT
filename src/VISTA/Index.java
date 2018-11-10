@@ -28,120 +28,34 @@ public class Index extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblAVOT = new javax.swing.JLabel();
-        btnGestionApoderado = new javax.swing.JButton();
-        btnGestionTours = new javax.swing.JButton();
-        btnGestionSeguro = new javax.swing.JButton();
-        btnGestionEstadias = new javax.swing.JButton();
-        btnGestionActividades = new javax.swing.JButton();
-        btnGestionUsuarios = new javax.swing.JButton();
-        btnGestionCursos = new javax.swing.JButton();
-        btnGestionAlumnos = new javax.swing.JButton();
-        btnGestionColegios = new javax.swing.JButton();
-        btnGestionViajes = new javax.swing.JButton();
+        PanelTitulo = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
-        lblFondo = new javax.swing.JLabel();
+        PanelAgencia = new javax.swing.JPanel();
+        btnAgentes = new javax.swing.JButton();
+        btnUsuarios = new javax.swing.JButton();
+        PanelColegio = new javax.swing.JPanel();
+        btnCursos = new javax.swing.JButton();
+        btnColegios = new javax.swing.JButton();
+        btnAlumnos = new javax.swing.JButton();
+        btnApoderados = new javax.swing.JButton();
+        PanelTours = new javax.swing.JPanel();
+        btnTours = new javax.swing.JButton();
+        btnSeguro = new javax.swing.JButton();
+        btnEstadias = new javax.swing.JButton();
+        btnActividadesGira = new javax.swing.JButton();
+        btnViajes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("A.V.O.T. Local");
         setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblAVOT.setBackground(new java.awt.Color(255, 255, 255));
-        lblAVOT.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblAVOT.setForeground(new java.awt.Color(255, 255, 255));
-        lblAVOT.setText("Agencia de viajes On Tour");
-        getContentPane().add(lblAVOT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+        PanelTitulo.setBackground(new java.awt.Color(30, 160, 250));
 
-        btnGestionApoderado.setBackground(new java.awt.Color(0, 204, 255));
-        btnGestionApoderado.setText("Gestionar Apoderados");
-        btnGestionApoderado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionApoderadoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnGestionApoderado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 140, -1));
-
-        btnGestionTours.setBackground(new java.awt.Color(0, 204, 255));
-        btnGestionTours.setText("Gestionar Tours");
-        btnGestionTours.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionToursActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnGestionTours, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 140, -1));
-
-        btnGestionSeguro.setBackground(new java.awt.Color(0, 204, 255));
-        btnGestionSeguro.setText("Gestionar Seguros");
-        btnGestionSeguro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionSeguroActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnGestionSeguro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 140, -1));
-
-        btnGestionEstadias.setBackground(new java.awt.Color(0, 204, 255));
-        btnGestionEstadias.setText("Gestionar Estadias");
-        btnGestionEstadias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionEstadiasActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnGestionEstadias, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 140, -1));
-
-        btnGestionActividades.setBackground(new java.awt.Color(0, 204, 255));
-        btnGestionActividades.setText("Gestionar Actividades");
-        btnGestionActividades.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionActividadesActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnGestionActividades, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 140, -1));
-
-        btnGestionUsuarios.setBackground(new java.awt.Color(0, 204, 255));
-        btnGestionUsuarios.setText("Gestionar Usuarios");
-        btnGestionUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionUsuariosActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnGestionUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 140, -1));
-
-        btnGestionCursos.setBackground(new java.awt.Color(0, 204, 255));
-        btnGestionCursos.setText("Gestionar Cursos");
-        btnGestionCursos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionCursosActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnGestionCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 140, -1));
-
-        btnGestionAlumnos.setBackground(new java.awt.Color(0, 204, 255));
-        btnGestionAlumnos.setText("Gestionar Alumnos");
-        btnGestionAlumnos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionAlumnosActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnGestionAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, 140, -1));
-
-        btnGestionColegios.setBackground(new java.awt.Color(0, 204, 255));
-        btnGestionColegios.setText("Gestionar Colegios");
-        btnGestionColegios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionColegiosActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnGestionColegios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 140, -1));
-
-        btnGestionViajes.setBackground(new java.awt.Color(0, 204, 255));
-        btnGestionViajes.setText("Gestionar Viajes");
-        btnGestionViajes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionViajesActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnGestionViajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, 140, -1));
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("A.V.O.T.");
 
         btnSalir.setBackground(new java.awt.Color(0, 204, 255));
         btnSalir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -151,92 +65,319 @@ public class Index extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 60, -1));
 
-        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo4.jpg"))); // NOI18N
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 480));
+        javax.swing.GroupLayout PanelTituloLayout = new javax.swing.GroupLayout(PanelTitulo);
+        PanelTitulo.setLayout(PanelTituloLayout);
+        PanelTituloLayout.setHorizontalGroup(
+            PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelTituloLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        PanelTituloLayout.setVerticalGroup(
+            PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelTituloLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSalir)
+                    .addComponent(jLabel1))
+                .addContainerGap())
+        );
+
+        PanelAgencia.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion Agencia"));
+
+        btnAgentes.setBackground(new java.awt.Color(0, 204, 255));
+        btnAgentes.setText("Agentes");
+        btnAgentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgentesActionPerformed(evt);
+            }
+        });
+
+        btnUsuarios.setBackground(new java.awt.Color(0, 204, 255));
+        btnUsuarios.setText("Usuarios");
+        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuariosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelAgenciaLayout = new javax.swing.GroupLayout(PanelAgencia);
+        PanelAgencia.setLayout(PanelAgenciaLayout);
+        PanelAgenciaLayout.setHorizontalGroup(
+            PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAgenciaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgentes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(307, 307, 307))
+        );
+        PanelAgenciaLayout.setVerticalGroup(
+            PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAgenciaLayout.createSequentialGroup()
+                .addContainerGap(38, Short.MAX_VALUE)
+                .addComponent(btnAgentes)
+                .addGap(18, 18, 18)
+                .addComponent(btnUsuarios)
+                .addGap(45, 45, 45))
+        );
+
+        PanelColegio.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestionar Colegios"));
+
+        btnCursos.setBackground(new java.awt.Color(0, 204, 255));
+        btnCursos.setText("Cursos");
+        btnCursos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCursosActionPerformed(evt);
+            }
+        });
+
+        btnColegios.setBackground(new java.awt.Color(0, 204, 255));
+        btnColegios.setText("Colegios");
+        btnColegios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColegiosActionPerformed(evt);
+            }
+        });
+
+        btnAlumnos.setBackground(new java.awt.Color(0, 204, 255));
+        btnAlumnos.setText("Alumnos");
+        btnAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlumnosActionPerformed(evt);
+            }
+        });
+
+        btnApoderados.setBackground(new java.awt.Color(0, 204, 255));
+        btnApoderados.setText("Apoderados");
+        btnApoderados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApoderadosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelColegioLayout = new javax.swing.GroupLayout(PanelColegio);
+        PanelColegio.setLayout(PanelColegioLayout);
+        PanelColegioLayout.setHorizontalGroup(
+            PanelColegioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelColegioLayout.createSequentialGroup()
+                .addContainerGap(115, Short.MAX_VALUE)
+                .addGroup(PanelColegioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnApoderados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCursos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAlumnos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnColegios, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(93, 93, 93))
+        );
+        PanelColegioLayout.setVerticalGroup(
+            PanelColegioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelColegioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnApoderados)
+                .addGap(18, 18, 18)
+                .addComponent(btnCursos)
+                .addGap(18, 18, 18)
+                .addComponent(btnAlumnos)
+                .addGap(18, 18, 18)
+                .addComponent(btnColegios)
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+
+        PanelTours.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion Tours"));
+
+        btnTours.setBackground(new java.awt.Color(0, 204, 255));
+        btnTours.setText("Tours");
+        btnTours.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnToursActionPerformed(evt);
+            }
+        });
+
+        btnSeguro.setBackground(new java.awt.Color(0, 204, 255));
+        btnSeguro.setText("Seguros");
+        btnSeguro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeguroActionPerformed(evt);
+            }
+        });
+
+        btnEstadias.setBackground(new java.awt.Color(0, 204, 255));
+        btnEstadias.setText("Estadias");
+        btnEstadias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstadiasActionPerformed(evt);
+            }
+        });
+
+        btnActividadesGira.setBackground(new java.awt.Color(0, 204, 255));
+        btnActividadesGira.setText("Actividades Gira");
+        btnActividadesGira.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActividadesGiraActionPerformed(evt);
+            }
+        });
+
+        btnViajes.setBackground(new java.awt.Color(0, 204, 255));
+        btnViajes.setText("Viajes");
+        btnViajes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViajesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelToursLayout = new javax.swing.GroupLayout(PanelTours);
+        PanelTours.setLayout(PanelToursLayout);
+        PanelToursLayout.setHorizontalGroup(
+            PanelToursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelToursLayout.createSequentialGroup()
+                .addGap(103, 103, 103)
+                .addGroup(PanelToursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnActividadesGira, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEstadias, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTours, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSeguro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(105, Short.MAX_VALUE))
+        );
+        PanelToursLayout.setVerticalGroup(
+            PanelToursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelToursLayout.createSequentialGroup()
+                .addComponent(btnTours)
+                .addGap(18, 18, 18)
+                .addComponent(btnEstadias)
+                .addGap(18, 18, 18)
+                .addComponent(btnSeguro)
+                .addGap(18, 18, 18)
+                .addComponent(btnActividadesGira)
+                .addGap(18, 18, 18)
+                .addComponent(btnViajes)
+                .addGap(0, 22, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PanelTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PanelAgencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(PanelTours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(PanelColegio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(PanelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PanelTours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanelColegio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(PanelAgencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGestionApoderadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionApoderadoActionPerformed
+    private void btnApoderadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApoderadosActionPerformed
         this.setVisible(false);
         GestionApoderado x = new GestionApoderado();
         x.setVisible(true);
-    }//GEN-LAST:event_btnGestionApoderadoActionPerformed
+    }//GEN-LAST:event_btnApoderadosActionPerformed
 
-    private void btnGestionToursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionToursActionPerformed
+    private void btnToursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToursActionPerformed
         this.setVisible(false);
         GestionTour x = new GestionTour();
         x.setVisible(true);
-    }//GEN-LAST:event_btnGestionToursActionPerformed
+    }//GEN-LAST:event_btnToursActionPerformed
 
-    private void btnGestionViajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionViajesActionPerformed
+    private void btnViajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViajesActionPerformed
         this.setVisible(false);
         GestionViaje x = new GestionViaje();
         x.setVisible(true);
-    }//GEN-LAST:event_btnGestionViajesActionPerformed
+    }//GEN-LAST:event_btnViajesActionPerformed
 
-    private void btnGestionSeguroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionSeguroActionPerformed
+    private void btnSeguroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeguroActionPerformed
         this.setVisible(false);
         GestionSeguro x = new GestionSeguro();
         x.setVisible(true);
-    }//GEN-LAST:event_btnGestionSeguroActionPerformed
+    }//GEN-LAST:event_btnSeguroActionPerformed
 
-    private void btnGestionEstadiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEstadiasActionPerformed
+    private void btnEstadiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadiasActionPerformed
         this.setVisible(false);
         GestionEstadia x = new GestionEstadia();
         x.setVisible(true);
-    }//GEN-LAST:event_btnGestionEstadiasActionPerformed
+    }//GEN-LAST:event_btnEstadiasActionPerformed
 
-    private void btnGestionActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionActividadesActionPerformed
+    private void btnActividadesGiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActividadesGiraActionPerformed
         this.setVisible(false);
-        GestionActividad x = new GestionActividad();
+        GestionActividadGira x = new GestionActividadGira();
         x.setVisible(true);
-    }//GEN-LAST:event_btnGestionActividadesActionPerformed
+    }//GEN-LAST:event_btnActividadesGiraActionPerformed
 
-    private void btnGestionUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionUsuariosActionPerformed
+    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         this.setVisible(false);
         GestionUsuario x = new GestionUsuario();
         x.setVisible(true);
-    }//GEN-LAST:event_btnGestionUsuariosActionPerformed
+    }//GEN-LAST:event_btnUsuariosActionPerformed
 
-    private void btnGestionCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionCursosActionPerformed
+    private void btnCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCursosActionPerformed
         this.setVisible(false);
         GestionCurso x = new GestionCurso();
         x.setVisible(true);
-    }//GEN-LAST:event_btnGestionCursosActionPerformed
+    }//GEN-LAST:event_btnCursosActionPerformed
 
-    private void btnGestionAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionAlumnosActionPerformed
+    private void btnAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlumnosActionPerformed
         this.setVisible(false);
         GestionAlumno x = new GestionAlumno();
         x.setVisible(true);
-    }//GEN-LAST:event_btnGestionAlumnosActionPerformed
+    }//GEN-LAST:event_btnAlumnosActionPerformed
 
-    private void btnGestionColegiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionColegiosActionPerformed
+    private void btnColegiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColegiosActionPerformed
         this.setVisible(false);
         GestionColegio x = new GestionColegio();
         x.setVisible(true);
-    }//GEN-LAST:event_btnGestionColegiosActionPerformed
+    }//GEN-LAST:event_btnColegiosActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void btnAgentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgentesActionPerformed
+        this.setVisible(false);
+        GestionarAgente x = new GestionarAgente();
+        x.setVisible(true);
+    }//GEN-LAST:event_btnAgentesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGestionActividades;
-    private javax.swing.JButton btnGestionAlumnos;
-    private javax.swing.JButton btnGestionApoderado;
-    private javax.swing.JButton btnGestionColegios;
-    private javax.swing.JButton btnGestionCursos;
-    private javax.swing.JButton btnGestionEstadias;
-    private javax.swing.JButton btnGestionSeguro;
-    private javax.swing.JButton btnGestionTours;
-    private javax.swing.JButton btnGestionUsuarios;
-    private javax.swing.JButton btnGestionViajes;
+    private javax.swing.JPanel PanelAgencia;
+    private javax.swing.JPanel PanelColegio;
+    private javax.swing.JPanel PanelTitulo;
+    private javax.swing.JPanel PanelTours;
+    private javax.swing.JButton btnActividadesGira;
+    private javax.swing.JButton btnAgentes;
+    private javax.swing.JButton btnAlumnos;
+    private javax.swing.JButton btnApoderados;
+    private javax.swing.JButton btnColegios;
+    private javax.swing.JButton btnCursos;
+    private javax.swing.JButton btnEstadias;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JLabel lblAVOT;
-    private javax.swing.JLabel lblFondo;
+    private javax.swing.JButton btnSeguro;
+    private javax.swing.JButton btnTours;
+    private javax.swing.JButton btnUsuarios;
+    private javax.swing.JButton btnViajes;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
