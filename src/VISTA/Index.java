@@ -33,7 +33,6 @@ public class Index extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         PanelAgencia = new javax.swing.JPanel();
         btnAgentes = new javax.swing.JButton();
-        btnUsuarios = new javax.swing.JButton();
         PanelColegio = new javax.swing.JPanel();
         btnCursos = new javax.swing.JButton();
         btnColegios = new javax.swing.JButton();
@@ -97,23 +96,13 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
-        btnUsuarios.setBackground(new java.awt.Color(0, 204, 255));
-        btnUsuarios.setText("Usuarios");
-        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUsuariosActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout PanelAgenciaLayout = new javax.swing.GroupLayout(PanelAgencia);
         PanelAgencia.setLayout(PanelAgenciaLayout);
         PanelAgenciaLayout.setHorizontalGroup(
             PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAgenciaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgentes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnAgentes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(307, 307, 307))
         );
         PanelAgenciaLayout.setVerticalGroup(
@@ -121,9 +110,7 @@ public class Index extends javax.swing.JFrame {
             .addGroup(PanelAgenciaLayout.createSequentialGroup()
                 .addContainerGap(38, Short.MAX_VALUE)
                 .addComponent(btnAgentes)
-                .addGap(18, 18, 18)
-                .addComponent(btnUsuarios)
-                .addGap(45, 45, 45))
+                .addGap(86, 86, 86))
         );
 
         PanelColegio.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestionar Colegios"));
@@ -326,12 +313,6 @@ public class Index extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnActividadesGiraActionPerformed
 
-    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        this.setVisible(false);
-        GestionUsuario x = new GestionUsuario();
-        x.setVisible(true);
-    }//GEN-LAST:event_btnUsuariosActionPerformed
-
     private void btnCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCursosActionPerformed
         this.setVisible(false);
         GestionCurso x = new GestionCurso();
@@ -376,7 +357,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeguro;
     private javax.swing.JButton btnTours;
-    private javax.swing.JButton btnUsuarios;
     private javax.swing.JButton btnViajes;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
