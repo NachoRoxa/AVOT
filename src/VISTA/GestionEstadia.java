@@ -44,9 +44,9 @@ public class GestionEstadia extends javax.swing.JFrame {
             for (Estadia estadia : listaEstadia) {
                 String estado;
                 if (estadia.getEstado() == 0) {
-                    estado = "Inactivo";
+                    estado = "INACTIVO";
                 } else {
-                    estado = "Activo";
+                    estado = "ACTIVO";
                 }
                 modelo.addRow(new Object[]{
                     estadia.getId_estadia(),
