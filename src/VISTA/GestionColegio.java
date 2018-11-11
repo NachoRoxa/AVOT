@@ -6,10 +6,13 @@
 package VISTA;
 
 import CONEXION.Conexion;
+import DAO.ColegioDaoImp;
+import DTO.Colegio;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +22,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Seba
  */
 public class GestionColegio extends javax.swing.JFrame {
+    ArrayList<Colegio> listaColegios;
+    Conexion obj = new Conexion();
+    DefaultTableModel modelo;
 
     /**
      * Creates new form GestionColegio
@@ -29,33 +35,28 @@ public class GestionColegio extends javax.swing.JFrame {
         MostrarColegios();
     }
     
-    Conexion obj = new Conexion();
-    DefaultTableModel tabla = new DefaultTableModel();
     public void MostrarColegios(){
-        tabla.addColumn("ID");
-        tabla.addColumn("NOMBRE");
-        tabla.addColumn("DIRECCION");
-        tabla.addColumn("RUT");
-        tabla.addColumn("TELEFONO");
-        tabla.addColumn("");
-        
-        try {
-            Connection con = obj.getConnection();
-            Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("select  id_colegio,nombre,direccion,rut,telefono from colegios");
-            String datos[] = new String[6];
-            while(re.next()){
-                datos[0] = re.getString(1);
-                datos[1] = re.getString(2);
-                datos[2] = re.getString(3);
-                datos[3] = re.getString(4);
-                datos[4] = re.getString(5);
-                datos[5] = "";
-                tabla.addRow(datos);
+        int iterador = 0;
+        listaColegios = new ColegioDaoImp().listar();
+        modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("DIRECCION");
+        modelo.addColumn("RUT");
+        modelo.addColumn("TELEFONO");
+        modelo.addColumn("");
+        if (listaColegios.size() > 0) {
+            for (Colegio colegio : listaColegios) {
+                modelo.addRow(new Object[]{
+                    colegio.getId_colegio(),
+                    colegio.getNombre(),
+                    colegio.getDireccion(),
+                    colegio.getRut(),
+                    colegio.getTelefono(),
+                    "ELIMINAR"}
+                );
             }
-        tablaColegios.setModel(tabla);
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionApoderado.class.getName()).log(Level.SEVERE, null, ex);
+            tablaColegios.setModel(modelo);
         }
     }
 
@@ -154,17 +155,17 @@ public class GestionColegio extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAgregarColegio)
-                .addGap(27, 27, 27))
+                .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnAgregarColegio)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         pack();

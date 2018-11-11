@@ -7,7 +7,6 @@ package DAO;
 
 import CONEXION.Conexion;
 import DTO.Colegio;
-import DTO.Curso;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class CursoDaoImp implements BaseDao{
+public class ColegioDaoImp implements BaseDao{
 
     @Override
     public boolean insertar(Object dto) {
@@ -47,22 +46,20 @@ public class CursoDaoImp implements BaseDao{
     @Override
     public ArrayList listar() {
         CONEXION.Conexion obj = new Conexion();
-        ArrayList<Curso> lista = new ArrayList<>();
+        ArrayList<Colegio> lista = new ArrayList<>();
         try {
             Connection con = obj.getConnection();
             Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("select cur.id_curso,cur.monto_recau"
-                    + "dado,co.nombre,cur.descripcion from cursos cur join cole"
-                    + "gios co on cur.colegios_id_colegio = co.id_colegio");
+            ResultSet re = st.executeQuery("select id_colegio,nombre,direccion,"
+                    + "rut,telefono from colegios");
             while (re.next()) {
-                Curso curso = new Curso();
-                Colegio col;
-                curso.setId_curso(re.getInt(1));
-                curso.setMonto_recaudado(re.getInt(2));
-                curso.setColegio(col = new Colegio());
-                col.setNombre(re.getString(3));
-                curso.setDescripcion(re.getString(4));
-                lista.add(curso);
+                Colegio colegio = new Colegio();
+                colegio.setId_colegio(re.getInt(1));
+                colegio.setNombre(re.getString(2));
+                colegio.setDireccion(re.getString(3));
+                colegio.setRut(re.getString(4));
+                colegio.setTelefono(re.getString(5));
+                lista.add(colegio);
             }
         } catch (Exception e) {
             return lista;

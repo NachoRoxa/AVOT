@@ -19,7 +19,6 @@ public class GestionarAgente extends javax.swing.JFrame {
     ArrayList<Agente> listaAgentes;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
-
     /**
      * Creates new form GestionarAgente
      */
