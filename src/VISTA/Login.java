@@ -120,7 +120,7 @@ public class Login extends javax.swing.JFrame {
         } else {
             try
             {
-                
+                Conexion con = new Conexion();
             }
             catch(Exception e)
             {
