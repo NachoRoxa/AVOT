@@ -6,10 +6,13 @@
 package VISTA;
 
 import CONEXION.Conexion;
+import DAO.CursoDaoImp;
+import DTO.Curso;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +22,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Seba
  */
 public class GestionCurso extends javax.swing.JFrame {
+    ArrayList<Curso> listaCursos;
+    Conexion obj = new Conexion();
+    DefaultTableModel modelo;
 
     /**
      * Creates new form GestionCurso
@@ -29,29 +35,26 @@ public class GestionCurso extends javax.swing.JFrame {
         MostrarCursos();
     }
     
-    Conexion obj = new Conexion();
-    DefaultTableModel tabla = new DefaultTableModel();
     public void MostrarCursos(){
-        tabla.addColumn("ID");
-        tabla.addColumn("MONTO RECAUDADO");
-        tabla.addColumn("COLEGIO");
-        tabla.addColumn("");
-        
-        try {
-            Connection con = obj.getConnection();
-            Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("select c.id_curso,c.monto_recaudado,co.nombre from cursos c join colegios co on c.colegios_id_colegio = co.id_colegio");
-            String datos[] = new String[4];
-            while(re.next()){
-                datos[0] = re.getString(1);
-                datos[1] = re.getString(2);
-                datos[2] = re.getString(3);
-                datos[3] = "";
-                tabla.addRow(datos);
+        int iterador = 0;
+        listaCursos = new CursoDaoImp().listar();
+        modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("MONTO RECAUDADO");
+        modelo.addColumn("COLEGIO");
+        modelo.addColumn("DESCRIPCION");
+        modelo.addColumn("");
+        if (listaCursos.size() > 0) {
+            for (Curso curso : listaCursos) {
+                modelo.addRow(new Object[]{
+                    curso.getId_curso(),
+                    curso.getMonto_recaudado(),
+                    curso.getColegio().getNombre(),
+                    curso.getDescripcion(),
+                    "ELIMINAR"}
+                );
             }
-        tablaCursos.setModel(tabla);
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionApoderado.class.getName()).log(Level.SEVERE, null, ex);
+            tablaCursos.setModel(modelo);
         }
     }
     /**

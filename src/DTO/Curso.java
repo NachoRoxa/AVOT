@@ -14,19 +14,23 @@ import java.util.List;
 public class Curso {
     
     private int id_curso;
-    private int monto_recargado;
+    private int monto_recaudado;
     private Colegio colegio;
+    private String descripcion;
     private List<ActividadColegio> actividades;
 
     public Curso() {
     }
 
-    public Curso(int id_curso, int monto_recargado, Colegio colegio, List<ActividadColegio> actividades) {
+    public Curso(int id_curso, int monto_recaudado, Colegio colegio, String descripcion, List<ActividadColegio> actividades) {
         this.id_curso = id_curso;
-        this.monto_recargado = monto_recargado;
+        this.monto_recaudado = monto_recaudado;
         this.colegio = colegio;
+        this.descripcion = descripcion;
         this.actividades = actividades;
     }
+    
+    
 
     /**
      * @return the id_curso
@@ -45,15 +49,15 @@ public class Curso {
     /**
      * @return the monto_recargado
      */
-    public int getMonto_recargado() {
-        return monto_recargado;
+    public int getMonto_recaudado() {
+        return monto_recaudado;
     }
 
     /**
      * @param monto_recargado the monto_recargado to set
      */
-    public void setMonto_recargado(int monto_recargado) {
-        this.monto_recargado = monto_recargado;
+    public void setMonto_recaudado(int monto_recaudado) {
+        this.monto_recaudado = monto_recaudado;
     }
 
     /**
@@ -76,6 +80,14 @@ public class Curso {
 
     public void setActividades(List<ActividadColegio> actividades) {
         this.actividades = actividades;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
     
     
