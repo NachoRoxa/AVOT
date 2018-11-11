@@ -110,42 +110,18 @@ public class Login extends javax.swing.JFrame {
         String user = txtUsuario.getText();
         String pass = String.valueOf(jPassword.getPassword());
         Index x = new Index();
-        this.setVisible(false);
-        x.setVisible(true);
 
-        /**
-         * CONEXION.Conexion obj = new Conexion();
-        try {
-            Connection con = obj.getConnection();
-            String query = "select usuario, passwd from agente where usuario =? and passwd=?";
-            PreparedStatement st = con.prepareStatement(query);
-            st.setString(1, user);
-            st.setString(2, pass);
-            ResultSet re = st.executeQuery();
-            if(re.next())
-            {
-                
-            }
-            else
-            {
-                this.setVisible(true);
-                JOptionPane.showMessageDialog(null, "WEA MALA!");
-            }
-        } catch (Exception ex) {
-            throw new UnsupportedOperationException();
-        }*/
-
-        /**
-         * PRueba 2 x.setVisible(true); Estoy intentando ver como conectar esto
-         * a la DB. CONEXION.Conexion obj = new Conexion(); Agente ag = new
-         * Agente(); user = ag.getUser(); pass = ag.getPasswd(); String query =
-         * "select usuario, passwd from agente where usuario =? and passwd=?";
-         * try { if () { this.setVisible(false); x.setVisible(true); } else {
-         * x.setVisible(false); JOptionPane.showMessageDialog(null, "Usuario y/o
-         * Contraseña incorrectas."); } } catch (Exception ex) {
-         *
-         * }*
-         */
+        if (user.isEmpty()) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese Usuario");
+        } else if (pass.isEmpty()) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese contraseña");
+        } else {
+            
+        }
+        //this.setVisible(false);
+        //x.setVisible(true);
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
