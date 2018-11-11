@@ -6,8 +6,7 @@
 package DAO;
 
 import CONEXION.Conexion;
-import DTO.Alumno;
-import DTO.Apoderado;
+import DTO.Estadia;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class AlumnoDaoImp implements BaseDao {
+public class EstadiaDaoImp implements BaseDao {
 
     @Override
     public boolean insertar(Object dto) {
@@ -47,23 +46,20 @@ public class AlumnoDaoImp implements BaseDao {
     @Override
     public ArrayList listar() {
         CONEXION.Conexion obj = new Conexion();
-        ArrayList<Alumno> lista = new ArrayList<>();
+        ArrayList<Estadia> lista = new ArrayList<>();
         try {
             Connection con = obj.getConnection();
             Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("SELECT a.run,a.nombre,a.apellido_paterno,a.apellido_materno,a.monto_personal,ap.nombre,ap.apellido FROM ALUMNOS A JOIN APODERADOS AP ON A.APODERADOS_RUN = AP.RUN");
+            ResultSet re = st.executeQuery("select id_estadia,nombre,direccion,costo_por_dia,estado,capatidad from estadias");
             while (re.next()) {
-                Alumno alumno = new Alumno();
-                Apoderado a;
-                alumno.setRun(re.getString(1));
-                alumno.setNombre(re.getString(2));
-                alumno.setApellido_paterno(re.getString(3));
-                alumno.setApellido_materno(re.getString(4));
-                alumno.setMonto_personal(re.getInt(5));
-                alumno.setApoderado(a = new Apoderado());
-                a.setNombre(re.getString(6));
-                a.setApellido(re.getString(7));
-                lista.add(alumno);
+                Estadia estadia = new Estadia();
+                estadia.setId_estadia(re.getInt(1));
+                estadia.setNombre(re.getString(2));
+                estadia.setDireccion(re.getString(3));
+                estadia.setCosto_por_dia(re.getInt(4));
+                estadia.setEstado(re.getInt(5));
+                estadia.setCapacidad(re.getInt(6));
+                lista.add(estadia);
             }
 
         } catch (Exception e) {

@@ -6,9 +6,8 @@
 package VISTA;
 
 import CONEXION.Conexion;
-import DAO.AlumnoDaoImp;
-import DTO.Alumno;
-import DTO.Apoderado;
+import DAO.AgenteDaoImp;
+import DTO.Agente;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,45 +15,58 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Seba
  */
-public class GestionAlumno extends javax.swing.JFrame {
-    ArrayList<Alumno> listaAlumnos;
+public class GestionarAgente extends javax.swing.JFrame {
+    ArrayList<Agente> listaAgentes;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
 
     /**
-     * Creates new form GestionAlumno
+     * Creates new form GestionarAgente
      */
-    public GestionAlumno() {
+    public GestionarAgente() {
         initComponents();
         this.setLocationRelativeTo(null);
-        MostrarAlumnos();
+        MostrarAgentes();
     }
     
-    
-    public void MostrarAlumnos(){
+    public void MostrarAgentes() {
         int iterador = 0;
-        listaAlumnos = new AlumnoDaoImp().listar();
+        listaAgentes = new AgenteDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("RUN");
         modelo.addColumn("NOMBRE");
-        modelo.addColumn("APELLIDO");
-        modelo.addColumn("MONTO PERSONAL");
-        modelo.addColumn("NOMBRE APODERADO");
-        modelo.addColumn("APELLIDO APODERADO");
+        modelo.addColumn("APELLIDO PATERNO");
+        modelo.addColumn("APELLIDO MATERNO");
+        modelo.addColumn("USUARIO");
+        modelo.addColumn("ADMINISTRADOR");
+        modelo.addColumn("ESTADO");
         modelo.addColumn("");
-        if (listaAlumnos.size() > 0) {
-            for (Alumno alumno : listaAlumnos) {
+        if (listaAgentes.size() > 0) {
+            for (Agente agente : listaAgentes) {
+                String admin;
+                String estado;
+                if (agente.getAdministrador() == 0) {
+                    admin = "NO";
+                } else {
+                    admin = "SI";
+                }
+                if (agente.getEstado() == 0) {
+                    estado = "INACTIVO";
+                } else {
+                    estado = "ACTIVO";
+                }
                 modelo.addRow(new Object[]{
-                    alumno.getRun(),
-                    alumno.getNombre(),
-                    alumno.getApellido_paterno(),
-                    alumno.getMonto_personal(),
-                    alumno.getApoderado().getNombre(),
-                    alumno.getApoderado().getApellido(),
+                    agente.getRun(),
+                    agente.getNombre(),
+                    agente.getApellido_paterno(),
+                    agente.getApellido_materno(),
+                    agente.getUser(),
+                    admin,
+                    estado,
                     "ELIMINAR"}
                 );
             }
-            tablaAlumnos.setModel(modelo);
+            tablaAgentes.setModel(modelo);
         }
     }
 
@@ -72,8 +84,8 @@ public class GestionAlumno extends javax.swing.JFrame {
         btnInicio = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaAlumnos = new javax.swing.JTable();
-        btnAgregarAlumno = new javax.swing.JButton();
+        tablaAgentes = new javax.swing.JTable();
+        btnAgregarApoderado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -94,7 +106,7 @@ public class GestionAlumno extends javax.swing.JFrame {
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("Lista Alumnos");
+        lblTitulo.setText("Lista Agentes");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,7 +133,7 @@ public class GestionAlumno extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tablaAlumnos.setModel(new javax.swing.table.DefaultTableModel(
+        tablaAgentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -132,12 +144,12 @@ public class GestionAlumno extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tablaAlumnos);
+        jScrollPane1.setViewportView(tablaAgentes);
 
-        btnAgregarAlumno.setText("Agregar Alumno");
-        btnAgregarAlumno.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarApoderado.setText("Agregar Apoderado");
+        btnAgregarApoderado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarAlumnoActionPerformed(evt);
+                btnAgregarApoderadoActionPerformed(evt);
             }
         });
 
@@ -152,18 +164,18 @@ public class GestionAlumno extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAgregarAlumno)
-                .addGap(25, 25, 25))
+                .addComponent(btnAgregarApoderado)
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAgregarAlumno)
-                .addGap(30, 30, 30))
+                .addComponent(btnAgregarApoderado)
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -175,21 +187,19 @@ public class GestionAlumno extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
-    private void btnAgregarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlumnoActionPerformed
+    private void btnAgregarApoderadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarApoderadoActionPerformed
         this.setVisible(false);
-        AgregarAlumno x = new AgregarAlumno();
+        AgregarApoderado x = new AgregarApoderado();
         x.setVisible(true);
-    }//GEN-LAST:event_btnAgregarAlumnoActionPerformed
-
-    
+    }//GEN-LAST:event_btnAgregarApoderadoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarAlumno;
+    private javax.swing.JButton btnAgregarApoderado;
     private javax.swing.JButton btnInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTable tablaAlumnos;
+    private javax.swing.JTable tablaAgentes;
     // End of variables declaration//GEN-END:variables
 }

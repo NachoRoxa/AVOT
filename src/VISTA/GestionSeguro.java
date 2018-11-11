@@ -6,10 +6,13 @@
 package VISTA;
 
 import CONEXION.Conexion;
+import DAO.SeguroDaoImp;
+import DTO.Seguro;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +22,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Seba
  */
 public class GestionSeguro extends javax.swing.JFrame {
+    ArrayList<Seguro> listaSeguros;
+    Conexion obj = new Conexion();
+    DefaultTableModel modelo;
+
 
     /**
      * Creates new form GestionSeguro
@@ -26,38 +33,38 @@ public class GestionSeguro extends javax.swing.JFrame {
     public GestionSeguro() {
         initComponents();
         this.setLocationRelativeTo(null);
-        MostrarEstadias();
+        MostrarSeguros();
     }
-    
-    Conexion obj = new Conexion();
-    DefaultTableModel tabla = new DefaultTableModel();
-    public void MostrarEstadias(){
-        tabla.addColumn("ID");
-        tabla.addColumn("NOMBRE");
-        tabla.addColumn("COSTO");
-        tabla.addColumn("DIRECCION");
-        tabla.addColumn("ESTADO");
-        tabla.addColumn("CAPACIDAD");
-        tabla.addColumn("");
-        
-        try {
-            Connection con = obj.getConnection();
-            Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("select id_estadia,nombre,costo_por_dia,direccion,estado,capatidad from estadias");
-            String datos[] = new String[7];
-            while(re.next()){
-                datos[0] = re.getString(1);
-                datos[1] = re.getString(2);
-                datos[2] = re.getString(3);
-                datos[3] = re.getString(4);
-                datos[4] = re.getString(5);
-                datos[5] = re.getString(6);
-                datos[6] = "";
-                tabla.addRow(datos);
+    public void MostrarSeguros(){
+        int iterador = 0;
+        listaSeguros = new SeguroDaoImp().listar();
+        modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("ESTADO");
+        modelo.addColumn("COBERTURA DIAS");
+        modelo.addColumn("DESCRIPCION");
+        modelo.addColumn("COSTO");
+        modelo.addColumn("NOMBRE ASEGURADORA");
+        modelo.addColumn("");
+        if (listaSeguros.size() > 0) {
+            for (Seguro seguro : listaSeguros) {
+                String estado;
+                if (seguro.getEstado() == 0) {
+                    estado = "INACTIVO";
+                } else {
+                    estado = "ACTIVO";
+                }
+                modelo.addRow(new Object[]{
+                    seguro.getId_seguro(),
+                    estado,
+                    seguro.getDias_cobertura(),
+                    seguro.getDescripcion(),
+                    seguro.getCosto(),
+                    seguro.getAseguradora().getNombre_aseguradora(),
+                    "ELIMINAR"}
+                );
             }
-        tablaSeguros.setModel(tabla);
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionApoderado.class.getName()).log(Level.SEVERE, null, ex);
+            tablaSeguros.setModel(modelo);
         }
     }
 
@@ -79,6 +86,7 @@ public class GestionSeguro extends javax.swing.JFrame {
         btnAgregarSeguro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(30, 160, 250));
 
@@ -150,7 +158,7 @@ public class GestionSeguro extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

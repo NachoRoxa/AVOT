@@ -6,8 +6,8 @@
 package DAO;
 
 import CONEXION.Conexion;
-import DTO.Alumno;
-import DTO.Apoderado;
+import DTO.Agente;
+import DTO.Tour;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class AlumnoDaoImp implements BaseDao {
+public class TourDaoImp implements BaseDao {
 
     @Override
     public boolean insertar(Object dto) {
@@ -47,23 +47,28 @@ public class AlumnoDaoImp implements BaseDao {
     @Override
     public ArrayList listar() {
         CONEXION.Conexion obj = new Conexion();
-        ArrayList<Alumno> lista = new ArrayList<>();
+        ArrayList<Tour> lista = new ArrayList<>();
         try {
             Connection con = obj.getConnection();
             Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("SELECT a.run,a.nombre,a.apellido_paterno,a.apellido_materno,a.monto_personal,ap.nombre,ap.apellido FROM ALUMNOS A JOIN APODERADOS AP ON A.APODERADOS_RUN = AP.RUN");
+            ResultSet re = st.executeQuery("select t.id_tour,t.valor_total,t.des"
+                    + "cripcion,t.numero_contrato,a.nombre,a.apellido_paterno,a."
+                    + "apellido_materno,t.fecha_creacion,t.fecha_inicio from tou"
+                    + "rs t join agentes a on t.agentes_run = a.run");
             while (re.next()) {
-                Alumno alumno = new Alumno();
-                Apoderado a;
-                alumno.setRun(re.getString(1));
-                alumno.setNombre(re.getString(2));
-                alumno.setApellido_paterno(re.getString(3));
-                alumno.setApellido_materno(re.getString(4));
-                alumno.setMonto_personal(re.getInt(5));
-                alumno.setApoderado(a = new Apoderado());
-                a.setNombre(re.getString(6));
-                a.setApellido(re.getString(7));
-                lista.add(alumno);
+                Tour tour = new Tour();
+                Agente agente;
+                tour.setId_tour(re.getInt(1));
+                tour.setValor_total(re.getInt(2));
+                tour.setDescripcion(re.getString(3));
+                tour.setNumero_contrato(re.getInt(4));
+                tour.setAgente(agente = new Agente());
+                agente.setNombre(re.getString(5));
+                agente.setApellido_paterno(re.getString(6));
+                agente.setApellido_materno(re.getString(7));
+                tour.setFecha_creacion(re.getDate(8));
+                tour.setFecha_inicio(re.getDate(8));
+                lista.add(tour);
             }
 
         } catch (Exception e) {

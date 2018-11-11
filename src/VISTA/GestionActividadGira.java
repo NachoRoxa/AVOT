@@ -7,7 +7,7 @@
 package VISTA;
 
 import CONEXION.Conexion;
-import DAO.ActividadDaoImp;
+import DAO.ActividadGiraDaoImp;
 import DTO.ActividadGira;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -16,13 +16,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Seba
  */
-public class GestionActividad extends javax.swing.JFrame {
+public class GestionActividadGira extends javax.swing.JFrame {
     ArrayList<ActividadGira> listaActiviadGira;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
 
     /** Creates new form GestionarActividad */
-    public GestionActividad() {
+    public GestionActividadGira() {
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarActividadGira();
@@ -30,7 +30,7 @@ public class GestionActividad extends javax.swing.JFrame {
     
     public void MostrarActividadGira(){
         int iterador = 0;
-        listaActiviadGira = new ActividadDaoImp().listar();
+        listaActiviadGira = new ActividadGiraDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("ID");
         modelo.addColumn("TIPO");
@@ -150,22 +150,22 @@ public class GestionActividad extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAgregarActividad)
-                .addGap(28, 28, 28))
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAgregarActividad)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         pack();

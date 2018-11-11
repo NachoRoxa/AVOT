@@ -86,6 +86,27 @@ public class AgenteDaoImp implements BaseDao {
     
     @Override
     public ArrayList listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        CONEXION.Conexion obj = new Conexion();
+        ArrayList<Agente> lista = new ArrayList<>();
+        try {
+            Connection con = obj.getConnection();
+            Statement st = con.createStatement();
+            ResultSet re = st.executeQuery("select run,nombre,apellido_paterno,apellido_materno,usuario,administrador,estado from agentes");
+            while (re.next()) {
+                Agente agente = new Agente();
+                agente.setRun(re.getString(1));
+                agente.setNombre(re.getString(2));
+                agente.setApellido_paterno(re.getString(3));
+                agente.setApellido_materno(re.getString(4));
+                agente.setUser(re.getString(5));
+                agente.setAdministrador(re.getInt(6));
+                agente.setEstado(re.getInt(7));
+                lista.add(agente);
+            }
+
+        } catch (Exception e) {
+            return lista;
+        }
+        return lista;
+    }   
 }

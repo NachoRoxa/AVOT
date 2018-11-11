@@ -19,6 +19,7 @@ public class Seguro {
     private int costo;
     private String descripcion;
     private int estado;
+    private Aseguradora aseguradora;
     private Date fecha_inicio;
     private Date fecha_termino;
     
@@ -26,15 +27,18 @@ public class Seguro {
     public Seguro() {
     }
 
-    public Seguro(int id_seguro, int dias_cobertura, int costo, String descripcion, int estado, Date fecha_inicio, Date fecha_termino) {
+    public Seguro(int id_seguro, int dias_cobertura, int costo, String descripcion, int estado, Aseguradora aseguradora, Date fecha_inicio, Date fecha_termino) {
         this.id_seguro = id_seguro;
         this.dias_cobertura = dias_cobertura;
         this.costo = costo;
         this.descripcion = descripcion;
         this.estado = estado;
+        this.aseguradora = aseguradora;
         this.fecha_inicio = fecha_inicio;
         this.fecha_termino = fecha_termino;
     }
+
+    
 
     public int getId_seguro() {
         return id_seguro;
@@ -91,6 +95,15 @@ public class Seguro {
     public void setFecha_termino(Date fecha_termino) {
         this.fecha_termino = fecha_termino;
     }
+
+    public Aseguradora getAseguradora() {
+        return aseguradora;
+    }
+
+    public void setAseguradora(Aseguradora aseguradora) {
+        this.aseguradora = aseguradora;
+    }
+    
     
     
     

@@ -6,8 +6,8 @@
 package DAO;
 
 import CONEXION.Conexion;
-import DTO.Alumno;
-import DTO.Apoderado;
+import DTO.Aseguradora;
+import DTO.Seguro;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class AlumnoDaoImp implements BaseDao {
+public class SeguroDaoImp implements BaseDao{
 
     @Override
     public boolean insertar(Object dto) {
@@ -47,23 +47,22 @@ public class AlumnoDaoImp implements BaseDao {
     @Override
     public ArrayList listar() {
         CONEXION.Conexion obj = new Conexion();
-        ArrayList<Alumno> lista = new ArrayList<>();
+        ArrayList<Seguro> lista = new ArrayList<>();
         try {
             Connection con = obj.getConnection();
             Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("SELECT a.run,a.nombre,a.apellido_paterno,a.apellido_materno,a.monto_personal,ap.nombre,ap.apellido FROM ALUMNOS A JOIN APODERADOS AP ON A.APODERADOS_RUN = AP.RUN");
+            ResultSet re = st.executeQuery("select s.id_seguro,s.estado,s.dias_cobertura,s.descripcion,s.costo,a.nombre_aseguradora from seguros s join aseguradoras a on s.aseguradora_rut = a.rut");
             while (re.next()) {
-                Alumno alumno = new Alumno();
-                Apoderado a;
-                alumno.setRun(re.getString(1));
-                alumno.setNombre(re.getString(2));
-                alumno.setApellido_paterno(re.getString(3));
-                alumno.setApellido_materno(re.getString(4));
-                alumno.setMonto_personal(re.getInt(5));
-                alumno.setApoderado(a = new Apoderado());
-                a.setNombre(re.getString(6));
-                a.setApellido(re.getString(7));
-                lista.add(alumno);
+                Seguro seguro = new Seguro();
+                Aseguradora aseguradora;
+                seguro.setId_seguro(re.getInt(1));
+                seguro.setEstado(re.getInt(2));
+                seguro.setDias_cobertura(re.getInt(3));
+                seguro.setDescripcion(re.getString(4));
+                seguro.setCosto(re.getInt(5));
+                seguro.setAseguradora(aseguradora = new Aseguradora());
+                aseguradora.setNombre_aseguradora(re.getString(6));
+                lista.add(seguro);
             }
 
         } catch (Exception e) {
