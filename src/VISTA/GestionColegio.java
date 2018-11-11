@@ -36,7 +36,6 @@ public class GestionColegio extends javax.swing.JFrame {
     }
     
     public void MostrarColegios(){
-        int iterador = 0;
         listaColegios = new ColegioDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("ID");

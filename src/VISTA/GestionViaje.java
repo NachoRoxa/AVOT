@@ -36,7 +36,6 @@ public class GestionViaje extends javax.swing.JFrame {
     }
     
     public void MostrarViajes(){
-        int iterador = 0;
         listaViajes = new ViajeDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("ID");

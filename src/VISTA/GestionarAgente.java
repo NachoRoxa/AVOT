@@ -29,7 +29,6 @@ public class GestionarAgente extends javax.swing.JFrame {
     }
     
     public void MostrarAgentes() {
-        int iterador = 0;
         listaAgentes = new AgenteDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("RUN");

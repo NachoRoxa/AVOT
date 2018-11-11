@@ -30,7 +30,6 @@ public class GestionEstadia extends javax.swing.JFrame {
     }
     
     public void MostrarEstadias(){
-        int iterador = 0;
         listaEstadia = new EstadiaDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("ID");

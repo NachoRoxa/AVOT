@@ -36,7 +36,6 @@ public class GestionTour extends javax.swing.JFrame {
     
     
     public void MostrarTours(){
-        int iterador = 0;
         listaTour = new TourDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("ID");

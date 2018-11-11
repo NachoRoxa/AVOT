@@ -59,7 +59,6 @@ public class GestionApoderado extends javax.swing.JFrame {
     }
 
     public void MostrarApoderados() {
-        int iterador = 0;
         listaApoderados = new ApoderadoDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("RUN");
@@ -91,7 +90,6 @@ public class GestionApoderado extends javax.swing.JFrame {
             }
             tablaApoderados.setModel(modelo);
         }
-
     }
 
     /**

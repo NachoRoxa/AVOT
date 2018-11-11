@@ -32,7 +32,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/icono-login-png-6.png"));
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/icono-login-png-6.png"));
         return retValue;
     }
 
@@ -69,7 +69,7 @@ public class Login extends javax.swing.JFrame {
         });
         getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 60, -1));
 
-        lblIconoLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icono-login-png-6.png"))); // NOI18N
+        lblIconoLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/icono-login-png-6.png"))); // NOI18N
         getContentPane().add(lblIconoLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
 
         lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -95,7 +95,7 @@ public class Login extends javax.swing.JFrame {
         });
         getContentPane().add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 420, -1, -1));
 
-        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo4.jpg"))); // NOI18N
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Fondo4.jpg"))); // NOI18N
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 480));
 
         pack();

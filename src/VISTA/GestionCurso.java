@@ -36,7 +36,6 @@ public class GestionCurso extends javax.swing.JFrame {
     }
     
     public void MostrarCursos(){
-        int iterador = 0;
         listaCursos = new CursoDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("ID");

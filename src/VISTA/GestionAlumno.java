@@ -32,7 +32,6 @@ public class GestionAlumno extends javax.swing.JFrame {
     
     
     public void MostrarAlumnos(){
-        int iterador = 0;
         listaAlumnos = new AlumnoDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("RUN");

@@ -36,7 +36,6 @@ public class GestionSeguro extends javax.swing.JFrame {
         MostrarSeguros();
     }
     public void MostrarSeguros(){
-        int iterador = 0;
         listaSeguros = new SeguroDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("ID");

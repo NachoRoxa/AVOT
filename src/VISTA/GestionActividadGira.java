@@ -20,7 +20,7 @@ public class GestionActividadGira extends javax.swing.JFrame {
     ArrayList<ActividadGira> listaActiviadGira;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
-
+    
     /** Creates new form GestionarActividad */
     public GestionActividadGira() {
         initComponents();
@@ -29,7 +29,6 @@ public class GestionActividadGira extends javax.swing.JFrame {
     }
     
     public void MostrarActividadGira(){
-        int iterador = 0;
         listaActiviadGira = new ActividadGiraDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("ID");
