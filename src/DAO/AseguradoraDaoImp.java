@@ -6,7 +6,7 @@
 package DAO;
 
 import CONEXION.Conexion;
-import DTO.EmpresaTransporte;
+import DTO.Aseguradora;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class EmpresaTransporteDaoImp implements BaseDao{
+public class AseguradoraDaoImp implements BaseDao{
 
     @Override
     public boolean insertar(Object dto) {
@@ -46,18 +46,18 @@ public class EmpresaTransporteDaoImp implements BaseDao{
     @Override
     public ArrayList listar() {
         CONEXION.Conexion obj = new Conexion();
-        ArrayList<EmpresaTransporte> lista = new ArrayList<>();
+        ArrayList<Aseguradora> lista = new ArrayList<>();
         try {
             Connection con = obj.getConnection();
             Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("select id_transporte,nombre_empresa"
-                    + ",tipo_transporte from empresas_transporte");
+            ResultSet re = st.executeQuery("select rut,nombre_aseguradora,direc"
+                    + "cion from aseguradoras");
             while (re.next()) {
-                EmpresaTransporte empresaTransporte = new EmpresaTransporte();
-                empresaTransporte.setId_transporte(re.getInt(1));
-                empresaTransporte.setNombre_empresa(re.getString(2));
-                empresaTransporte.setTipo_transporte(re.getString(3));
-                lista.add(empresaTransporte);
+                Aseguradora aseguradora = new Aseguradora();
+                aseguradora.setRut(re.getString(1));
+                aseguradora.setNombre_aseguradora(re.getString(2));
+                aseguradora.setDireccion(re.getString(3));
+                lista.add(aseguradora);
             }
         } catch (Exception e) {
             return lista;

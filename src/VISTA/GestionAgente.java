@@ -15,14 +15,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Seba
  */
-public class GestionarAgente extends javax.swing.JFrame {
+public class GestionAgente extends javax.swing.JFrame {
     ArrayList<Agente> listaAgentes;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
     /**
      * Creates new form GestionarAgente
      */
-    public GestionarAgente() {
+    public GestionAgente() {
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarAgentes();
@@ -83,7 +83,6 @@ public class GestionarAgente extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaAgentes = new javax.swing.JTable();
-        btnAgregarApoderado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -144,13 +143,6 @@ public class GestionarAgente extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaAgentes);
 
-        btnAgregarApoderado.setText("Agregar Apoderado");
-        btnAgregarApoderado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarApoderadoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,10 +152,6 @@ public class GestionarAgente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAgregarApoderado)
-                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,9 +159,7 @@ public class GestionarAgente extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAgregarApoderado)
-                .addGap(27, 27, 27))
+                .addGap(61, 61, 61))
         );
 
         pack();
@@ -185,14 +171,7 @@ public class GestionarAgente extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
-    private void btnAgregarApoderadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarApoderadoActionPerformed
-        this.setVisible(false);
-        AgregarApoderado x = new AgregarApoderado();
-        x.setVisible(true);
-    }//GEN-LAST:event_btnAgregarApoderadoActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarApoderado;
     private javax.swing.JButton btnInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

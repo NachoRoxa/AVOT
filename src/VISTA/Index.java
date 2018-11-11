@@ -5,6 +5,9 @@
  */
 package VISTA;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Seba
@@ -17,6 +20,10 @@ public class Index extends javax.swing.JFrame {
     public Index() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/rosaViento.jpg"));
+        return retValue;
     }
 
     /**
@@ -34,6 +41,7 @@ public class Index extends javax.swing.JFrame {
         PanelAgencia = new javax.swing.JPanel();
         btnAgentes = new javax.swing.JButton();
         btnEmpresasTransporte = new javax.swing.JButton();
+        btnAseguradora = new javax.swing.JButton();
         PanelColegio = new javax.swing.JPanel();
         btnCursos = new javax.swing.JButton();
         btnColegios = new javax.swing.JButton();
@@ -105,6 +113,13 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
+        btnAseguradora.setText("Aseguradoras");
+        btnAseguradora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAseguradoraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelAgenciaLayout = new javax.swing.GroupLayout(PanelAgencia);
         PanelAgencia.setLayout(PanelAgenciaLayout);
         PanelAgenciaLayout.setHorizontalGroup(
@@ -112,18 +127,22 @@ public class Index extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAgenciaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnEmpresasTransporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAgentes, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                    .addComponent(btnAseguradora, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addGroup(PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnEmpresasTransporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAgentes, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
                 .addGap(307, 307, 307))
         );
         PanelAgenciaLayout.setVerticalGroup(
             PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelAgenciaLayout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(btnAgentes)
                 .addGap(18, 18, 18)
                 .addComponent(btnEmpresasTransporte)
-                .addGap(45, 45, 45))
+                .addGap(18, 18, 18)
+                .addComponent(btnAseguradora)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         PanelColegio.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestionar Colegios"));
@@ -350,15 +369,21 @@ public class Index extends javax.swing.JFrame {
 
     private void btnAgentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgentesActionPerformed
         this.setVisible(false);
-        GestionarAgente x = new GestionarAgente();
+        GestionAgente x = new GestionAgente();
         x.setVisible(true);
     }//GEN-LAST:event_btnAgentesActionPerformed
 
     private void btnEmpresasTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresasTransporteActionPerformed
         this.setVisible(false);
-        GestionarEmpresaTransporte x = new GestionarEmpresaTransporte();
+        GestionEmpresaTransporte x = new GestionEmpresaTransporte();
         x.setVisible(true);
     }//GEN-LAST:event_btnEmpresasTransporteActionPerformed
+
+    private void btnAseguradoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAseguradoraActionPerformed
+        this.setVisible(false);
+        GestionAseguradora x = new GestionAseguradora();
+        x.setVisible(true);
+    }//GEN-LAST:event_btnAseguradoraActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -370,6 +395,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton btnAgentes;
     private javax.swing.JButton btnAlumnos;
     private javax.swing.JButton btnApoderados;
+    private javax.swing.JButton btnAseguradora;
     private javax.swing.JButton btnColegios;
     private javax.swing.JButton btnCursos;
     private javax.swing.JButton btnEmpresasTransporte;

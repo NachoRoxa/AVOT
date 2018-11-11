@@ -6,64 +6,44 @@
 package VISTA;
 
 import CONEXION.Conexion;
-import DAO.ViajeDaoImp;
-import DTO.Viaje;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import DAO.AseguradoraDaoImp;
+import DTO.Aseguradora;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Seba
  */
-public class GestionViaje extends javax.swing.JFrame {
-    ArrayList<Viaje> listaViajes;
+public class GestionAseguradora extends javax.swing.JFrame {
+    ArrayList<Aseguradora> listaAseguradoras;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
-
     /**
-     * Creates new form GestionViaje
+     * Creates new form GestionAseguradora
      */
-    public GestionViaje() {
+    public GestionAseguradora() {
         initComponents();
         this.setLocationRelativeTo(null);
-        MostrarViajes();
+        MostrarAseguradoras();
     }
-    
-    public void MostrarViajes(){
-        listaViajes = new ViajeDaoImp().listar();
+    public void MostrarAseguradoras() {
+        listaAseguradoras = new AseguradoraDaoImp().listar();
         modelo = new DefaultTableModel();
-        modelo.addColumn("ID");
-        modelo.addColumn("ORIGEN");
-        modelo.addColumn("DESTINO");
-        modelo.addColumn("COSTO");
-        modelo.addColumn("ESTADO");
-        modelo.addColumn("EMPRESA TRANSPORTE");
+        modelo.addColumn("RUN");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("DIRECCION");
         modelo.addColumn("");
-        if (listaViajes.size() > 0) {
-            for (Viaje viaje : listaViajes) {
-                String estado;
-                if (viaje.getEstado() == 0) {
-                    estado = "INACTIVO";
-                } else {
-                    estado = "ACTIVO";
-                }
+        if (listaAseguradoras.size() > 0) {
+            for (Aseguradora aseguradora : listaAseguradoras) {
                 modelo.addRow(new Object[]{
-                    viaje.getId_viaje(),
-                    viaje.getOrigen(),
-                    viaje.getDestino(),
-                    viaje.getCosto(),
-                    estado,
-                    viaje.getEmpresa_transporte().getNombre_empresa(),
+                    aseguradora.getRut(),
+                    aseguradora.getNombre_aseguradora(),
+                    aseguradora.getDireccion(),
                     "ELIMINAR"}
                 );
             }
-            tablaViajes.setModel(modelo);
+            tablaAseguradoras.setModel(modelo);
         }
     }
 
@@ -81,7 +61,7 @@ public class GestionViaje extends javax.swing.JFrame {
         btnInicio = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaViajes = new javax.swing.JTable();
+        tablaAseguradoras = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -102,7 +82,7 @@ public class GestionViaje extends javax.swing.JFrame {
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("Lista Viajes");
+        lblTitulo.setText("Lista Aseguradoras");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,7 +109,7 @@ public class GestionViaje extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tablaViajes.setModel(new javax.swing.table.DefaultTableModel(
+        tablaAseguradoras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -140,7 +120,7 @@ public class GestionViaje extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tablaViajes);
+        jScrollPane1.setViewportView(tablaAseguradoras);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,8 +137,8 @@ public class GestionViaje extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                .addGap(68, 68, 68))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addGap(61, 61, 61))
         );
 
         pack();
@@ -177,6 +157,6 @@ public class GestionViaje extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTable tablaViajes;
+    private javax.swing.JTable tablaAseguradoras;
     // End of variables declaration//GEN-END:variables
 }

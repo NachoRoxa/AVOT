@@ -74,7 +74,6 @@ public class GestionEstadia extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnInicio = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
-        btnAgregarEstadia = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaEstadias = new javax.swing.JTable();
 
@@ -124,13 +123,6 @@ public class GestionEstadia extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnAgregarEstadia.setText("Agregar Estadia");
-        btnAgregarEstadia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarEstadiaActionPerformed(evt);
-            }
-        });
-
         tablaEstadias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -149,10 +141,6 @@ public class GestionEstadia extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAgregarEstadia)
-                .addGap(30, 30, 30))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -163,9 +151,7 @@ public class GestionEstadia extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 402, Short.MAX_VALUE)
-                .addComponent(btnAgregarEstadia)
-                .addGap(30, 30, 30))
+                .addContainerGap(455, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(56, 56, 56)
@@ -182,15 +168,8 @@ public class GestionEstadia extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
-    private void btnAgregarEstadiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEstadiaActionPerformed
-        this.setVisible(false);
-        AgregarEstadia x = new AgregarEstadia();
-        x.setVisible(true);
-    }//GEN-LAST:event_btnAgregarEstadiaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarEstadia;
     private javax.swing.JButton btnInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
