@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author pedro
  */
-public class Viajes {
+public class Viaje {
     
     private int id_viaje;
     private String origen;
@@ -22,10 +22,10 @@ public class Viajes {
     private Date fechaInicio;
     private Date fechaTermino;
 
-    public Viajes() {
+    public Viaje() {
     }
 
-    public Viajes(int id_viaje, String origen, String destino, int costo, int estado, EmpresaTransporte empresa_transporte, Date fechaInicio, Date fechaTermino) {
+    public Viaje(int id_viaje, String origen, String destino, int costo, int estado, EmpresaTransporte empresa_transporte, Date fechaInicio, Date fechaTermino) {
         this.id_viaje = id_viaje;
         this.origen = origen;
         this.destino = destino;

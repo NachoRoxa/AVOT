@@ -6,10 +6,13 @@
 package VISTA;
 
 import CONEXION.Conexion;
+import DAO.ViajeDaoImp;
+import DTO.Viaje;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +22,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Seba
  */
 public class GestionViaje extends javax.swing.JFrame {
+    ArrayList<Viaje> listaViajes;
+    Conexion obj = new Conexion();
+    DefaultTableModel modelo;
 
     /**
      * Creates new form GestionViaje
@@ -26,38 +32,38 @@ public class GestionViaje extends javax.swing.JFrame {
     public GestionViaje() {
         initComponents();
         this.setLocationRelativeTo(null);
-        MostrarSeguros();
+        MostrarViajes();
     }
     
-    Conexion obj = new Conexion();
-    DefaultTableModel tabla = new DefaultTableModel();
-    public void MostrarSeguros(){
-        tabla.addColumn("ID");
-        tabla.addColumn("DIAS COBERTURA");
-        tabla.addColumn("COSTO");
-        tabla.addColumn("DESCRIPCION");
-        tabla.addColumn("ESTADO");
-        tabla.addColumn("ASEGURADORA");
-        tabla.addColumn("");
-        
-        try {
-            Connection con = obj.getConnection();
-            Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("select id_estadia,nombre,costo_por_dia,direccion,estado,capatidad from estadias");
-            String datos[] = new String[7];
-            while(re.next()){
-                datos[0] = re.getString(1);
-                datos[1] = re.getString(2);
-                datos[2] = re.getString(3);
-                datos[3] = re.getString(4);
-                datos[4] = re.getString(5);
-                datos[5] = re.getString(6);
-                datos[6] = "";
-                tabla.addRow(datos);
+    public void MostrarViajes(){
+        int iterador = 0;
+        listaViajes = new ViajeDaoImp().listar();
+        modelo.addColumn("ID");
+        modelo.addColumn("ORIGEN");
+        modelo.addColumn("DESTINO");
+        modelo.addColumn("COSTO");
+        modelo.addColumn("ESTADO");
+        modelo.addColumn("EMPRESA TRANSPORTE");
+        modelo.addColumn("");
+        if (listaViajes.size() > 0) {
+            for (Viaje viaje : listaViajes) {
+                String estado;
+                if (viaje.getEstado() == 0) {
+                    estado = "INACTIVO";
+                } else {
+                    estado = "ACTIVO";
+                }
+                modelo.addRow(new Object[]{
+                    viaje.getId_viaje(),
+                    viaje.getOrigen(),
+                    viaje.getDestino(),
+                    viaje.getCosto(),
+                    estado,
+                    viaje.getEmpresa_transporte().getNombre_empresa(),
+                    "ELIMINAR"}
+                );
             }
-        tablaEstadias.setModel(tabla);
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionApoderado.class.getName()).log(Level.SEVERE, null, ex);
+            tablaViajes.setModel(modelo);
         }
     }
 
@@ -75,10 +81,11 @@ public class GestionViaje extends javax.swing.JFrame {
         btnInicio = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaEstadias = new javax.swing.JTable();
-        btnAgregarEstadia = new javax.swing.JButton();
+        tablaViajes = new javax.swing.JTable();
+        btnAgregarViaje = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(30, 160, 250));
 
@@ -96,7 +103,7 @@ public class GestionViaje extends javax.swing.JFrame {
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("Lista Estadia");
+        lblTitulo.setText("Lista Viajes");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,7 +130,7 @@ public class GestionViaje extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tablaEstadias.setModel(new javax.swing.table.DefaultTableModel(
+        tablaViajes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -134,12 +141,12 @@ public class GestionViaje extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tablaEstadias);
+        jScrollPane1.setViewportView(tablaViajes);
 
-        btnAgregarEstadia.setText("Agregar Estadia");
-        btnAgregarEstadia.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarViaje.setText("Agregar Viaje");
+        btnAgregarViaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarEstadiaActionPerformed(evt);
+                btnAgregarViajeActionPerformed(evt);
             }
         });
 
@@ -154,18 +161,18 @@ public class GestionViaje extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAgregarEstadia)
-                .addGap(27, 27, 27))
+                .addComponent(btnAgregarViaje)
+                .addGap(48, 48, 48))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(btnAgregarEstadia)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnAgregarViaje)
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -177,20 +184,20 @@ public class GestionViaje extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
-    private void btnAgregarEstadiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEstadiaActionPerformed
+    private void btnAgregarViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarViajeActionPerformed
         this.setVisible(false);
         AgregarEstadia x = new AgregarEstadia();
         x.setVisible(true);
-    }//GEN-LAST:event_btnAgregarEstadiaActionPerformed
+    }//GEN-LAST:event_btnAgregarViajeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarEstadia;
+    private javax.swing.JButton btnAgregarViaje;
     private javax.swing.JButton btnInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTable tablaEstadias;
+    private javax.swing.JTable tablaViajes;
     // End of variables declaration//GEN-END:variables
 }
