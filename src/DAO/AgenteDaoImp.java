@@ -11,6 +11,7 @@ import DTO.Agente;
 import java.sql.SQLException;
 import org.omg.CORBA.portable.UnknownException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
@@ -18,7 +19,7 @@ import java.sql.ResultSet;
  *
  * @author NachoRoxa
  */
-public class AgenteDaoImp implements BaseDao{
+public class AgenteDaoImp implements BaseDao {
 
     @Override
     public boolean insertar(Object dto) {
@@ -42,24 +43,49 @@ public class AgenteDaoImp implements BaseDao{
 
     @Override
     public boolean existe(Object dto) {
-        CONEXION.Conexion obj= new Conexion();
+        CONEXION.Conexion obj = new Conexion();
         Agente ag = new Agente();
-        try
-        {
+        String usuario = ag.getUser();
+        String pass = ag.getPasswd();
+        String query = "select usuario, passwd from agente where usuario = "+usuario+" and passwd= "+pass+";";
+        try {
             Connection con = obj.getConnection();
             Statement st = con.createStatement();
-            ResultSet re=st.executeQuery("select usuario, passwd from agente where usuario=? and passwd=?;");
-            
-        }
-        catch(Exception ex)
-        {
+            ResultSet re = st.executeQuery(query);
+
+        } catch (Exception ex) {
             return false;
         }
         return true;
     }
-
+    
+    /***
+     * Metodo para verificar la conexion en el Login.
+     * @param usuario
+     * @param pass
+     * @return Si existe el usuario retorna true, caso contrario false
+     */
+    public boolean Query(String usuario, String pass)
+    {
+        CONEXION.Conexion obj = new Conexion();
+        Agente ag = new Agente();
+        usuario = ag.getUser();
+        pass = ag.getPasswd();
+        String query = "select usuario, passwd from agente where usuario =? and passwd=?";
+        try {
+            Connection con = obj.getConnection();
+            PreparedStatement st = con.prepareStatement(query);            
+            st.setString(1, usuario);
+            st.setString(2, pass);
+            ResultSet re = st.executeQuery();
+        } catch (Exception ex) {            
+            return false;
+        }
+        return true;
+    }
+    
     @Override
     public ArrayList listar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }   
+    }
 }

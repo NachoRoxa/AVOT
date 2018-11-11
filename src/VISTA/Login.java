@@ -5,9 +5,18 @@
  */
 package VISTA;
 
+import CONEXION.Conexion;
 import DAO.AgenteDaoImp;
+import DTO.Agente;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Seba
@@ -21,6 +30,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/a.png"));
         return retValue;
@@ -39,7 +49,7 @@ public class Login extends javax.swing.JFrame {
         lblIconoLogin = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         lblContraseña = new javax.swing.JLabel();
-        txtUsurio = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         jPassword = new javax.swing.JPasswordField();
         btnIniciarSesion = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
@@ -70,8 +80,8 @@ public class Login extends javax.swing.JFrame {
         lblContraseña.setText("Contraseña :");
         getContentPane().add(lblContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
 
-        txtUsurio.setBackground(new java.awt.Color(204, 255, 255));
-        getContentPane().add(txtUsurio, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 160, 30));
+        txtUsuario.setBackground(new java.awt.Color(204, 255, 255));
+        getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 160, 30));
 
         jPassword.setBackground(new java.awt.Color(204, 255, 255));
         getContentPane().add(jPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, 160, 30));
@@ -97,13 +107,45 @@ public class Login extends javax.swing.JFrame {
 
     //Boton para iniciar el login del usuario
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        this.setVisible(false);
+        String user = txtUsuario.getText();
+        String pass = String.valueOf(jPassword.getPassword());
         Index x = new Index();
+        this.setVisible(false);
         x.setVisible(true);
-        //Estoy intentando ver como conectar esto a la DB.
-        AgenteDaoImp ad = new AgenteDaoImp();
-        ad.existe(false);
+
+        /**
+         * CONEXION.Conexion obj = new Conexion();
+        try {
+            Connection con = obj.getConnection();
+            String query = "select usuario, passwd from agente where usuario =? and passwd=?";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setString(1, user);
+            st.setString(2, pass);
+            ResultSet re = st.executeQuery();
+            if(re.next())
+            {
                 
+            }
+            else
+            {
+                this.setVisible(true);
+                JOptionPane.showMessageDialog(null, "WEA MALA!");
+            }
+        } catch (Exception ex) {
+            throw new UnsupportedOperationException();
+        }*/
+
+        /**
+         * PRueba 2 x.setVisible(true); Estoy intentando ver como conectar esto
+         * a la DB. CONEXION.Conexion obj = new Conexion(); Agente ag = new
+         * Agente(); user = ag.getUser(); pass = ag.getPasswd(); String query =
+         * "select usuario, passwd from agente where usuario =? and passwd=?";
+         * try { if () { this.setVisible(false); x.setVisible(true); } else {
+         * x.setVisible(false); JOptionPane.showMessageDialog(null, "Usuario y/o
+         * Contraseña incorrectas."); } } catch (Exception ex) {
+         *
+         * }*
+         */
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
@@ -150,6 +192,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblIconoLogin;
     private javax.swing.JLabel lblUsuario;
-    private javax.swing.JTextField txtUsurio;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
