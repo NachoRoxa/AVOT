@@ -118,10 +118,10 @@ public class Login extends javax.swing.JFrame {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese contraseña");
         } else {
-            
+            this.setVisible(false);
+            x.setVisible(true);
         }
-        //this.setVisible(false);
-        //x.setVisible(true);
+        
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
