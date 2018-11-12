@@ -28,14 +28,15 @@ public class AgenteDaoImp implements BaseDao<Agente> {
         try {
             CONEXION.Conexion obj = new Conexion();
             Connection con = obj.getConnection();
-            PreparedStatement ps = con.prepareStatement("insert into AVOT.agentes values('?','?','?','?','?','?',?,?)");
+            PreparedStatement ps = con.prepareStatement("insert into agentes values('?','?','?','?','?','?',?,?)");
             ps.setString(1,dto.getRun());
-            ps.setString(2,dto.getNombre());
-            ps.setString(3,dto.getApellido_paterno());
-            ps.setString(4,dto.getApellido_materno());
-            ps.setString(5,dto.getUser());
-            ps.setInt(6,dto.getAdministrador());
-            ps.setInt(7,dto.getEstado());
+            ps.setString(2,dto.getUser());
+            ps.setString(3,dto.getPasswd());
+            ps.setString(4,dto.getNombre());
+            ps.setString(5,dto.getApellido_paterno());
+            ps.setString(6,dto.getApellido_materno());
+            ps.setInt(7,dto.getAdministrador());
+            ps.setInt(8,dto.getEstado());
             ps.execute();
             System.out.println("Exito");
             return true;
