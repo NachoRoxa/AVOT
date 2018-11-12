@@ -53,6 +53,9 @@ public class Index extends javax.swing.JFrame {
         btnEstadias = new javax.swing.JButton();
         btnActividadesGira = new javax.swing.JButton();
         btnViajes = new javax.swing.JButton();
+        BarraMenu = new javax.swing.JMenuBar();
+        MenuInicio = new javax.swing.JMenu();
+        MenuAgentes = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("A.V.O.T. Local");
@@ -183,7 +186,7 @@ public class Index extends javax.swing.JFrame {
         PanelColegioLayout.setHorizontalGroup(
             PanelColegioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelColegioLayout.createSequentialGroup()
-                .addContainerGap(98, Short.MAX_VALUE)
+                .addContainerGap(100, Short.MAX_VALUE)
                 .addGroup(PanelColegioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -277,6 +280,14 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        MenuInicio.setText("Inicio");
+        BarraMenu.add(MenuInicio);
+
+        MenuAgentes.setText("Agentes");
+        BarraMenu.add(MenuAgentes);
+
+        setJMenuBar(BarraMenu);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -288,7 +299,7 @@ public class Index extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(PanelTours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(PanelColegio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PanelColegio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -384,6 +395,9 @@ public class Index extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar BarraMenu;
+    private javax.swing.JMenu MenuAgentes;
+    private javax.swing.JMenu MenuInicio;
     private javax.swing.JPanel PanelAgencia;
     private javax.swing.JPanel PanelColegio;
     private javax.swing.JPanel PanelTitulo;
