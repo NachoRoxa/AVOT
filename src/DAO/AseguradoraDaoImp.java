@@ -16,32 +16,32 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class AseguradoraDaoImp implements BaseDao{
+public class AseguradoraDaoImp implements BaseDao<Aseguradora>{
 
     @Override
-    public boolean insertar(Object dto) {
+    public boolean insertar(Aseguradora dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object buscar(Object dto) {
+    public Aseguradora buscar(Aseguradora dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean eliminar(Object dto) {
+    public boolean eliminar(Aseguradora dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean modificar(Object dto) {
+    public boolean modificar(Aseguradora dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean existe(Object dto) {
+    public boolean existe(Aseguradora dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    } 
 
     @Override
     public ArrayList listar() {
@@ -64,5 +64,4 @@ public class AseguradoraDaoImp implements BaseDao{
         }
         return lista;
     }
-    
 }

@@ -16,32 +16,33 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class ActividadGiraDaoImp implements BaseDao {
-
+public class ActividadGiraDaoImp implements BaseDao<ActividadGira> {
+    
     @Override
-    public boolean insertar(Object dto) {
+    public boolean insertar(ActividadGira dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object buscar(Object dto) {
+    public ActividadGira buscar(ActividadGira dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean eliminar(Object dto) {
+    public boolean eliminar(ActividadGira dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean modificar(Object dto) {
+    public boolean modificar(ActividadGira dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean existe(Object dto) {
+    public boolean existe(ActividadGira dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
 
     @Override
     public ArrayList listar() {
