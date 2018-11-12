@@ -16,30 +16,30 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class EstadiaDaoImp implements BaseDao {
+public class EstadiaDaoImp implements BaseDao<Estadia> {
 
     @Override
-    public boolean insertar(Object dto) {
+    public boolean insertar(Estadia dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object buscar(Object dto) {
+    public Estadia buscar(Estadia dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean eliminar(Object dto) {
+    public boolean eliminar(Estadia dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean modificar(Object dto) {
+    public boolean modificar(Estadia dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean existe(Object dto) {
+    public boolean existe(Estadia dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -68,5 +68,4 @@ public class EstadiaDaoImp implements BaseDao {
         }
         return lista;
     }
-    
 }

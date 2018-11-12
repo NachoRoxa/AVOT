@@ -16,30 +16,30 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class ColegioDaoImp implements BaseDao{
+public class ColegioDaoImp implements BaseDao<Colegio>{
 
     @Override
-    public boolean insertar(Object dto) {
+    public boolean insertar(Colegio dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object buscar(Object dto) {
+    public Colegio buscar(Colegio dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean eliminar(Object dto) {
+    public boolean eliminar(Colegio dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean modificar(Object dto) {
+    public boolean modificar(Colegio dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean existe(Object dto) {
+    public boolean existe(Colegio dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -66,5 +66,4 @@ public class ColegioDaoImp implements BaseDao{
         }
         return lista;
     }
-    
 }

@@ -17,30 +17,30 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class ViajeDaoImp implements BaseDao{
+public class ViajeDaoImp implements BaseDao<Viaje>{
 
     @Override
-    public boolean insertar(Object dto) {
+    public boolean insertar(Viaje dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object buscar(Object dto) {
+    public Viaje buscar(Viaje dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean eliminar(Object dto) {
+    public boolean eliminar(Viaje dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean modificar(Object dto) {
+    public boolean modificar(Viaje dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean existe(Object dto) {
+    public boolean existe(Viaje dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -74,5 +74,4 @@ public class ViajeDaoImp implements BaseDao{
         return lista;
         
     }
-    
 }

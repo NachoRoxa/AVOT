@@ -17,33 +17,33 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class SeguroDaoImp implements BaseDao{
+public class SeguroDaoImp implements BaseDao<Seguro>{
 
     @Override
-    public boolean insertar(Object dto) {
+    public boolean insertar(Seguro dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object buscar(Object dto) {
+    public Seguro buscar(Seguro dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean eliminar(Object dto) {
+    public boolean eliminar(Seguro dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean modificar(Object dto) {
+    public boolean modificar(Seguro dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean existe(Object dto) {
+    public boolean existe(Seguro dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public ArrayList listar() {
         CONEXION.Conexion obj = new Conexion();
@@ -70,5 +70,4 @@ public class SeguroDaoImp implements BaseDao{
         }
         return lista;
     }
-    
 }

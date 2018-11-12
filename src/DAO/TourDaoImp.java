@@ -17,30 +17,30 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class TourDaoImp implements BaseDao {
+public class TourDaoImp implements BaseDao<Tour> {
 
     @Override
-    public boolean insertar(Object dto) {
+    public boolean insertar(Tour dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object buscar(Object dto) {
+    public Tour buscar(Tour dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean eliminar(Object dto) {
+    public boolean eliminar(Tour dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean modificar(Object dto) {
+    public boolean modificar(Tour dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean existe(Object dto) {
+    public boolean existe(Tour dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -76,5 +76,4 @@ public class TourDaoImp implements BaseDao {
         }
         return lista;
     }
-    
 }

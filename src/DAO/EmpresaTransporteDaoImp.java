@@ -16,30 +16,30 @@ import java.util.ArrayList;
  *
  * @author Seba
  */
-public class EmpresaTransporteDaoImp implements BaseDao{
+public class EmpresaTransporteDaoImp implements BaseDao<EmpresaTransporte>{
 
     @Override
-    public boolean insertar(Object dto) {
+    public boolean insertar(EmpresaTransporte dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object buscar(Object dto) {
+    public EmpresaTransporte buscar(EmpresaTransporte dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean eliminar(Object dto) {
+    public boolean eliminar(EmpresaTransporte dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean modificar(Object dto) {
+    public boolean modificar(EmpresaTransporte dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean existe(Object dto) {
+    public boolean existe(EmpresaTransporte dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -64,5 +64,4 @@ public class EmpresaTransporteDaoImp implements BaseDao{
         }
         return lista;
     }
-    
 }
