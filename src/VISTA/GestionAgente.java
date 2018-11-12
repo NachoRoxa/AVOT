@@ -8,7 +8,9 @@ package VISTA;
 import CONEXION.Conexion;
 import DAO.AgenteDaoImp;
 import DTO.Agente;
+import static DTO.ValidaRut.validarRut;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
