@@ -14,35 +14,54 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author NachoRoxa
  */
-public class AgenteDaoImp implements BaseDao {
+public class AgenteDaoImp implements BaseDao<Agente> {
 
     @Override
-    public boolean insertar(Object dto) {
+    public boolean insertar(Agente dto) {
+        try {
+            CONEXION.Conexion obj = new Conexion();
+            Connection con = obj.getConnection();
+            PreparedStatement ps = con.prepareStatement("insert into AVOT.agentes values('?','?','?','?','?','?',?,?)");
+            ps.setString(1,dto.getRun());
+            ps.setString(2,dto.getNombre());
+            ps.setString(3,dto.getApellido_paterno());
+            ps.setString(4,dto.getApellido_materno());
+            ps.setString(5,dto.getUser());
+            ps.setInt(6,dto.getAdministrador());
+            ps.setInt(7,dto.getEstado());
+            ps.execute();
+            System.out.println("Exito");
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("NOP");
+            return false;
+        }
+    }
+    
+   @Override
+    public Agente buscar(Agente dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object buscar(Object dto) {
+    public boolean eliminar(Agente dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean eliminar(Object dto) {
+    public boolean modificar(Agente dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean modificar(Object dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean existe(Object dto) {
+    public boolean existe(Agente dto) {
         CONEXION.Conexion obj = new Conexion();
         Agente ag = new Agente();
         String usuario = ag.getUser();
@@ -109,4 +128,6 @@ public class AgenteDaoImp implements BaseDao {
         }
         return lista;
     }   
+
+    
 }
