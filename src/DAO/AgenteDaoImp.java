@@ -28,7 +28,7 @@ public class AgenteDaoImp implements BaseDao<Agente> {
         try {
             CONEXION.Conexion obj = new Conexion();
             Connection con = obj.getConnection();
-            PreparedStatement ps = con.prepareStatement("insert into agentes values('?','?','?','?','?','?',?,?)");
+            PreparedStatement ps = con.prepareStatement("insert into agentes values(?,?,?,?,?,?,?,?)");
             ps.setString(1,dto.getRun());
             ps.setString(2,dto.getUser());
             ps.setString(3,dto.getPasswd());
@@ -37,7 +37,7 @@ public class AgenteDaoImp implements BaseDao<Agente> {
             ps.setString(6,dto.getApellido_materno());
             ps.setInt(7,dto.getAdministrador());
             ps.setInt(8,dto.getEstado());
-            ps.execute();
+            ps.executeQuery();
             System.out.println("Exito");
             return true;
         } catch (SQLException ex) {
