@@ -106,17 +106,24 @@ public class AgenteDaoImp implements BaseDao<Agente> {
         Agente ag = new Agente();
         usuario = ag.getUser();
         pass = ag.getPasswd();
-        String query = "select usuario, passwd from agente where usuario =? and passwd=?";
+        String query = "select usuario, passwd from agentes where usuario=?  and passwd=?";
         try {
             Connection con = obj.getConnection();
             PreparedStatement st = con.prepareStatement(query);            
             st.setString(1, usuario);
             st.setString(2, pass);
             ResultSet re = st.executeQuery();
+            
+            while(re.next())
+            {
+                ag.setUser(re.getString(1));
+                ag.setPasswd(re.getString(2));
+            }
+            return true;
         } catch (Exception ex) {            
             return false;
         }
-        return true;
+        //return true;
     }
     
     @Override
@@ -143,7 +150,5 @@ public class AgenteDaoImp implements BaseDao<Agente> {
             return lista;
         }
         return lista;
-    }   
-
-    
+    }    
 }
