@@ -110,6 +110,7 @@ public class Login extends javax.swing.JFrame {
         String user = txtUsuario.getText();
         String pass = String.valueOf(jPassword.getPassword());
         Index x = new Index();
+        boolean query = new AgenteDaoImp().Query(user, pass);
 
         if (user.isEmpty()) {
             this.setVisible(true);
@@ -118,10 +119,16 @@ public class Login extends javax.swing.JFrame {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese contraseña");
         } else {
-            this.setVisible(false);
-            x.setVisible(true);
+            if (query) {
+                this.setVisible(false);
+                x.setVisible(true);
+            }else{
+                this.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos.");
+            }
+
         }
-        
+
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
