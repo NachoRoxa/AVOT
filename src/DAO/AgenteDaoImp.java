@@ -8,6 +8,7 @@ package DAO;
 import java.util.ArrayList;
 import CONEXION.Conexion;
 import DTO.Agente;
+import java.sql.CallableStatement;
 import java.sql.SQLException;
 import org.omg.CORBA.portable.UnknownException;
 import java.sql.Connection;
@@ -25,23 +26,25 @@ public class AgenteDaoImp implements BaseDao<Agente> {
 
     @Override
     public boolean insertar(Agente dto) {
+        CONEXION.Conexion obj = new Conexion();
         try {
-            CONEXION.Conexion obj = new Conexion();
             Connection con = obj.getConnection();
-            PreparedStatement ps = con.prepareStatement("insert into agentes values(?,?,?,?,?,?,?,?)");
-            ps.setString(1,dto.getRun());
-            ps.setString(2,dto.getUser());
-            ps.setString(3,dto.getPasswd());
-            ps.setString(4,dto.getNombre());
-            ps.setString(5,dto.getApellido_paterno());
-            ps.setString(6,dto.getApellido_materno());
-            ps.setInt(7,dto.getAdministrador());
-            ps.setInt(8,dto.getEstado());
-            ps.executeQuery();
-            System.out.println("Exito");
+            String sql;
+            sql = "{call PR_AGREGAR_AGENTE(?,?,?,?,?,?,?,?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setString(1,dto.getRun());
+            proc.setString(1,dto.getRun());
+            proc.setString(2,dto.getUser());
+            proc.setString(3,dto.getPasswd());
+            proc.setString(4,dto.getNombre());
+            proc.setString(5,dto.getApellido_paterno());
+            proc.setString(6,dto.getApellido_materno());
+            proc.setInt(7,dto.getAdministrador());
+            proc.setInt(8,dto.getEstado());
+            proc.executeQuery();
             return true;
-        } catch (SQLException ex) {
-            System.out.println("NOP");
+        } catch (Exception ex) {
+            System.out.println("Ocurrio un problema con el procedure PR_AGREGAR_AGENTE: " + ex.getMessage());
             return false;
         }
     }
@@ -53,7 +56,19 @@ public class AgenteDaoImp implements BaseDao<Agente> {
 
     @Override
     public boolean eliminar(Agente dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CONEXION.Conexion obj = new Conexion();
+        try {
+            Connection con = obj.getConnection();
+            String sql;
+            sql = "{call PR_BORRAR_AGENTE(?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setString(1, dto.getRun());
+            proc.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Ocurrio un problema con el procedure PR_BORRAR_AGENTE: " + ex.getMessage());
+            return false;
+        }
     }
 
     @Override
