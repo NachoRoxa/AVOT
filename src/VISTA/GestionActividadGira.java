@@ -149,11 +149,16 @@ public class GestionActividadGira extends javax.swing.JFrame {
         PanelTabla.setLayout(PanelTablaLayout);
         PanelTablaLayout.setHorizontalGroup(
             PanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelTablaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+                .addContainerGap())
         );
         PanelTablaLayout.setVerticalGroup(
             PanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(PanelTablaLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         PanelInsertar.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Actividad Gira"));
@@ -195,7 +200,7 @@ public class GestionActividadGira extends javax.swing.JFrame {
                     .addGroup(PanelInsertarLayout.createSequentialGroup()
                         .addGap(230, 230, 230)
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                             .addGroup(PanelInsertarLayout.createSequentialGroup()
                                 .addComponent(RBActivo)
                                 .addGap(18, 18, 18)
