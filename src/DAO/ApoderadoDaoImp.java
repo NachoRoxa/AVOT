@@ -27,7 +27,26 @@ public class ApoderadoDaoImp implements ApoderadoDao {
 
     @Override
     public boolean insertar(Apoderado dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CONEXION.Conexion obj = new Conexion();
+        try {
+            Connection con = obj.getConnection();
+            String sql;
+            sql = "{call PR_AGREGAR_APODERADO(?,?,?,?,?,?,?,?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setString(1,dto.getRun());
+            proc.setString(2,dto.getUser());
+            proc.setString(3,dto.getTelefono());
+            proc.setString(4,dto.getCorreo());
+            proc.setString(5,dto.getPasswd());
+            proc.setString(6,dto.getNombre());
+            proc.setString(7,dto.getApellido());
+            proc.setInt(8,dto.getRepresentante());
+            proc.executeQuery();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Ocurrio un problema con el procedure PR_AGREGAR_APODERADO: " + ex.getMessage());
+            return false;
+        }
     }
 
     @Override

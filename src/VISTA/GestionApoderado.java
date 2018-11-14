@@ -7,22 +7,18 @@ package VISTA;
 
 import CONEXION.Conexion;
 import DTO.Apoderado;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import DAO.ApoderadoDaoImp;
+import static DTO.ValidaRut.validarRut;
 import VISTA.CONTROLES.ButtonColumn;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.sql.Array;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import Atxy2k.CustomTextField.RestrictedTextField;
 
 /**
  *
@@ -42,6 +38,8 @@ public class GestionApoderado extends javax.swing.JFrame {
         listaApoderados = new ArrayList<>();
         this.setLocationRelativeTo(null);
         MostrarApoderados();
+        RestrictedTextField restricted = new RestrictedTextField(txtRun);
+        restricted.setLimit(12);
         Action borrar = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -114,18 +112,17 @@ public class GestionApoderado extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtApellidoP = new javax.swing.JTextField();
-        txtApellidoM = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         btnAgregarApoderado = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JTextField();
-        chbAdministrador = new javax.swing.JCheckBox();
-        RBActivo = new javax.swing.JRadioButton();
-        RBInactivo = new javax.swing.JRadioButton();
+        chbRepresentante = new javax.swing.JCheckBox();
+        jLabel9 = new javax.swing.JLabel();
+        txtCorreo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -206,8 +203,6 @@ public class GestionApoderado extends javax.swing.JFrame {
 
         jLabel5.setText("Nombre");
 
-        jLabel6.setText("Estado");
-
         btnAgregarApoderado.setText("Agregar");
         btnAgregarApoderado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,15 +210,13 @@ public class GestionApoderado extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Apellido Paterno");
+        jLabel1.setText("Apellido");
 
-        jLabel7.setText("Apellido Materno");
+        jLabel7.setText("Telefono");
 
-        jLabel8.setText("Administrador");
+        jLabel8.setText("Representante");
 
-        RBActivo.setText("Activo");
-
-        RBInactivo.setText("Inactivo");
+        jLabel9.setText("Correo");
 
         javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
         PanelInsertar.setLayout(PanelInsertarLayout);
@@ -247,68 +240,65 @@ public class GestionApoderado extends javax.swing.JFrame {
                                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtRun, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtApellidoM, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(PanelInsertarLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(PanelInsertarLayout.createSequentialGroup()
+                                    .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel3))
+                                    .addGap(28, 28, 28))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addGap(18, 18, 18)))
                             .addGroup(PanelInsertarLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(50, 50, 50)
-                                .addComponent(RBActivo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(RBInactivo))
-                            .addGroup(PanelInsertarLayout.createSequentialGroup()
-                                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(PanelInsertarLayout.createSequentialGroup()
-                                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel3))
-                                        .addGap(28, 28, 28))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(18, 18, 18)))
-                                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(chbAdministrador)))))
+                                .addComponent(jLabel9)
+                                .addGap(57, 57, 57)))
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtUsuario)
+                            .addComponent(txtContraseña)
+                            .addComponent(chbRepresentante)
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))
                     .addGroup(PanelInsertarLayout.createSequentialGroup()
                         .addComponent(btnAgregarApoderado)
                         .addGap(191, 191, 191)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         PanelInsertarLayout.setVerticalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
-                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(50, 50, 50)
-                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chbAdministrador)
-                    .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(jLabel1)
-                        .addComponent(txtApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(50, 50, 50)
-                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6)
-                    .addComponent(RBActivo)
-                    .addComponent(RBInactivo))
-                .addGap(44, 44, 44)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(50, 50, 50)
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(52, 52, 52)
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)))
+                    .addComponent(chbRepresentante, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(57, 57, 57)
                 .addComponent(btnAgregarApoderado)
                 .addGap(36, 36, 36))
         );
@@ -346,7 +336,53 @@ public class GestionApoderado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnAgregarApoderadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarApoderadoActionPerformed
-        
+        Apoderado apoderado = new Apoderado();
+        if(validarRut(txtRun.getText().trim())==false){
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "El rut ingresado no es valido o ya esta registrado");
+        }else if(txtNombre.getText().trim().isEmpty()){
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Nombre");
+        }else if(txtApellido.getText().trim().isEmpty()){
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Apellido");
+        }else if(txtTelefono.getText().trim().isEmpty()){
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Telefono");
+        }else if(txtUsuario.getText().trim().isEmpty()){
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Usuario");
+        }else if(txtContraseña.getText().trim().isEmpty()){
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Pasword");
+        }else if(txtCorreo.getText().trim().isEmpty()){
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Correo");
+        }else{
+            
+            apoderado.setRun(txtRun.getText());
+            apoderado.setUser(txtUsuario.getText());
+            apoderado.setTelefono(txtTelefono.getText());
+            apoderado.setCorreo(txtCorreo.getText());
+            apoderado.setPasswd(txtContraseña.getText());
+            apoderado.setNombre(txtNombre.getText());
+            apoderado.setApellido(txtApellido.getText());
+            if(chbRepresentante.isSelected()){
+                apoderado.setRepresentante(1);
+            }else{
+                apoderado.setRepresentante(0);
+            }
+                new ApoderadoDaoImp().insertar(apoderado);
+                txtRun.setText(null);
+                txtUsuario.setText(null);
+                txtContraseña.setText(null);
+                txtNombre.setText(null);
+                txtApellido.setText(null);
+                txtTelefono.setText(null);
+                chbRepresentante.setSelected(false);
+                tablaApoderados.clearSelection();
+                MostrarApoderados();
+        }
     }//GEN-LAST:event_btnAgregarApoderadoActionPerformed
 
 
@@ -354,27 +390,26 @@ public class GestionApoderado extends javax.swing.JFrame {
     private javax.swing.JPanel PanelInsertar;
     private javax.swing.JPanel PanelTabla;
     private javax.swing.JPanel PanelTitulo;
-    private javax.swing.JRadioButton RBActivo;
-    private javax.swing.JRadioButton RBInactivo;
     private javax.swing.JButton btnAgregarApoderado;
     private javax.swing.JButton btnInicio;
-    private javax.swing.JCheckBox chbAdministrador;
+    private javax.swing.JCheckBox chbRepresentante;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAVOT;
     private javax.swing.JTable tablaApoderados;
-    private javax.swing.JTextField txtApellidoM;
-    private javax.swing.JTextField txtApellidoP;
+    private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtContraseña;
+    private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRun;
+    private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
