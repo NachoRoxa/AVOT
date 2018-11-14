@@ -336,7 +336,6 @@ public class GestionApoderado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnAgregarApoderadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarApoderadoActionPerformed
-        Apoderado apoderado = new Apoderado();
         if(validarRut(txtRun.getText().trim())==false){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "El rut ingresado no es valido o ya esta registrado");
@@ -359,7 +358,7 @@ public class GestionApoderado extends javax.swing.JFrame {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Correo");
         }else{
-            
+            Apoderado apoderado = new Apoderado();
             apoderado.setRun(txtRun.getText());
             apoderado.setUser(txtUsuario.getText());
             apoderado.setTelefono(txtTelefono.getText());
@@ -379,6 +378,7 @@ public class GestionApoderado extends javax.swing.JFrame {
                 txtNombre.setText(null);
                 txtApellido.setText(null);
                 txtTelefono.setText(null);
+                txtCorreo.setText(null);
                 chbRepresentante.setSelected(false);
                 tablaApoderados.clearSelection();
                 MostrarApoderados();
