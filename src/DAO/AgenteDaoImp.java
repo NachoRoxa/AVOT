@@ -132,20 +132,25 @@ public class AgenteDaoImp implements BaseDao<Agente> {
         ArrayList<Agente> lista = new ArrayList<>();
         try {
             Connection con = obj.getConnection();
+//            String sql = "{call PR_LISTAR_AGENTES}";
+//            CallableStatement proc = con.prepareCall(sql);
+//            ResultSet re = proc.executeQuery(sql);
             Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("select run,nombre,apellido_paterno,apellido_materno,usuario,administrador,estado from agentes");
+            ResultSet re = st.executeQuery("select run,usuario,passwd,nombre,ap"
+                    + "ellido_paterno,apellido_materno,administrador,estado fro"
+                    + "m agentes");
             while (re.next()) {
                 Agente agente = new Agente();
                 agente.setRun(re.getString(1));
-                agente.setNombre(re.getString(2));
-                agente.setApellido_paterno(re.getString(3));
-                agente.setApellido_materno(re.getString(4));
-                agente.setUser(re.getString(5));
-                agente.setAdministrador(re.getInt(6));
-                agente.setEstado(re.getInt(7));
+                agente.setUser(re.getString(2));
+                agente.setPasswd(re.getString(3));
+                agente.setNombre(re.getString(4));
+                agente.setApellido_paterno(re.getString(5));
+                agente.setApellido_materno(re.getString(6));
+                agente.setAdministrador(re.getInt(7));
+                agente.setEstado(re.getInt(8));
                 lista.add(agente);
             }
-
         } catch (Exception e) {
             return lista;
         }

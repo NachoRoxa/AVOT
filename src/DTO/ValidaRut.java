@@ -32,4 +32,26 @@ public class ValidaRut {
         return validacion;
     }
     
+    public static String formatearRut(String rut){
+        int cont = 0;
+        String format;
+        if (rut.length() == 0){
+            return "";
+        }else{
+            rut = rut.replace(".", "");
+            rut = rut.replace("-", "");
+            format = "-" + rut.substring(rut.length() - 1);
+            for (int i = rut.length() - 2; i >= 0; i--){
+                format = rut.substring(i, 1) + format;
+                cont++;
+                if (cont == 3 && i != 0){
+                    format = "." + format;
+                    cont = 0;
+                }
+            }
+            return format;
+        }
+    }
+    
+    
 }

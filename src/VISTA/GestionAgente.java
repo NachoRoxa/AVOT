@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Atxy2k.CustomTextField.RestrictedTextField;
+import static DTO.ValidaRut.formatearRut;
 import java.util.Arrays;
 
 /**
@@ -325,82 +326,57 @@ public class GestionAgente extends javax.swing.JFrame {
     private void btnAgregarAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAgenteActionPerformed
         //Crea un nuevo objetoAgente
         Agente agente = new Agente();
-        int valida = 0;
-        //ValidaRut y setea el rut al nuevo agente
-        if(validarRut(txtRun.getText())==true){
-            agente.setRun(txtRun.getText());
-            valida++;
-        }else{
+        if(validarRut(txtRun.getText())==false){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "El rut ingresado no es valido o ya esta registrado");
-        }
-        if(txtNombre.getText().isEmpty()){
+        }else if(txtNombre.getText().isEmpty()){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Nombre");
-        }else{
-            agente.setNombre(txtNombre.getText());
-            valida++;
-        }
-        if(txtApellidoP.getText().isEmpty()){
+        }else if(txtApellidoP.getText().isEmpty()){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Apellido Paterno");
-        }else{
-            agente.setApellido_paterno(txtApellidoP.getText());
-            valida++;
-        }
-        if(txtApellidoM.getText().isEmpty()){
+        }else if(txtApellidoM.getText().isEmpty()){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Apellido Materno");
-        }else{
-            agente.setApellido_materno(txtApellidoM.getText());
-            valida++;
-        }
-        if(txtUsuario.getText().isEmpty()){
+        }else if(txtUsuario.getText().isEmpty()){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Usuario");
-        }else{
-            agente.setUser(txtUsuario.getText());
-            valida++;
-        }
-        if(txtContraseña.getText().isEmpty()){
+        }else if(txtContraseña.getText().isEmpty()){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Pasword");
         }else{
+            
+            agente.setRun(txtRun.getText());
+            agente.setNombre(txtNombre.getText());
+            agente.setApellido_paterno(txtApellidoP.getText());
+            agente.setApellido_materno(txtApellidoM.getText());
+            agente.setUser(txtUsuario.getText());
             agente.setPasswd(String.valueOf(txtContraseña.getText()));
-            valida++;
-        }
-        if(chbAdministrador.isSelected()){
-            agente.setAdministrador(1);
-            valida++;
-        }else{
-            agente.setAdministrador(0);
-            valida++;
-        }
-        if(RBActivo.isSelected()){
-            agente.setEstado(1);
-            valida++;
-        }else{
-            agente.setEstado(0);
-            valida++;
-        }
-        if(valida == 8){
-            //Agrega un Agente
-            new AgenteDaoImp().insertar(agente);
-            //Limpia los datos de los txtBox
-            txtRun.setText(null);
-            txtUsuario.setText(null);
-            txtContraseña.setText(null);
-            txtNombre.setText(null);
-            txtApellidoP.setText(null);
-            txtApellidoM.setText(null);
-            chbAdministrador.setSelected(false);
-            BGrupEstado.clearSelection();
-            //Limpimpia la tabla
-            tablaAgentes.clearSelection();
-            //Setea nuevamente la tabla
-            MostrarAgentes();
-        }else{
-            valida = 0;
+            if(chbAdministrador.isSelected()){
+                agente.setAdministrador(1);
+            }else{
+                agente.setAdministrador(0);
+            }
+            if(RBActivo.isSelected()){
+                agente.setEstado(1);
+            }else{
+                agente.setEstado(0);
+            }
+                //Agrega un Agente
+                new AgenteDaoImp().insertar(agente);
+                //Limpia los datos de los txtBox
+                txtRun.setText(null);
+                txtUsuario.setText(null);
+                txtContraseña.setText(null);
+                txtNombre.setText(null);
+                txtApellidoP.setText(null);
+                txtApellidoM.setText(null);
+                chbAdministrador.setSelected(false);
+                BGrupEstado.clearSelection();
+                //Limpimpia la tabla
+                tablaAgentes.clearSelection();
+                //Setea nuevamente la tabla
+                MostrarAgentes();
         }
     }//GEN-LAST:event_btnAgregarAgenteActionPerformed
 
