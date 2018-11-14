@@ -351,7 +351,7 @@ public class GestionAgente extends javax.swing.JFrame {
             agente.setApellido_paterno(txtApellidoP.getText());
             agente.setApellido_materno(txtApellidoM.getText());
             agente.setUser(txtUsuario.getText());
-            agente.setPasswd(String.valueOf(txtContraseña.getText()));
+            agente.setPasswd(txtContraseña.getText());
             if(chbAdministrador.isSelected()){
                 agente.setAdministrador(1);
             }else{

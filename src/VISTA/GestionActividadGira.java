@@ -10,7 +10,9 @@ import CONEXION.Conexion;
 import DAO.ActividadGiraDaoImp;
 import DTO.ActividadGira;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Atxy2k.CustomTextField.RestrictedTextField;
 
 /**
  *
@@ -26,6 +28,8 @@ public class GestionActividadGira extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarActividadGira();
+        RestrictedTextField restricted = new RestrictedTextField(txtCosto);
+        restricted.setOnlyNums(rootPaneCheckingEnabled);
     }
     
     public void MostrarActividadGira(){
@@ -75,8 +79,6 @@ public class GestionActividadGira extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaActividadesGira = new javax.swing.JTable();
         PanelInsertar = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        txtIdAcitvidad = new javax.swing.JTextField();
         txtActividad = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -155,8 +157,6 @@ public class GestionActividadGira extends javax.swing.JFrame {
 
         PanelInsertar.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Actividad Gira"));
 
-        jLabel2.setText("Id Actividad");
-
         jLabel3.setText("Tipo Actividad");
 
         jLabel4.setText("Costo");
@@ -166,6 +166,11 @@ public class GestionActividadGira extends javax.swing.JFrame {
         jLabel6.setText("Estado");
 
         btnAgregarActividad.setText("Agregar");
+        btnAgregarActividad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActividadActionPerformed(evt);
+            }
+        });
 
         BGrupEstado.add(RBActivo);
         RBActivo.setText("Activo");
@@ -178,27 +183,16 @@ public class GestionActividadGira extends javax.swing.JFrame {
         PanelInsertarLayout.setHorizontalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(PanelInsertarLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel5)
-                        .addGap(104, 104, 104)
-                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelInsertarLayout.createSequentialGroup()
-                        .addContainerGap(59, Short.MAX_VALUE)
-                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(PanelInsertarLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(104, 104, 104)
-                                .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelInsertarLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(104, 104, 104)
-                                .addComponent(txtActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelInsertarLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(104, 104, 104)
-                                .addComponent(txtIdAcitvidad, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addGap(104, 104, 104)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56))
             .addGroup(PanelInsertarLayout.createSequentialGroup()
                 .addGap(93, 93, 93)
@@ -218,23 +212,19 @@ public class GestionActividadGira extends javax.swing.JFrame {
         PanelInsertarLayout.setVerticalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelInsertarLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtIdAcitvidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addGap(39, 39, 39)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGap(41, 41, 41)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(49, 49, 49)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addGap(53, 53, 53)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(RBActivo)
@@ -276,6 +266,38 @@ public class GestionActividadGira extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
+    private void btnAgregarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActividadActionPerformed
+        ActividadGira actividad = new ActividadGira();
+        if(txtActividad.getText().isEmpty()){
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese una Actividad");
+        }else if(txtCosto.getText().isEmpty()){
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Costo");
+        }else if(txtDescripcion.getText().isEmpty()){
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese una Descripcion");
+        }else{
+            actividad.setTipo_actividad(txtActividad.getText());
+            actividad.setCosto(Integer.valueOf(txtCosto.getText()));
+            actividad.setDescripcion(txtDescripcion.getText());
+            if(RBActivo.isSelected()){
+                actividad.setEstado(1);
+            }else{
+                actividad.setEstado(0);
+            }
+                new ActividadGiraDaoImp().insertar(actividad);
+                txtActividad.setText(null);
+                txtCosto.setText(null);
+                txtDescripcion.setText(null);
+                BGrupEstado.clearSelection();
+                //Limpimpia la tabla
+                tablaActividadesGira.clearSelection();
+                //Setea nuevamente la tabla
+                MostrarActividadGira();
+        }
+    }//GEN-LAST:event_btnAgregarActividadActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup BGrupEstado;
     private javax.swing.JPanel PanelInsertar;
@@ -285,7 +307,6 @@ public class GestionActividadGira extends javax.swing.JFrame {
     private javax.swing.JRadioButton RBInactivo;
     private javax.swing.JButton btnAgregarActividad;
     private javax.swing.JButton btnInicio;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -296,7 +317,6 @@ public class GestionActividadGira extends javax.swing.JFrame {
     private javax.swing.JTextField txtActividad;
     private javax.swing.JTextField txtCosto;
     private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtIdAcitvidad;
     // End of variables declaration//GEN-END:variables
 
 }

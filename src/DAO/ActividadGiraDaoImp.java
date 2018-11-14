@@ -7,6 +7,7 @@ package DAO;
 
 import CONEXION.Conexion;
 import DTO.ActividadGira;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -20,7 +21,22 @@ public class ActividadGiraDaoImp implements BaseDao<ActividadGira> {
     
     @Override
     public boolean insertar(ActividadGira dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CONEXION.Conexion obj = new Conexion();
+        try {
+            Connection con = obj.getConnection();
+            String sql;
+            sql = "{call PR_AGREGAR_ACTIVIDADES_GIRA(?,?,?,?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setString(1,dto.getTipo_actividad());
+            proc.setInt(2,dto.getCosto());
+            proc.setString(3,dto.getDescripcion());
+            proc.setInt(4,dto.getEstado());
+            proc.executeQuery();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Ocurrio un problema con el procedure PR_AGREGAR_ACTIVIDADES_GIRA: " + ex.getMessage());
+            return false;
+        }
     }
 
     @Override

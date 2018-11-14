@@ -33,7 +33,6 @@ public class AgenteDaoImp implements BaseDao<Agente> {
             sql = "{call PR_AGREGAR_AGENTE(?,?,?,?,?,?,?,?)}";
             CallableStatement proc = con.prepareCall(sql);
             proc.setString(1,dto.getRun());
-            proc.setString(1,dto.getRun());
             proc.setString(2,dto.getUser());
             proc.setString(3,dto.getPasswd());
             proc.setString(4,dto.getNombre());
