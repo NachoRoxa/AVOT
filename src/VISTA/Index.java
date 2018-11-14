@@ -53,9 +53,6 @@ public class Index extends javax.swing.JFrame {
         btnEstadias = new javax.swing.JButton();
         btnActividadesGira = new javax.swing.JButton();
         btnViajes = new javax.swing.JButton();
-        BarraMenu = new javax.swing.JMenuBar();
-        MenuInicio = new javax.swing.JMenu();
-        MenuAgentes = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("A.V.O.T. Local");
@@ -116,6 +113,7 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
+        btnAseguradora.setBackground(new java.awt.Color(0, 204, 255));
         btnAseguradora.setText("Aseguradoras");
         btnAseguradora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,21 +126,21 @@ public class Index extends javax.swing.JFrame {
         PanelAgenciaLayout.setHorizontalGroup(
             PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAgenciaLayout.createSequentialGroup()
-                .addGap(0, 88, Short.MAX_VALUE)
+                .addGap(89, 89, 89)
                 .addGroup(PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAgentes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEmpresasTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgentes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(84, 84, 84))
+                    .addComponent(btnEmpresasTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(89, 89, 89))
         );
         PanelAgenciaLayout.setVerticalGroup(
             PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelAgenciaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnAgentes)
-                .addGap(59, 59, 59)
+                .addGap(50, 50, 50)
                 .addComponent(btnEmpresasTransporte)
-                .addGap(66, 66, 66)
+                .addGap(50, 50, 50)
                 .addComponent(btnAseguradora)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -186,26 +184,26 @@ public class Index extends javax.swing.JFrame {
         PanelColegioLayout.setHorizontalGroup(
             PanelColegioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelColegioLayout.createSequentialGroup()
-                .addContainerGap(100, Short.MAX_VALUE)
+                .addGap(89, 89, 89)
                 .addGroup(PanelColegioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnColegios, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnApoderados, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(74, 74, 74))
+                .addGap(89, 89, 89))
         );
         PanelColegioLayout.setVerticalGroup(
             PanelColegioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelColegioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnApoderados)
-                .addGap(58, 58, 58)
+                .addGap(50, 50, 50)
                 .addComponent(btnCursos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(btnAlumnos)
                 .addGap(60, 60, 60)
+                .addComponent(btnAlumnos)
+                .addGap(50, 50, 50)
                 .addComponent(btnColegios)
-                .addGap(91, 91, 91))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         PanelTours.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion Tours"));
@@ -255,38 +253,30 @@ public class Index extends javax.swing.JFrame {
         PanelToursLayout.setHorizontalGroup(
             PanelToursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelToursLayout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
-                .addGroup(PanelToursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnTours, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEstadias, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSeguro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActividadesGira, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(79, 79, 79))
+                .addContainerGap(89, Short.MAX_VALUE)
+                .addGroup(PanelToursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnTours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEstadias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnActividadesGira, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(btnViajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSeguro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(89, 89, 89))
         );
         PanelToursLayout.setVerticalGroup(
             PanelToursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelToursLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+            .addGroup(PanelToursLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(btnTours)
-                .addGap(54, 54, 54)
+                .addGap(50, 50, 50)
                 .addComponent(btnEstadias)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
                 .addComponent(btnSeguro)
-                .addGap(63, 63, 63)
+                .addGap(50, 50, 50)
                 .addComponent(btnActividadesGira)
-                .addGap(52, 52, 52)
+                .addGap(50, 50, 50)
                 .addComponent(btnViajes)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        MenuInicio.setText("Inicio");
-        BarraMenu.add(MenuInicio);
-
-        MenuAgentes.setText("Agentes");
-        BarraMenu.add(MenuAgentes);
-
-        setJMenuBar(BarraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -309,8 +299,8 @@ public class Index extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(PanelTours, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PanelAgencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PanelColegio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(PanelColegio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PanelAgencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -395,9 +385,6 @@ public class Index extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar BarraMenu;
-    private javax.swing.JMenu MenuAgentes;
-    private javax.swing.JMenu MenuInicio;
     private javax.swing.JPanel PanelAgencia;
     private javax.swing.JPanel PanelColegio;
     private javax.swing.JPanel PanelTitulo;

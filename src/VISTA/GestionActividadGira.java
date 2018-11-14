@@ -236,7 +236,7 @@ public class GestionActividadGira extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(RBActivo)
                     .addComponent(RBInactivo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(btnAgregarActividad)
                 .addGap(25, 25, 25))
         );
@@ -275,13 +275,13 @@ public class GestionActividadGira extends javax.swing.JFrame {
 
     private void btnAgregarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActividadActionPerformed
         ActividadGira actividad = new ActividadGira();
-        if(txtActividad.getText().isEmpty()){
+        if(txtActividad.getText().trim().isEmpty()){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese una Actividad");
-        }else if(txtCosto.getText().isEmpty()){
+        }else if(txtCosto.getText().trim().isEmpty()){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Costo");
-        }else if(txtDescripcion.getText().isEmpty()){
+        }else if(txtDescripcion.getText().trim().isEmpty()){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese una Descripcion");
         }else{

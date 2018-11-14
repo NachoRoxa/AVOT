@@ -7,6 +7,7 @@ package DAO;
 
 import CONEXION.Conexion;
 import DTO.Estadia;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -20,7 +21,23 @@ public class EstadiaDaoImp implements BaseDao<Estadia> {
 
     @Override
     public boolean insertar(Estadia dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CONEXION.Conexion obj = new Conexion();
+        try {
+            Connection con = obj.getConnection();
+            String sql;
+            sql = "{call PR_AGREGAR_ESTADIA(?,?,?,?,?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setString(1,dto.getNombre());
+            proc.setInt(2,dto.getCosto_por_dia());
+            proc.setString(3,dto.getDireccion());
+            proc.setInt(4,dto.getEstado());
+            proc.setInt(5,dto.getCapacidad());
+            proc.executeQuery();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Ocurrio un problema con el procedure PR_AGREGAR_ESTADIA: " + ex.getMessage());
+            return false;
+        }
     }
 
     @Override
@@ -51,7 +68,7 @@ public class EstadiaDaoImp implements BaseDao<Estadia> {
             Connection con = obj.getConnection();
             Statement st = con.createStatement();
             ResultSet re = st.executeQuery("select id_estadia,nombre,direccion,"
-                    + "costo_por_dia,estado,capatidad from estadias");
+                    + "costo_por_dia,estado,capacidad from estadias");
             while (re.next()) {
                 Estadia estadia = new Estadia();
                 estadia.setId_estadia(re.getInt(1));

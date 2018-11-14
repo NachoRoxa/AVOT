@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Atxy2k.CustomTextField.RestrictedTextField;
-import static DTO.ValidaRut.formatearRut;
-import java.util.Arrays;
 
 /**
  *
@@ -326,22 +324,22 @@ public class GestionAgente extends javax.swing.JFrame {
     private void btnAgregarAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAgenteActionPerformed
         //Crea un nuevo objetoAgente
         Agente agente = new Agente();
-        if(validarRut(txtRun.getText())==false){
+        if(validarRut(txtRun.getText().trim())==false){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "El rut ingresado no es valido o ya esta registrado");
-        }else if(txtNombre.getText().isEmpty()){
+        }else if(txtNombre.getText().trim().isEmpty()){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Nombre");
-        }else if(txtApellidoP.getText().isEmpty()){
+        }else if(txtApellidoP.getText().trim().isEmpty()){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Apellido Paterno");
-        }else if(txtApellidoM.getText().isEmpty()){
+        }else if(txtApellidoM.getText().trim().isEmpty()){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Apellido Materno");
-        }else if(txtUsuario.getText().isEmpty()){
+        }else if(txtUsuario.getText().trim().isEmpty()){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Usuario");
-        }else if(txtContraseña.getText().isEmpty()){
+        }else if(txtContraseña.getText().trim().isEmpty()){
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Pasword");
         }else{
