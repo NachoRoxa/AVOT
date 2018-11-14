@@ -7,6 +7,7 @@ package DAO;
 
 import CONEXION.Conexion;
 import DTO.Aseguradora;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -20,7 +21,21 @@ public class AseguradoraDaoImp implements BaseDao<Aseguradora>{
 
     @Override
     public boolean insertar(Aseguradora dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion con = new Conexion();
+        try{
+            Connection co = con.getConnection();
+            String query = "{call PR_AGREGAR_ASEGURADORA(?,?,?}";
+            CallableStatement proc = co.prepareCall(query);
+            proc.setString(1, dto.getRut());
+            proc.setString(2, dto.getNombre_aseguradora());
+            proc.setString(3, dto.getDireccion());
+            proc.executeQuery();
+            return true;                    
+        }
+        catch(Exception ex){
+            System.out.println("Ocurrio un problema con el procedimiento.");
+            return false;
+        }
     }
 
     @Override
