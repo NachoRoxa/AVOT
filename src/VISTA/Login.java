@@ -112,13 +112,13 @@ public class Login extends javax.swing.JFrame {
         Index x = new Index();
         boolean query = new AgenteDaoImp().Query(user, pass);
 
-        if (user.isEmpty()) {
+        /*if (user.isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese Usuario");
         } else if (pass.isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese contraseña");
-        } else {
+        } else {*/
             if (query) {
                 this.setVisible(false);
                 x.setVisible(true);
@@ -127,7 +127,7 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos.");
             }
 
-        }
+        //}
 
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
