@@ -203,7 +203,7 @@ public class Index extends javax.swing.JFrame {
                 .addComponent(btnAlumnos)
                 .addGap(50, 50, 50)
                 .addComponent(btnColegios)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         PanelTours.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion Tours"));
