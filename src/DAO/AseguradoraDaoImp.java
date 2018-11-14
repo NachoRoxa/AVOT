@@ -24,13 +24,13 @@ public class AseguradoraDaoImp implements BaseDao<Aseguradora>{
         Conexion con = new Conexion();
         try{
             Connection co = con.getConnection();
-            String query = "{call PR_AGREGAR_ASEGURADORA(?,?,?}";
+            String query = "{call PR_AGREGAR_ASEGURADORA(?,?,?)}";
             CallableStatement proc = co.prepareCall(query);
             proc.setString(1, dto.getRut());
             proc.setString(2, dto.getNombre_aseguradora());
             proc.setString(3, dto.getDireccion());
             proc.executeQuery();
-            return true;                    
+            return true;
         }
         catch(Exception ex){
             System.out.println("Ocurrio un problema con el procedimiento.");
