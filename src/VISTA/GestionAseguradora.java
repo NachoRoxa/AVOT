@@ -9,6 +9,7 @@ import CONEXION.Conexion;
 import DAO.AseguradoraDaoImp;
 import DTO.Aseguradora;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,9 +17,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Seba
  */
 public class GestionAseguradora extends javax.swing.JFrame {
+
     ArrayList<Aseguradora> listaAseguradoras;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
+
     /**
      * Creates new form GestionAseguradora
      */
@@ -27,6 +30,7 @@ public class GestionAseguradora extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         MostrarAseguradoras();
     }
+
     public void MostrarAseguradoras() {
         listaAseguradoras = new AseguradoraDaoImp().listar();
         modelo = new DefaultTableModel();
@@ -43,7 +47,7 @@ public class GestionAseguradora extends javax.swing.JFrame {
                     "ELIMINAR"}
                 );
             }
-             tablaAseguradoras.setModel(modelo);
+            tablaAseguradoras.setModel(modelo);
         }
     }
 
@@ -64,11 +68,11 @@ public class GestionAseguradora extends javax.swing.JFrame {
         tablaAseguradoras = new javax.swing.JTable();
         PanelInsertar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtRun = new javax.swing.JTextField();
+        txtRut = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
-        btnAgregarAlumno = new javax.swing.JButton();
+        btnAgregarAseguradora = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -141,10 +145,10 @@ public class GestionAseguradora extends javax.swing.JFrame {
 
         jLabel5.setText("Nombre");
 
-        btnAgregarAlumno.setText("Agregar");
-        btnAgregarAlumno.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarAseguradora.setText("Agregar");
+        btnAgregarAseguradora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarAlumnoActionPerformed(evt);
+                btnAgregarAseguradoraActionPerformed(evt);
             }
         });
 
@@ -158,7 +162,7 @@ public class GestionAseguradora extends javax.swing.JFrame {
                 .addContainerGap(164, Short.MAX_VALUE)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
-                        .addComponent(btnAgregarAlumno)
+                        .addComponent(btnAgregarAseguradora)
                         .addGap(209, 209, 209))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -169,7 +173,7 @@ public class GestionAseguradora extends javax.swing.JFrame {
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(132, 132, 132))))
         );
         PanelInsertarLayout.setVerticalGroup(
@@ -178,7 +182,7 @@ public class GestionAseguradora extends javax.swing.JFrame {
                 .addGap(58, 58, 58)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -188,7 +192,7 @@ public class GestionAseguradora extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
-                .addComponent(btnAgregarAlumno)
+                .addComponent(btnAgregarAseguradora)
                 .addGap(26, 26, 26))
         );
 
@@ -224,22 +228,31 @@ public class GestionAseguradora extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
-    private void btnAgregarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlumnoActionPerformed
+    private void btnAgregarAseguradoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAseguradoraActionPerformed
         Aseguradora as = new Aseguradora();
-        as.setRut(txtRun.getText());
-        as.setNombre_aseguradora(txtNombre.getText());
-        as.setDireccion(txtDireccion.getText());
-        new AseguradoraDaoImp().insertar(as);
-        tablaAseguradoras.clearSelection();
-        MostrarAseguradoras();
-    }//GEN-LAST:event_btnAgregarAlumnoActionPerformed
+
+        if (txtRut.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese el RUT Valido");
+        } else if (txtNombre.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese el Nombre de la Aseguradora");
+        } else if (txtDireccion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese la direccion de la Aseguradora");
+        } else {
+            as.setRut(txtRut.getText());
+            as.setNombre_aseguradora(txtNombre.getText());
+            as.setDireccion(txtDireccion.getText());
+            new AseguradoraDaoImp().insertar(as);
+            tablaAseguradoras.clearSelection();
+            MostrarAseguradoras();
+        }
+    }//GEN-LAST:event_btnAgregarAseguradoraActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelInsertar;
     private javax.swing.JPanel PanelTabla;
     private javax.swing.JPanel PanelTitulo;
-    private javax.swing.JButton btnAgregarAlumno;
+    private javax.swing.JButton btnAgregarAseguradora;
     private javax.swing.JButton btnInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -249,6 +262,6 @@ public class GestionAseguradora extends javax.swing.JFrame {
     private javax.swing.JTable tablaAseguradoras;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtRun;
+    private javax.swing.JTextField txtRut;
     // End of variables declaration//GEN-END:variables
 }
