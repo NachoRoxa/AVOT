@@ -5,6 +5,7 @@
  */
 package VISTA;
 
+import Atxy2k.CustomTextField.RestrictedTextField;
 import CONEXION.Conexion;
 import DAO.EmpresaTransporteDaoImp;
 import DTO.EmpresaTransporte;
@@ -28,6 +29,8 @@ public class GestionEmpresaTransporte extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarEmpresasTransporte();
+        RestrictedTextField restricted1 = new RestrictedTextField(txtNombreEmpresa);
+        restricted1.setOnlyText(true);
     }
     public void MostrarEmpresasTransporte() {
         listaEmpresasTransporte = new EmpresaTransporteDaoImp().listar();

@@ -32,6 +32,12 @@ public class GestionAgente extends javax.swing.JFrame {
         MostrarAgentes();
         RestrictedTextField restricted = new RestrictedTextField(txtRun);
         restricted.setLimit(12);
+        RestrictedTextField restricted1 = new RestrictedTextField(txtNombre);
+        restricted1.setOnlyText(true);
+        RestrictedTextField restricted2 = new RestrictedTextField(txtApellidoP);
+        restricted2.setOnlyText(true);
+        RestrictedTextField restricted3 = new RestrictedTextField(txtApellidoM);
+        restricted3.setOnlyText(true);
     }
     
     public void MostrarAgentes() {
