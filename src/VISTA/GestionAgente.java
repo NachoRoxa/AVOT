@@ -299,7 +299,7 @@ public class GestionAgente extends javax.swing.JFrame {
                     .addComponent(RBInactivo))
                 .addGap(18, 18, 18)
                 .addComponent(btnAgregarAgente)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
