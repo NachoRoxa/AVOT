@@ -268,17 +268,13 @@ public class GestionColegio extends javax.swing.JFrame {
         if(validarRut(txtRun.getText().trim())==false){
             
             JOptionPane.showMessageDialog(null, "El rut ingresado no es valido o ya esta registrado");
-        }else if(txtRun.getText().trim().isEmpty()){
-            
+        }else if(txtRun.getText().trim().isEmpty()){            
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un RUT");
-        }else if(txtNombre.getText().trim().isEmpty()){
-            
+        }else if(txtNombre.getText().trim().isEmpty()){            
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Nombre");
-        }else if(txtDireccion.getText().trim().isEmpty()){
-            
+        }else if(txtDireccion.getText().trim().isEmpty()){            
             JOptionPane.showMessageDialog(null, "Por favor, ingrese una Direccion");
-        }else if(txtTelefono.getText().trim().isEmpty()){
-            
+        }else if(txtTelefono.getText().trim().isEmpty()){            
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Telefono");
         }else{
             Colegio col = new Colegio();
