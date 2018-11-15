@@ -5,9 +5,11 @@
  */
 package VISTA;
 
+import Atxy2k.CustomTextField.RestrictedTextField;
 import CONEXION.Conexion;
 import DAO.AseguradoraDaoImp;
 import DTO.Aseguradora;
+import static DTO.ValidaRut.validarRut;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -29,6 +31,10 @@ public class GestionAseguradora extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarAseguradoras();
+        RestrictedTextField rtf = new RestrictedTextField(txtRut);
+        
+        rtf.setLimit(12);
+        
     }
 
     public void MostrarAseguradoras() {
@@ -226,8 +232,12 @@ public class GestionAseguradora extends javax.swing.JFrame {
 
     private void btnAgregarAseguradoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAseguradoraActionPerformed
         Aseguradora as = new Aseguradora();
-
-        if (txtRut.getText().trim().isEmpty()) {
+        
+        
+        if(validarRut(txtRut.getText().trim())==false)
+        {
+            JOptionPane.showMessageDialog(null, "Ingrese un RUT valido");
+        }else if (txtRut.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese el RUT Valido");
         } else if (txtNombre.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese el Nombre de la Aseguradora");

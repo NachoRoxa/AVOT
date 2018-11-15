@@ -5,6 +5,7 @@
  */
 package VISTA;
 
+import Atxy2k.CustomTextField.RestrictedTextField;
 import CONEXION.Conexion;
 import DAO.ColegioDaoImp;
 import DTO.Colegio;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import static DTO.ValidaRut.validarRut;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,6 +36,11 @@ public class GestionColegio extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarColegios();
+        RestrictedTextField rtfNumber = new RestrictedTextField(txtTelefono);
+        RestrictedTextField rtfLetras = new RestrictedTextField(txtNombre);
+        rtfNumber.setOnlyNums(rootPaneCheckingEnabled);
+        
+        rtfLetras.setOnlyText(rootPaneCheckingEnabled);
     }
     
     public void MostrarColegios(){
@@ -68,22 +76,32 @@ public class GestionColegio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        PanelTitulo = new javax.swing.JPanel();
+        lblAVOT = new javax.swing.JLabel();
         btnInicio = new javax.swing.JButton();
-        lblTitulo = new javax.swing.JLabel();
+        PanelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaColegios = new javax.swing.JTable();
+        PanelInsertar = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtRun = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
+        btnAgregarColegio = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(30, 160, 250));
+        PanelTitulo.setBackground(new java.awt.Color(30, 160, 250));
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("A.V.O.T.");
+        lblAVOT.setBackground(new java.awt.Color(255, 255, 255));
+        lblAVOT.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblAVOT.setForeground(new java.awt.Color(255, 255, 255));
+        lblAVOT.setText("A.V.O.T.");
 
         btnInicio.setText("Inicio");
         btnInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -92,34 +110,28 @@ public class GestionColegio extends javax.swing.JFrame {
             }
         });
 
-        lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("Lista Colegio");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelTituloLayout = new javax.swing.GroupLayout(PanelTitulo);
+        PanelTitulo.setLayout(PanelTituloLayout);
+        PanelTituloLayout.setHorizontalGroup(
+            PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(73, 73, 73)
-                .addComponent(lblTitulo)
+                .addComponent(lblAVOT)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnInicio)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        PanelTituloLayout.setVerticalGroup(
+            PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelTituloLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnInicio)
-                        .addComponent(lblTitulo))
-                    .addComponent(jLabel1))
+                .addGroup(PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAVOT)
+                    .addComponent(btnInicio))
                 .addContainerGap())
         );
+
+        PanelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista  Colegio"));
 
         tablaColegios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -134,23 +146,113 @@ public class GestionColegio extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaColegios);
 
+        javax.swing.GroupLayout PanelTablaLayout = new javax.swing.GroupLayout(PanelTabla);
+        PanelTabla.setLayout(PanelTablaLayout);
+        PanelTablaLayout.setHorizontalGroup(
+            PanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelTablaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        PanelTablaLayout.setVerticalGroup(
+            PanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelTablaLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        PanelInsertar.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Colegio"));
+
+        jLabel2.setText("RUT");
+
+        jLabel3.setText("Direccion");
+
+        jLabel5.setText("Nombre");
+
+        btnAgregarColegio.setText("Agregar");
+        btnAgregarColegio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarColegioActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Telefono");
+
+        javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
+        PanelInsertar.setLayout(PanelInsertarLayout);
+        PanelInsertarLayout.setHorizontalGroup(
+            PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelInsertarLayout.createSequentialGroup()
+                        .addGap(213, 213, 213)
+                        .addComponent(btnAgregarColegio))
+                    .addGroup(PanelInsertarLayout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(PanelInsertarLayout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel3))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelInsertarLayout.createSequentialGroup()
+                                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5))
+                                .addGap(47, 47, 47)
+                                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtRun, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(169, Short.MAX_VALUE))
+        );
+        PanelInsertarLayout.setVerticalGroup(
+            PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
+                .addContainerGap(63, Short.MAX_VALUE)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(28, 28, 28)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(31, 31, 31)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(40, 40, 40)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
+                .addComponent(btnAgregarColegio)
+                .addGap(38, 38, 38))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1040, Short.MAX_VALUE)
+                .addComponent(PanelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PanelInsertar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PanelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
-                .addGap(67, 67, 67))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PanelInsertar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -162,13 +264,56 @@ public class GestionColegio extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
+    private void btnAgregarColegioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarColegioActionPerformed
+        if(validarRut(txtRun.getText().trim())==false){
+            
+            JOptionPane.showMessageDialog(null, "El rut ingresado no es valido o ya esta registrado");
+        }else if(txtRun.getText().trim().isEmpty()){
+            
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un RUT");
+        }else if(txtNombre.getText().trim().isEmpty()){
+            
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Nombre");
+        }else if(txtDireccion.getText().trim().isEmpty()){
+            
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese una Direccion");
+        }else if(txtTelefono.getText().trim().isEmpty()){
+            
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Telefono");
+        }else{
+            Colegio col = new Colegio();
+            col.setRut(txtRun.getText());
+            col.setNombre(txtNombre.getText());
+            col.setDireccion(txtDireccion.getText());
+            col.setTelefono(txtTelefono.getText());
+            
+            new ColegioDaoImp().insertar(col);
+            txtRun.setText(null);
+            txtDireccion.setText(null);
+            txtNombre.setText(null);            
+            txtTelefono.setText(null);
+            tablaColegios.clearSelection();
+            MostrarColegios();
+        }
+    }//GEN-LAST:event_btnAgregarColegioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelInsertar;
+    private javax.swing.JPanel PanelTabla;
+    private javax.swing.JPanel PanelTitulo;
+    private javax.swing.JButton btnAgregarColegio;
     private javax.swing.JButton btnInicio;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblAVOT;
     private javax.swing.JTable tablaColegios;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtRun;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
