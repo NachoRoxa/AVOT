@@ -32,7 +32,6 @@ public class GestionAseguradora extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         MostrarAseguradoras();
         RestrictedTextField rtf = new RestrictedTextField(txtRut);
-        
         rtf.setLimit(12);
         
     }
@@ -234,8 +233,7 @@ public class GestionAseguradora extends javax.swing.JFrame {
         Aseguradora as = new Aseguradora();
         
         
-        if(validarRut(txtRut.getText().trim())==false)
-        {
+        if(validarRut(txtRut.getText().trim())==false){
             JOptionPane.showMessageDialog(null, "Ingrese un RUT valido");
         }else if (txtRut.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese el RUT Valido");
@@ -248,6 +246,9 @@ public class GestionAseguradora extends javax.swing.JFrame {
             as.setNombre_aseguradora(txtNombre.getText());
             as.setDireccion(txtDireccion.getText());
             new AseguradoraDaoImp().insertar(as);
+            txtRut.setText(null);
+            txtNombre.setText(null);
+            txtDireccion.setText(null);
             tablaAseguradoras.clearSelection();
             MostrarAseguradoras();
         }

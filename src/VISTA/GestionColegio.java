@@ -38,8 +38,9 @@ public class GestionColegio extends javax.swing.JFrame {
         MostrarColegios();
         RestrictedTextField rtfNumber = new RestrictedTextField(txtTelefono);
         RestrictedTextField rtfLetras = new RestrictedTextField(txtNombre);
+        RestrictedTextField rtf = new RestrictedTextField(txtRun);
+        rtf.setLimit(12);
         rtfNumber.setOnlyNums(rootPaneCheckingEnabled);
-        
         rtfLetras.setOnlyText(rootPaneCheckingEnabled);
     }
     
@@ -266,19 +267,14 @@ public class GestionColegio extends javax.swing.JFrame {
 
     private void btnAgregarColegioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarColegioActionPerformed
         if(validarRut(txtRun.getText().trim())==false){
-            
             JOptionPane.showMessageDialog(null, "El rut ingresado no es valido o ya esta registrado");
         }else if(txtRun.getText().trim().isEmpty()){
-            
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un RUT");
         }else if(txtNombre.getText().trim().isEmpty()){
-            
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Nombre");
         }else if(txtDireccion.getText().trim().isEmpty()){
-            
             JOptionPane.showMessageDialog(null, "Por favor, ingrese una Direccion");
         }else if(txtTelefono.getText().trim().isEmpty()){
-            
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Telefono");
         }else{
             Colegio col = new Colegio();
@@ -286,7 +282,6 @@ public class GestionColegio extends javax.swing.JFrame {
             col.setNombre(txtNombre.getText());
             col.setDireccion(txtDireccion.getText());
             col.setTelefono(txtTelefono.getText());
-            
             new ColegioDaoImp().insertar(col);
             txtRun.setText(null);
             txtDireccion.setText(null);
