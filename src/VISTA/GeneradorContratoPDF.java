@@ -39,8 +39,6 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
         PanelTitulo = new javax.swing.JPanel();
         lblAVOT = new javax.swing.JLabel();
         btnInicio = new javax.swing.JButton();
-        txtRuta = new javax.swing.JTextField();
-        btnUbicacion = new javax.swing.JButton();
         btnGenerarContrato = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,7 +64,7 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
             .addGroup(PanelTituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblAVOT)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 949, Short.MAX_VALUE)
                 .addComponent(btnInicio)
                 .addContainerGap())
         );
@@ -80,13 +78,6 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnUbicacion.setText("Buscar");
-        btnUbicacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUbicacionActionPerformed(evt);
-            }
-        });
-
         btnGenerarContrato.setText("Generar Contrato");
         btnGenerarContrato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,49 +89,28 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(124, 124, 124)
-                        .addComponent(btnUbicacion))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(385, 385, 385)
-                        .addComponent(btnGenerarContrato)))
-                .addContainerGap(477, Short.MAX_VALUE))
             .addComponent(PanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnGenerarContrato)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(PanelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(123, 123, 123)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUbicacion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGenerarContrato)
-                .addGap(115, 115, 115))
+                .addContainerGap(400, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbicacionActionPerformed
-        JFileChooser dialogo = new JFileChooser();
-        int opcion = dialogo.showSaveDialog(this);
-        if(opcion == JFileChooser.APPROVE_OPTION){
-            File f= dialogo.getSelectedFile();
-            txtRuta.setText(f.toString());
-        }
-    }//GEN-LAST:event_btnUbicacionActionPerformed
-
     private void btnGenerarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarContratoActionPerformed
-        String ruta = txtRuta.getText();
         try{
             GenerarContratoPDF contrato = new GenerarContratoPDF();
-            contrato.generarPDF(ruta+".pdf");
+            contrato.generarPDF();
             JOptionPane.showMessageDialog(null, "PDF Creado Correctamente");
         }catch(Exception e){
             System.out.println("Error"+e);
@@ -158,8 +128,6 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
     private javax.swing.JPanel PanelTitulo;
     private javax.swing.JButton btnGenerarContrato;
     private javax.swing.JButton btnInicio;
-    private javax.swing.JButton btnUbicacion;
     private javax.swing.JLabel lblAVOT;
-    private javax.swing.JTextField txtRuta;
     // End of variables declaration//GEN-END:variables
 }

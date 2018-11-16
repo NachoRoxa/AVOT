@@ -31,10 +31,12 @@ public class GenerarContratoPDF {
     private String contenido;
     private String footer;
     private String rutaImagen;
+    private String salida;
     Date date = new Date();
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     
-    public void generarPDF(String salida){
+    public void generarPDF(){
+        salida="C:\\Users\\Seba\\Documents\\PDF\\contrato.pdf";
         titulo ="CONTRATO DE ejemplo PRESTACION DE SERVICIOS TURISTICOS N°XXXX";
         contenido =  "                                                                             "
                     + "                                                                             "
