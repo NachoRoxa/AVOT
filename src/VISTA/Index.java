@@ -42,6 +42,7 @@ public class Index extends javax.swing.JFrame {
         btnAgentes = new javax.swing.JButton();
         btnEmpresasTransporte = new javax.swing.JButton();
         btnAseguradora = new javax.swing.JButton();
+        btnContrato = new javax.swing.JButton();
         PanelColegio = new javax.swing.JPanel();
         btnCursos = new javax.swing.JButton();
         btnColegios = new javax.swing.JButton();
@@ -121,16 +122,24 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
+        btnContrato.setText("Generar Contrato");
+        btnContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContratoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelAgenciaLayout = new javax.swing.GroupLayout(PanelAgencia);
         PanelAgencia.setLayout(PanelAgenciaLayout);
         PanelAgenciaLayout.setHorizontalGroup(
             PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAgenciaLayout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addGroup(PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAgentes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEmpresasTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(89, Short.MAX_VALUE)
+                .addGroup(PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnContrato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAgentes, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(btnAseguradora, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(btnEmpresasTransporte, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addGap(89, 89, 89))
         );
         PanelAgenciaLayout.setVerticalGroup(
@@ -142,6 +151,8 @@ public class Index extends javax.swing.JFrame {
                 .addComponent(btnEmpresasTransporte)
                 .addGap(50, 50, 50)
                 .addComponent(btnAseguradora)
+                .addGap(74, 74, 74)
+                .addComponent(btnContrato)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -383,6 +394,12 @@ public class Index extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnAseguradoraActionPerformed
 
+    private void btnContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContratoActionPerformed
+        this.setVisible(false);
+        GeneradorContratoPDF x = new GeneradorContratoPDF();
+        x.setVisible(true);
+    }//GEN-LAST:event_btnContratoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelAgencia;
@@ -395,6 +412,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton btnApoderados;
     private javax.swing.JButton btnAseguradora;
     private javax.swing.JButton btnColegios;
+    private javax.swing.JButton btnContrato;
     private javax.swing.JButton btnCursos;
     private javax.swing.JButton btnEmpresasTransporte;
     private javax.swing.JButton btnEstadias;
