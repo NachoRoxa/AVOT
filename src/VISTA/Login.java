@@ -107,54 +107,61 @@ public class Login extends javax.swing.JFrame {
 
     //Boton para iniciar el login del usuario
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+        Conexion cx = new Conexion();
+        Connection con = cx.getConnection();
+        String query = "select usuario, passwd from agentes where usuario =?  and passwd =?";
         String user = txtUsuario.getText();
         String pass = String.valueOf(jPassword.getPassword());
         Index x = new Index();
-        
-        if (user.isEmpty()) {
-            this.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese Usuario");
-        } else if (pass.isEmpty()) {
-            this.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese contraseña");
-        } else {
-            if(Query(user, pass))
-            {
-                this.setVisible(false);
-                x.setVisible(true);
-            }
-            else
-            {
+
+        try {
+            PreparedStatement st = con.prepareStatement(query);
+            st.setString(1, user);
+            st.setString(2, pass);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+
+                if (user.isEmpty()) {
+                    this.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese Usuario");
+                } else if (pass.isEmpty()) {
+                    this.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese contraseña");
+                } else {
+                    this.setVisible(false);
+                    x.setVisible(true);
+                }
+            } else {
                 this.setVisible(true);
                 JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta");
             }
+        } catch (Exception ex) {
+
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-    public boolean Query(String usuario, String pass)
-    {
+    /*public void Query() {
         Conexion obj = new Conexion();
         Agente ag = new Agente();
-        usuario = ag.getUser();
-        pass = ag.getPasswd();
+        String usuario = ag.getUser();
+        String pass = ag.getPasswd();
         String query = "select usuario, passwd from agentes where usuario =?  and passwd =?";
         try {
             Connection con = obj.getConnection();
-            PreparedStatement st = con.prepareStatement(query);            
+            PreparedStatement st = con.prepareStatement(query);
             ResultSet re = st.executeQuery();
-            
-            while(re.next())
-            {   
+            st.setString(1, "usuario");
+
+            while (re.next()) {
                 st.setString(1, re.getString("usuario"));
-                st.setString(2, re.getString("passwd"));                
+                st.setString(2, re.getString("passwd"));
             }
             return true;
-        } catch (Exception ex) {            
+        } catch (Exception ex) {
             return false;
         }
         //return true;
-    }
-   
+    }*/
     /**
      * @param args the command line arguments
      */
@@ -169,16 +176,24 @@ public class Login extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
