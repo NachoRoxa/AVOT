@@ -28,10 +28,13 @@ public class GenerarContratoPDF {
     private Font fuentesubtitulo = new Font(Font.FontFamily.HELVETICA,14,Font.ITALIC);
     private Font fuenteNormal = new Font(Font.FontFamily.HELVETICA,11,Font.NORMAL);
     private Font fuenteItalic = new Font(Font.FontFamily.HELVETICA,9,Font.ITALIC);
-    private String titulo,saltoLinea,subtitulo1,subtitulo2,subtitulo3,subtitulo4,subtitulo5,subtitulo6;
+    private String titulo,saltoLinea,subtitulo1,subtitulo2;
     private String parrafo1,parrafo2,parrafo3,parrafo4,parrafo5,parrafo6,parrafo7,parrafo8,parrafo9;
     private String parrafo10,parrafo11,parrafo12,parrafo13,parrafo14,parrafo15,parrafo16,parrafo17;
     private String parrafo18,parrafo19,parrafo20,parrafo21,parrafo22,parrafo23,parrafo24,parrafo25;
+    private String parrafo26,parrafo27,parrafo28,parrafo29,parrafo30,parrafo31,parrafo32,parrafo33;
+    private String parrafo34,parrafo35,parrafo36,parrafo37,parrafo38,parrafo39,parrafo40,parrafo41;
+    private String parrafo42,parrafo43,parrafo44,parrafo45,parrafo46,parrafo47,firmaAVOT,firmaCliente;
     private String footer;
     private String logo;
     private String salida;
@@ -167,9 +170,107 @@ public class GenerarContratoPDF {
                 + "ará en modo alguno la condición de tarifa pactada inicialmente por el grupo, según la c"
                 + "antidad deintegrantes acordados al momento del cierre de la Reserva de Cupo y ratificad"
                 + "a en clausula Décima.";
-        parrafo25 = "";
-                
-        footer = "Esto es el footer";
+        parrafo25 = "DECIMO PRIMERA: El desistimiento de un(os) pasajero(s) una vez iniciado el proceso de"
+                + " Reserva de Cupo, da origen a cargos por concepto de Anulación,sobre lo efectivamente p"
+                + "agado (no documentado), según la siguiente tabla, siempre más los gastos adicionales en"
+                + " que se haya incurrido, como, porejemplo, Tasas de Embarque Aéreas";
+        parrafo26 = "a) Entre el pago de Reservas de Cupo y hasta 90 días antes de la fecha de viaje, se r"
+                + "etendrá el 70%, saldo por ítem ANY REASON Seguro Asistencia.";
+        parrafo27 = "b) Entre 89 y hasta 60 días antes de la fecha de viaje, se retendrá el 80%.";
+        parrafo28 = "c) Entre 59 y hasta 30 días antes de la fecha de viaje, se retendrá el 90%.";
+        parrafo29 = "d) Entre 29 días o menos, antes de la fecha de viaje, se retendrá el 100%.";
+        parrafo30 = "DECIMO SEGUNDA: En el caso de que AVOT deba realizar devolución de pagos efectuados,"
+                + " según lo mencionado en punto anterior, estos seránrestituidos a los respectivos girado"
+                + "res, en un plazo máximo de 45 días hábiles, después de aceptada la Anulación o Desistim"
+                + "iento de viaje";
+        parrafo31 = "Es importante recordar que para hacer efectiva la condición de ANY REASON, la que gen"
+                + "era un reembolso de un 75% del valor pagado con un tope de Usd 375.-, debe estar ya pag"
+                + "ado como mínimo un 70% del valor de viaje: Esta condición de porcentaje permite que est"
+                + "e desistimiento no afecte elvalor comprometido como pago para el resto del grupo. El de"
+                + "sistimiento, se debe formalizar por escrito, con una antelación máxima de 90 días y mín"
+                + "imo de 15 días previos a la fecha de inicio del viaje";
+        parrafo32 = "De similar forma, para hacer efectiva la condición de Anulación o Interrupción de via"
+                + "je, CON CAUSA JUSTIFICADA, de ser aceptada, genera un reembolsode un 100% del valor pag"
+                + "ado con un tope de Usd 1.000.-. Al igual que el punto anterior, para hacer efectivo est"
+                + "e beneficio se debe tener pagado comomínimo un 70% del valor del viaje. Esta condición "
+                + "de porcentaje permite que este desistimiento no afecte el valor comprometido como pago "
+                + "para el resto del grupo. El desistimiento, se debe formalizar por escrito, con una anti"
+                + "cipación máxima de 15 días y hasta la ocurrencia del evento.";
+        parrafo33 = "DECIMO TERCERA: Los pasajeros que tengan algún impedimento para realizar el viaje, po"
+                + "drán hasta cuarenta y cinco (45) días antes de la salida, cedersu reserva a quien reúna"
+                + " similares condiciones de viaje, con notificación por escrito a AVOT. En tal supuesto, "
+                + "el cedente y el cesionario sonsolidariamente responsables por el pago de las sumas adeu"
+                + "dadas a AVOT, así como de los importes adicionales ocasionados por la cesión. Si la ces"
+                + "iónes posterior al plazo indicado, ATUI.CL, podrá retener hasta el veinte por ciento (2"
+                + "0%) de la suma total pagada correspondiente al viaje.";
+        parrafo34 = "DECIMO CUARTA: Toda modificación, cesión o desistimiento al viaje, debe ser solicitad"
+                + "o formalmente por Email, al correo electrónico:contacto@avot.cl, indicando las razones "
+                + "del mismo, anexando la documentación de rigor (si procede).";
+        parrafo35 = "DECIMO QUINTA: Si AVOT por alguna razón de fuerza mayor ajena a su voluntad, tales co"
+                + "mo: condiciones climáticas, catástrofes naturales, accionesterroristas, Actos de Dios, "
+                + "eventos de la naturaleza y/o cualquier otro evento que le imposibilite poder dar inicio"
+                + " al servicio contratado, o bien, no podercumplir con la totalidad del servicio, se proc"
+                + "ederá de la siguiente forma:";
+        parrafo36 = "a) Reprogramar el viaje para una fecha en que cambien las condiciones que impidieron "
+                + "dar inicio a este y permitan su normal ejecución.";
+        parrafo37 = "b) Reprogramar el destino del viaje a otro destino, según valor pagado y/o acuerdo co"
+                + "n el grupo.";
+        parrafo38 = "c) Realizar devolución del total de lo pagado, a excepción de la Reserva de Cupo.";
+        parrafo39 = "DECIMO SEXTA: AVOT proveerá a los integrantes del grupo una Ficha Médica que deberá e"
+                + "star completa y subscrita con firma aclarada, por unmédico o el Representante Legal del"
+                + " pasajero, donde se acepta condición de salud apta para realizar todas las actividades "
+                + "y/o servicios que componenel viaje. En caso contrario, la empresa se reserva el derecho"
+                + " de no prestar el servicio al viajante/pasajero, haciéndole devolución de lo pagado, en"
+                + " lostérminos de la cláusula Décimo Tercera.";
+        parrafo40 = "Por otro lado, el grupo asignará a una persona específica a cargo de reunir y hacer l"
+                + "legar a AVOT (a lo menos 45 días antes de la fecha de viaje), todala documentación requ"
+                + "erida para efectuar la Gira de Estudios (Permisos Notariales de ambos padres en triplic"
+                + "ado y originales, 01 Copia de la CédulaIdentidad, vigente por ambos lados, 01 certifica"
+                + "do de nacimiento de asignación familiar y 01 ficha medica llenada y firmada, por un méd"
+                + "ico o en sudefecto firmada por su representante legal) en la eventualidad del fallecimi"
+                + "ento de alguno de los padres se debe acompañar el respectivo certificadode defunción, e"
+                + "n el caso de ausencia de alguno de ellos la autorización debe ser otorgada por un tribu"
+                + "nal de familia.";
+        parrafo41 = "DECIMO SEPTIMA: En el caso de MENORES DE EDAD, chilenos o extranjeros que requieran a"
+                + "utorización para salir del país, será absoluta responsabilidadde su Apoderado o Represe"
+                + "ntante Legal, informarse o consultar por la documentación necesaria para abandonar Chil"
+                + "e e ingresar a los países quesean parte del programa de viaje. Es responsabilidad del p"
+                + "asajero mayor de 18 años el tener vigente y en buen estado la documentación necesaria p"
+                + "ara su viaje: Cédula de Identidad, Pasaporte o similar, con vigencia mínima de 6 meses "
+                + "y Visa, si se requiere. AVOT no se hace responsable porpasajeros que razones legales im"
+                + "pidan su salida del país.";
+        parrafo42 = "DECIMO OCTAVA: Se acuerda entre las partes que AVOT, no se hace responsable por el ex"
+                + "travío, pérdida, hurto o robo de los efectos personales,como: dinero, documentos person"
+                + "ales, cédulas de identidad, tarjetas de crédito, joyas, relojes, equipos de uso persona"
+                + "l, filmadoras, máquinasfotográficas y en general, cualquier otra especie de uso o de pr"
+                + "opiedad personal de los pasajeros, sea que éstos ocurran por hechos propios, ajenos o d"
+                + "e la naturaleza y sucedan en medios de transportes, hoteles o lugares de hospedaje, de "
+                + "detención o de visita. Se presume que todos los bienes que porte consigo cada alumno, s"
+                + "on de su propiedad. Asimismo, AVOT no es responsable por casos fortuitos o fuerza mayor"
+                + ".";
+        parrafo43 = "DECIMO NOVENA: AVOT siendo una empresa prestadora de servicios debe contratar y subco"
+                + "ntratar los servicios propios de su giro, tales como pasajes";
+        parrafo44 = "terrestres o aéreos, buses, hoteles y hospedaje, servicios de alimentación y otros si"
+                + "milares. Por lo anterior, de existir algún cambio imprevisto y deúltima hora en los ser"
+                + "vicios ofrecidos, sea por cambio de hotel, transporte y otros, AVOT se obliga a reempla"
+                + "zarlos por otros similares, de la mismacalidad e informar de estos cambios tan pronto c"
+                + "omo sea posible, por cualquier medio, incluso verbal, dentro de las circunstancias del "
+                + "viaje o tourcontratado; por otro lado, los apoderados y/o profesores acompañantes, lo a"
+                + "ceptarán expresamente.";
+        parrafo45 = "VIGESIMO: Todo reclamo referente al tour debe ser formulado previamente en las oficin"
+                + "as de AVOT mediante carta certificada y dentro de un plazono mayor a 30 días contados d"
+                + "esde la fecha de regreso del viaje.";
+        parrafo46 ="Se conviene expresamente que cualquier dificultad que surja entre las partes, sea ella"
+                + " relativa a la validez, aplicación, interpretación o incumplimientodel presente contrat"
+                + "o o cualquier otra materia relacionada, las partes fijan su domicilio en la ciudad de S"
+                + "antiago y otorgan competencia a los tribunalesordinarios de justicia, con renuncia expr"
+                + "esa a cualquier otra acción de divulgación de la controversia, incluyendo medios de com"
+                + "unicación sin que el origen de esta, este debidamente sentenciado y ejecutoriada por lo"
+                + "s tribunales competentes";
+        parrafo47 ="VIGESIMO PRIMERO: Este contrato se firma en dos ejemplares del mismo tenor y data, que"
+                + "dando uno en poder de cada parte.";
+        firmaAVOT ="En Representación de AVOT Santiago, Chile";
+        firmaCliente ="En Representación (Colegio y Curso)Comuna, Chile";
         
         try{
             Document documento = new Document(PageSize.LETTER,30,30,25,25);
@@ -240,7 +341,49 @@ public class GenerarContratoPDF {
             documento.add(getContenido(saltoLinea));
             documento.add(getContenido(parrafo25));
             documento.add(getContenido(saltoLinea));
-            documento.add(getFooter(footer));
+            documento.add(getContenido(parrafo26));
+            documento.add(getContenido(parrafo27));
+            documento.add(getContenido(parrafo28));
+            documento.add(getContenido(parrafo29));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo30));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo31));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo32));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo33));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo34));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo35));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo36));
+            documento.add(getContenido(parrafo37));
+            documento.add(getContenido(parrafo38));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo39));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo40));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo41));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo42));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo43));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo44));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo45));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo46));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(parrafo47));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getFirmaAVOT(firmaAVOT));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(firmaCliente));
+            documento.add(getContenido(saltoLinea));
             documento.close();
         }catch(Exception e){
         }
@@ -273,14 +416,23 @@ public class GenerarContratoPDF {
         contenido.add(c);
         return contenido;
     }
-    private Paragraph getFooter(String Texto){
-        Paragraph footer = new Paragraph();
+    private Paragraph getFirmaAVOT(String Texto){
+        Paragraph firmaAVOT = new Paragraph();
         Chunk c = new Chunk();
-        footer.setAlignment(Element.ALIGN_CENTER);
+        firmaAVOT.setAlignment(Element.ALIGN_LEFT);
         c.append(Texto);
-        c.setFont(fuenteItalic);
-        footer.add(c);
-        return footer;
+        c.setFont(fuenteNormal);
+        firmaAVOT.add(c);
+        return firmaAVOT;
+    }
+    private Paragraph getFirmaCliente(String Texto){
+        Paragraph firmaCliente = new Paragraph();
+        Chunk c = new Chunk();
+        firmaCliente.setAlignment(Element.ALIGN_RIGHT);
+        c.append(Texto);
+        c.setFont(fuenteNormal);
+        firmaCliente.add(c);
+        return firmaCliente;
     }
     
 }
