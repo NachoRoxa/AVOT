@@ -485,7 +485,6 @@ public class GestionApoderado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    /*RESETEA TODO*/
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         LimpiarFormulario();
         resetBotones();
