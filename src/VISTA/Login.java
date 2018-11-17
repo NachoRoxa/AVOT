@@ -109,7 +109,7 @@ public class Login extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         Conexion cx = new Conexion();
         Connection con = cx.getConnection();
-        String query = "select usuario, passwd from agentes where usuario =?  and passwd =?";
+        String query = "select usuario, passwd, estado, administrador from agentes where usuario =?  and passwd =?";
         String user = txtUsuario.getText();
         String pass = String.valueOf(jPassword.getPassword());
         Index x = new Index();
@@ -118,18 +118,23 @@ public class Login extends javax.swing.JFrame {
             PreparedStatement st = con.prepareStatement(query);
             st.setString(1, user);
             st.setString(2, pass);
+
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-
+                
+                int admin = rs.getInt("administrador");
                 if (user.isEmpty()) {
                     this.setVisible(true);
                     JOptionPane.showMessageDialog(null, "Por favor, ingrese Usuario");
                 } else if (pass.isEmpty()) {
                     this.setVisible(true);
                     JOptionPane.showMessageDialog(null, "Por favor, ingrese contraseña");
+                } else if (estado() == 0) {
+                    this.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "Usuario Inactivo. Contactese con el Administrador.");
                 } else {
                     this.setVisible(false);
-                    x.setVisible(true);
+                    x.setVisible(true);                   
                 }
             } else {
                 this.setVisible(true);
@@ -139,29 +144,60 @@ public class Login extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
-
-    /*public void Query() {
-        Conexion obj = new Conexion();
-        Agente ag = new Agente();
-        String usuario = ag.getUser();
-        String pass = ag.getPasswd();
-        String query = "select usuario, passwd from agentes where usuario =?  and passwd =?";
+    /***
+     * Metodo que retorna el valor del estado del agente.
+     * Este es usado para ver si el usuario esta activo o no.
+     * @return estado
+     * si es 0, el usuario esta inactivo, si retorna 1 esta activo.
+     */
+    public int estado() {
+        Conexion cx = new Conexion();
+        Connection con = cx.getConnection();
+        String query = "select usuario, passwd, estado from agentes where usuario =?  and passwd =?";
+        String user = txtUsuario.getText();
+        String pass = String.valueOf(jPassword.getPassword());
         try {
-            Connection con = obj.getConnection();
             PreparedStatement st = con.prepareStatement(query);
-            ResultSet re = st.executeQuery();
-            st.setString(1, "usuario");
+            st.setString(1, user);
+            st.setString(2, pass);
 
-            while (re.next()) {
-                st.setString(1, re.getString("usuario"));
-                st.setString(2, re.getString("passwd"));
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                int estado = rs.getInt("estado");
+                return estado;
             }
-            return true;
         } catch (Exception ex) {
-            return false;
+            JOptionPane.showMessageDialog(null, "Problemas de conexion, intente mas tarde o comuniquese con el Administrador.");
         }
-        //return true;
-    }*/
+        return 0;
+    }
+    
+    /***
+     * Consulta si el usuario tiene perfil de administrador o no.
+     * este metodo se usa en el index para ver cuales botones se inicializan.
+     * @return 
+     */
+    public int administrador() {
+        Conexion cx = new Conexion();
+        Connection con = cx.getConnection();
+        String query = "select usuario, passwd, administrador from agentes where usuario =?  and passwd =?";
+        String user = txtUsuario.getText();
+        String pass = String.valueOf(jPassword.getPassword());
+        try {
+            PreparedStatement st = con.prepareStatement(query);
+            st.setString(1, user);
+            st.setString(2, pass);
+
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                int admin = rs.getInt("administrador");
+                return admin;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Problemas de conexion, intente mas tarde o comuniquese con el Administrador.");
+        }
+        return 0;
+    }
     /**
      * @param args the command line arguments
      */
