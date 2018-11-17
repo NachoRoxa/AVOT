@@ -110,27 +110,51 @@ public class Login extends javax.swing.JFrame {
         String user = txtUsuario.getText();
         String pass = String.valueOf(jPassword.getPassword());
         Index x = new Index();
-        boolean query = new AgenteDaoImp().Query(user, pass);
-
-        /*if (user.isEmpty()) {
+        
+        if (user.isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese Usuario");
         } else if (pass.isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese contraseña");
-        } else {*/
-            if (query) {
+        } else {
+            if(Query(user, pass))
+            {
                 this.setVisible(false);
                 x.setVisible(true);
-            }else{
-                this.setVisible(true);
-                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos.");
             }
-
-        //}
-
+            else
+            {
+                this.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta");
+            }
+        }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
+    public boolean Query(String usuario, String pass)
+    {
+        Conexion obj = new Conexion();
+        Agente ag = new Agente();
+        usuario = ag.getUser();
+        pass = ag.getPasswd();
+        String query = "select usuario, passwd from agentes where usuario =?  and passwd =?";
+        try {
+            Connection con = obj.getConnection();
+            PreparedStatement st = con.prepareStatement(query);            
+            ResultSet re = st.executeQuery();
+            
+            while(re.next())
+            {   
+                st.setString(1, re.getString("usuario"));
+                st.setString(2, re.getString("passwd"));                
+            }
+            return true;
+        } catch (Exception ex) {            
+            return false;
+        }
+        //return true;
+    }
+   
     /**
      * @param args the command line arguments
      */

@@ -8,20 +8,36 @@ package DAO;
 import CONEXION.Conexion;
 import DTO.Colegio;
 import DTO.Curso;
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Seba
  */
-public class CursoDaoImp implements BaseDao<Curso>{
+public class CursoDaoImp implements BaseDao<Curso> {
 
     @Override
     public boolean insertar(Curso dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion cx = new Conexion();
+        try {
+            Connection con = cx.getConnection();
+            String sql = "{call PR_AGREGAR_CURSO(?,?,?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setInt(1, dto.getMonto_recaudado());
+            proc.setObject(2, dto.getColegio());
+            proc.setString(3, dto.getDescripcion());
+            proc.executeQuery();
+            return true;                    
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un problema con el procedimiento. Intente mas tarde");
+            return false;
+        }
     }
 
     @Override

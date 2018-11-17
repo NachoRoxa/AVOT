@@ -92,39 +92,7 @@ public class AgenteDaoImp implements BaseDao<Agente> {
         }
         return true;
     }
-    
-    /***
-     * Metodo para verificar la conexion en el Login.
-     * @param usuario
-     * @param pass
-     * @return Si existe el usuario retorna true, caso contrario false
-     */
-    public boolean Query(String usuario, String pass)
-    {
-        CONEXION.Conexion obj = new Conexion();
-        Agente ag = new Agente();
-        usuario = ag.getUser();
-        pass = ag.getPasswd();
-        String query = "select usuario, passwd from agentes where usuario=?  and passwd=?";
-        try {
-            Connection con = obj.getConnection();
-            PreparedStatement st = con.prepareStatement(query);            
-            st.setString(1, usuario);
-            st.setString(2, pass);
-            ResultSet re = st.executeQuery();
-            
-            while(re.next())
-            {
-                ag.setUser(re.getString(1));
-                ag.setPasswd(re.getString(2));
-            }
-            return true;
-        } catch (Exception ex) {            
-            return false;
-        }
-        //return true;
-    }
-    
+        
     @Override
     public ArrayList listar() {
         CONEXION.Conexion obj = new Conexion();

@@ -56,7 +56,7 @@ public class GestionAlumno extends javax.swing.JFrame {
             tablaAlumnos.setModel(modelo);
         }
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,7 +83,7 @@ public class GestionAlumno extends javax.swing.JFrame {
         txtApellidoM = new javax.swing.JTextField();
         txtMontoPersonal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        btnAgregarAlumno = new javax.swing.JButton();
+        btnAgregarCurso = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -122,7 +122,7 @@ public class GestionAlumno extends javax.swing.JFrame {
         PanelTituloLayout.setVerticalGroup(
             PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelTituloLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAVOT)
                     .addComponent(btnInicio))
@@ -172,10 +172,10 @@ public class GestionAlumno extends javax.swing.JFrame {
 
         jLabel6.setText("Tour");
 
-        btnAgregarAlumno.setText("Agregar");
-        btnAgregarAlumno.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarCurso.setText("Agregar");
+        btnAgregarCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarAlumnoActionPerformed(evt);
+                btnAgregarCursoActionPerformed(evt);
             }
         });
 
@@ -233,7 +233,7 @@ public class GestionAlumno extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(PanelInsertarLayout.createSequentialGroup()
                 .addGap(100, 100, 100)
-                .addComponent(btnAgregarAlumno)
+                .addComponent(btnAgregarCurso)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelInsertarLayout.setVerticalGroup(
@@ -272,7 +272,7 @@ public class GestionAlumno extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnAgregarAlumno)
+                .addComponent(btnAgregarCurso)
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -308,9 +308,9 @@ public class GestionAlumno extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
-    private void btnAgregarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlumnoActionPerformed
+    private void btnAgregarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCursoActionPerformed
         
-    }//GEN-LAST:event_btnAgregarAlumnoActionPerformed
+    }//GEN-LAST:event_btnAgregarCursoActionPerformed
 
     
 
@@ -320,7 +320,7 @@ public class GestionAlumno extends javax.swing.JFrame {
     private javax.swing.JPanel PanelInsertar;
     private javax.swing.JPanel PanelTabla;
     private javax.swing.JPanel PanelTitulo;
-    private javax.swing.JButton btnAgregarAlumno;
+    private javax.swing.JButton btnAgregarCurso;
     private javax.swing.JButton btnInicio;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
