@@ -27,17 +27,13 @@ public class GenerarContratoPDF {
     private Font fuenteBold = new Font(Font.FontFamily.HELVETICA,18,Font.BOLD);
     private Font fuentesubtitulo = new Font(Font.FontFamily.HELVETICA,14,Font.ITALIC);
     private Font fuenteNormal = new Font(Font.FontFamily.HELVETICA,11,Font.NORMAL);
-    private Font fuenteItalic = new Font(Font.FontFamily.HELVETICA,9,Font.ITALIC);
-    private String titulo,saltoLinea,subtitulo1,subtitulo2;
+    private String titulo,saltoLinea,subtitulo1,subtitulo2,logo,salida;
     private String parrafo1,parrafo2,parrafo3,parrafo4,parrafo5,parrafo6,parrafo7,parrafo8,parrafo9;
     private String parrafo10,parrafo11,parrafo12,parrafo13,parrafo14,parrafo15,parrafo16,parrafo17;
     private String parrafo18,parrafo19,parrafo20,parrafo21,parrafo22,parrafo23,parrafo24,parrafo25;
     private String parrafo26,parrafo27,parrafo28,parrafo29,parrafo30,parrafo31,parrafo32,parrafo33;
     private String parrafo34,parrafo35,parrafo36,parrafo37,parrafo38,parrafo39,parrafo40,parrafo41;
     private String parrafo42,parrafo43,parrafo44,parrafo45,parrafo46,parrafo47,firmaAVOT,firmaCliente;
-    private String footer;
-    private String logo;
-    private String salida;
     private int numero = (int) (Math.random() * 150000) + 1;
     Date date = new Date();
     String dateFormat = new SimpleDateFormat("dd/MM/yyyy").format(date);
@@ -380,10 +376,17 @@ public class GenerarContratoPDF {
             documento.add(getContenido(saltoLinea));
             documento.add(getContenido(parrafo47));
             documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(saltoLinea));
             documento.add(getFirmaAVOT(firmaAVOT));
             documento.add(getContenido(saltoLinea));
-            documento.add(getContenido(firmaCliente));
             documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(saltoLinea));
+            documento.add(getContenido(firmaCliente));
             documento.close();
         }catch(Exception e){
         }
