@@ -34,25 +34,23 @@ public class GenerarContratoPDF {
     private String parrafo26,parrafo27,parrafo28,parrafo29,parrafo30,parrafo31,parrafo32,parrafo33;
     private String parrafo34,parrafo35,parrafo36,parrafo37,parrafo38,parrafo39,parrafo40,parrafo41;
     private String parrafo42,parrafo43,parrafo44,parrafo45,parrafo46,parrafo47,firmaAVOT,firmaCliente;
-    private int numero = (int) (Math.random() * 150000) + 1;
     Date date = new Date();
     String dateFormat = new SimpleDateFormat("dd/MM/yyyy").format(date);
     
-    public void generarPDF(){
-        salida="C:\\Users\\Seba\\Documents\\PDF\\contrato"+numero+".pdf";
+    public void generarPDF(Tour tour){
+        salida="C:\\Users\\Seba\\Documents\\PDF\\contrato"+tour.getId_tour()+".pdf";
         logo = "C:\\Users\\Seba\\Documents\\NetBeansProjects\\AVOT.LOCAL\\src\\IMG\\icono-login-png-6.png";
         titulo ="CONTRATO DE PRESTACION DE SERVICIOS";
         saltoLinea="                                                                                      ";
-        parrafo1 ="En ciudad de Santiago de Chile,"+dateFormat+" entre Agencia de viajes on Tout Operador Turí"
-                + "stico,Rol Único Tributario N°(00.000.000-0), empresa del giro de su denominación,repres"
-                + "entada legalmente por el (Sr. Jefe de la empresa), Cédula de Identidad (Nº 0.000.000-0)"
-                + ", nacionalidad chilena y con domicilio comercial en esta ciudad,Avda. Antonio Varas N° "
-                + "666, local (x), comuna de Providencia, en adelante “AVOT” y el señor (a) , Cédula de Ide"
-                + "ntidad Nº : , nacionalidad: , de profesión: , con domicilio en : , comuna de: , fono Mó"
-                + "vil:, fono red Fija: ,Correo Electrónico: ,en adelante, “DELEGADO DEL GRUPO”,quien en c"
-                + "alidadde representante de la Comisión de apoderados, convienen en celebrar el siguiente"
-                + " contrato de prestación de servicios, para la Gira de Estudios, quese regirá por las si"
-                + "guientes cláusulas:";
+        parrafo1 ="En ciudad de Santiago de Chile,"+dateFormat+" entre Agencia de viajes on Tour Operador "
+                + "Turístico,Rol Único Tributario N°00.000.000-0, empresa del giro de su denominación,repr"
+                + "esentada legalmente por el (Sr.Misterioso), Cédula de Identidad Nº 0.000.000-0, naciona"
+                + "lidad chilena y con domicilio comercial en esta ciudad, Avda. Antonio Varas N°666, loca"
+                + "l 15, comuna de Providencia, en adelante “AVOT” y el señor (a) , Cédula de Identidad Nº"
+                + " :"+tour.getAgente().getNombre()+"   , fono Móvil:,Correo Electrónico: ,en adelante, “DELEGADO DEL GRUPO”,quien en cali"
+                + "dad de representante de la Comisión de apoderados, convienen en celebrar el siguiente c"
+                + "ontrato de prestación de servicios, para la Gira de Estudios, quese regirá por las sigu"
+                + "ientes cláusulas:";
         subtitulo1="CONSIDERACIONES GENERALES";
         parrafo2 ="UNO: Se entiende por Operador Turístico, la empresa intermediaria, de carácter privado,"
                 + " dedicada al giro de agencia de viaje y actividades relacionadas, que prestaservicios p"

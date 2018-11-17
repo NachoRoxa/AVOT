@@ -7,6 +7,7 @@ package VISTA;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,13 +18,26 @@ public class Index extends javax.swing.JFrame {
     /**
      * Creates new form Index
      */
+    Login log = new Login();
+
     public Index() {
         initComponents();
         this.setLocationRelativeTo(null);
+
     }
+
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/rosaViento.jpg"));
         return retValue;
+    }
+
+    public void Admin() {
+        Login log = new Login();
+        if (log.administrador() == 1) {
+            PanelAgencia.setVisible(true);
+        } else {
+            PanelAgencia.setVisible(false);
+        }
     }
 
     /**
@@ -377,9 +391,14 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAgentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgentesActionPerformed
-        this.setVisible(false);
-        GestionAgente x = new GestionAgente();
-        x.setVisible(true);
+        if (log.administrador() == 0) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Accion no permitida para su perfil.");
+        } else {
+            this.setVisible(false);
+            GestionAgente x = new GestionAgente();
+            x.setVisible(true);
+        }
     }//GEN-LAST:event_btnAgentesActionPerformed
 
     private void btnEmpresasTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresasTransporteActionPerformed
