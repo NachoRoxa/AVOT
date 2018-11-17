@@ -5,13 +5,10 @@
  */
 package VISTA;
 
+import DAO.TourDaoImp;
 import DTO.GenerarContratoPDF;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import javax.swing.JFileChooser;
+import DTO.Tour;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,12 +16,13 @@ import javax.swing.JOptionPane;
  * @author Seba
  */
 public class GeneradorContratoPDF extends javax.swing.JFrame {
-
+    ArrayList<Tour> listaTour;
     /**
      * Creates new form Generador
      */
     public GeneradorContratoPDF() {
         initComponents();
+        datosCombobox();
     }
 
     /**
@@ -39,7 +37,9 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
         PanelTitulo = new javax.swing.JPanel();
         lblAVOT = new javax.swing.JLabel();
         btnInicio = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         btnGenerarContrato = new javax.swing.JButton();
+        cbTourContrato = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,14 +85,37 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
             }
         });
 
+        cbTourContrato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnGenerarContrato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbTourContrato, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(cbTourContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(102, 102, 102)
+                .addComponent(btnGenerarContrato)
+                .addContainerGap(239, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnGenerarContrato)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -100,17 +123,34 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(PanelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGenerarContrato)
-                .addContainerGap(400, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarContratoActionPerformed
+        listaTour = new TourDaoImp().listar();
+        String selecion = cbTourContrato.getSelectedItem().toString();
+        listaTour = new TourDaoImp().listar();
+        Tour tour1 = new Tour();
+        if (listaTour.size() > 0) {
+            listaTour.forEach((tour) -> {
+                while(String.valueOf(tour.getId_tour())==selecion){
+                    tour1.setId_tour(tour.getId_tour());
+                    tour1.setValor_total(tour.getValor_total());
+                    tour1.setDescripcion(tour.getDescripcion());
+                    tour1.setNumero_contrato(tour.getNumero_contrato());
+                    tour1.setAgente(tour.getAgente());
+                    tour1.setFecha_creacion(tour.getFecha_creacion());
+                    tour1.setFecha_inicio(tour.getFecha_inicio());
+                }
+            });
+        }
         try{
             GenerarContratoPDF contrato = new GenerarContratoPDF();
-            contrato.generarPDF();
+            contrato.generarPDF(tour1);
             JOptionPane.showMessageDialog(null, "PDF Creado Correctamente");
         }catch(Exception e){
             System.out.println("Error"+e);
@@ -123,11 +163,21 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
         Index x = new Index();
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
-
+    public void datosCombobox(){
+        cbTourContrato.removeAllItems();
+        listaTour = new TourDaoImp().listar();
+        if (listaTour.size() > 0) {
+            for (Tour tour : listaTour) {
+                cbTourContrato.addItem(String.valueOf(tour.getId_tour()));
+            }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTitulo;
     private javax.swing.JButton btnGenerarContrato;
     private javax.swing.JButton btnInicio;
+    private javax.swing.JComboBox<String> cbTourContrato;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAVOT;
     // End of variables declaration//GEN-END:variables
 }

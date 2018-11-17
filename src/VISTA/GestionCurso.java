@@ -172,7 +172,7 @@ public class GestionCurso extends javax.swing.JFrame {
             PanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelTablaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)
                 .addContainerGap())
         );
         PanelTablaLayout.setVerticalGroup(
@@ -182,7 +182,7 @@ public class GestionCurso extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        PanelInsertar.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Colegio"));
+        PanelInsertar.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Curso"));
 
         btnAgregarAgente.setText("Agregar");
         btnAgregarAgente.addActionListener(new java.awt.event.ActionListener() {
@@ -192,6 +192,12 @@ public class GestionCurso extends javax.swing.JFrame {
         });
 
         jLabel1.setText("Nombre Curso");
+
+        cbColegio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbColegioActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Colegio");
 
@@ -226,7 +232,7 @@ public class GestionCurso extends javax.swing.JFrame {
                         .addGap(85, 85, 85))
                     .addGroup(PanelInsertarLayout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26))
         );
@@ -263,7 +269,8 @@ public class GestionCurso extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(PanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(PanelInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,6 +300,10 @@ public class GestionCurso extends javax.swing.JFrame {
         }
                 
     }//GEN-LAST:event_btnAgregarAgenteActionPerformed
+
+    private void cbColegioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbColegioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbColegioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelInsertar;
