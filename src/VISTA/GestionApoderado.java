@@ -35,30 +35,40 @@ public class GestionApoderado extends javax.swing.JFrame {
      */
     public GestionApoderado() {
         initComponents();
+        resetBotones();
         listaApoderados = new ArrayList<>();
         this.setLocationRelativeTo(null);
         MostrarApoderados();
         RestrictedTextField restricted = new RestrictedTextField(txtRun);
         restricted.setLimit(12);
-        Action borrar = new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JTable tabla = (JTable) e.getSource();
-                int fila = Integer.valueOf(e.getActionCommand());
-                Apoderado apoderado = new Apoderado();
-                apoderado = listaApoderados.get(fila);
-                new ApoderadoDaoImp().eliminar(apoderado);
-                MostrarApoderados();
-            }
 
-        };
-        ButtonColumn buttonColumn = new ButtonColumn(tablaApoderados, borrar, 7);
-        buttonColumn.setMnemonic(KeyEvent.VK_D);
     }
 
+    /*ocultar guardar y cancelar, mostrar agregar*/
+    public void resetBotones() {
+        btnAgregarApoderado.setVisible(true);
+        btnCancelar.setVisible(false);
+        btnGuardar.setVisible(false);
+
+    }
+
+    /*metodo nuevo pa limpiar*/
+    public void LimpiarFormulario() {
+        txtRun.setText(null);
+        txtRun.enableInputMethods(true);
+        txtUsuario.setText(null);
+        txtNombre.setText(null);
+        txtApellido.setText(null);
+        txtTelefono.setText(null);
+        txtCorreo.setText(null);
+        chbRepresentante.setSelected(false);
+    }
+
+    /* SE AGREGO LA COLUMNA DE EDITAR*/
     public void MostrarApoderados() {
         listaApoderados = new ApoderadoDaoImp().listar();
         modelo = new DefaultTableModel();
+        modelo.addColumn("");
         modelo.addColumn("RUN");
         modelo.addColumn("NOMBRE");
         modelo.addColumn("APELLIDO");
@@ -76,6 +86,7 @@ public class GestionApoderado extends javax.swing.JFrame {
                     rep = "SI";
                 }
                 modelo.addRow(new Object[]{
+                    "EDITAR",
                     apoderado.getRun(),
                     apoderado.getNombre(),
                     apoderado.getApellido(),
@@ -86,7 +97,49 @@ public class GestionApoderado extends javax.swing.JFrame {
                     "ELIMINAR"}
                 );
             }
+
             tablaApoderados.setModel(modelo);
+
+            /* AGREGA LA ACCION DEL BOTTON ELIMINAR*/
+            Action borrar = new AbstractAction() {
+                @Override
+                /*ESTE ES EL METODO DEL BOTON CUANDO SE PRESIONA*/
+                public void actionPerformed(ActionEvent e) {
+                    int fila = Integer.valueOf(e.getActionCommand());
+                    Apoderado apoderado = new Apoderado();
+                    apoderado = listaApoderados.get(fila);
+                    new ApoderadoDaoImp().eliminar(apoderado);
+                }
+
+            };
+            /*ESTA PARTE ES LA QUE AGREGA EL BOTTON ELIMINAR CON ACCION DECLARADA ANTERIORMENTE*/
+            ButtonColumn buttonEliminar = new ButtonColumn(tablaApoderados, borrar, 8);
+            buttonEliminar.setMnemonic(KeyEvent.VK_D);
+            
+            /* AGREGA LA ACCION AL BOTTON ELIMINAR*/
+            Action editar = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int fila = Integer.valueOf(e.getActionCommand());
+                    Apoderado apoderado = new Apoderado();
+                    apoderado = listaApoderados.get(fila);
+                    txtRun.setText(apoderado.getRun());
+                    txtRun.enableInputMethods(false);
+                    txtUsuario.setText(apoderado.getUser());
+                    txtTelefono.setText(apoderado.getTelefono());
+                    txtCorreo.setText(apoderado.getCorreo());
+                    txtNombre.setText(apoderado.getNombre());
+                    txtApellido.setText(apoderado.getApellido());
+                    chbRepresentante.setSelected(apoderado.getRepresentante() > 0);
+                    btnAgregarApoderado.setVisible(false);
+                    btnCancelar.setVisible(true);
+                    btnGuardar.setVisible(true);
+                }
+
+            };
+            /*AGREGA EL BOTTON EDITAR A LA COLUMNA CON LA ACCION DECLARADA ANTERIORMENTE*/
+            ButtonColumn buttonEditar = new ButtonColumn(tablaApoderados, editar, 0);
+            buttonEditar.setMnemonic(KeyEvent.VK_D);
         }
     }
 
@@ -99,6 +152,7 @@ public class GestionApoderado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         PanelTitulo = new javax.swing.JPanel();
         lblAVOT = new javax.swing.JLabel();
         btnInicio = new javax.swing.JButton();
@@ -114,13 +168,26 @@ public class GestionApoderado extends javax.swing.JFrame {
         txtApellido = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
-        btnAgregarApoderado = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         chbRepresentante = new javax.swing.JCheckBox();
         jLabel9 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
+        btnAgregarApoderado = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -153,7 +220,7 @@ public class GestionApoderado extends javax.swing.JFrame {
         PanelTituloLayout.setVerticalGroup(
             PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelTituloLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAVOT)
                     .addComponent(btnInicio))
@@ -181,13 +248,13 @@ public class GestionApoderado extends javax.swing.JFrame {
             PanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelTablaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
                 .addContainerGap())
         );
         PanelTablaLayout.setVerticalGroup(
             PanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelTablaLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -199,13 +266,6 @@ public class GestionApoderado extends javax.swing.JFrame {
 
         jLabel5.setText("Nombre");
 
-        btnAgregarApoderado.setText("Agregar");
-        btnAgregarApoderado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarApoderadoActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Apellido");
 
         jLabel7.setText("Telefono");
@@ -214,19 +274,34 @@ public class GestionApoderado extends javax.swing.JFrame {
 
         jLabel9.setText("Correo");
 
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnAgregarApoderado.setText("Agregar");
+        btnAgregarApoderado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarApoderadoActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
         PanelInsertar.setLayout(PanelInsertarLayout);
         PanelInsertarLayout.setHorizontalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelInsertarLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelInsertarLayout.createSequentialGroup()
-                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGap(28, 28, 28)
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelInsertarLayout.createSequentialGroup()
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -242,17 +317,28 @@ public class GestionApoderado extends javax.swing.JFrame {
                             .addComponent(txtUsuario)
                             .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chbRepresentante)
-                            .addComponent(btnAgregarApoderado))
-                        .addGap(79, 79, 79)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addGap(0, 216, Short.MAX_VALUE)
+                        .addComponent(chbRepresentante)
+                        .addGap(51, 51, 51))
+                    .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(PanelInsertarLayout.createSequentialGroup()
+                            .addComponent(btnCancelar)
+                            .addGap(99, 99, 99)
+                            .addComponent(btnGuardar))
+                        .addGroup(PanelInsertarLayout.createSequentialGroup()
+                            .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel8))
+                            .addGap(28, 28, 28)
+                            .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnAgregarApoderado)
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(31, 31, 31))
         );
         PanelInsertarLayout.setVerticalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -280,10 +366,17 @@ public class GestionApoderado extends javax.swing.JFrame {
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(chbRepresentante))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAgregarApoderado)
-                .addGap(22, 22, 22))
+                .addGap(18, 18, 18)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        setVisible(false);
+        setVisible(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -304,8 +397,7 @@ public class GestionApoderado extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PanelInsertar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(PanelInsertar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -318,25 +410,25 @@ public class GestionApoderado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnAgregarApoderadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarApoderadoActionPerformed
-        if(validarRut(txtRun.getText().trim())==false){
+        if (validarRut(txtRun.getText().trim()) == false) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "El rut ingresado no es valido o ya esta registrado");
-        }else if(txtNombre.getText().trim().isEmpty()){
+        } else if (txtNombre.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Nombre");
-        }else if(txtApellido.getText().trim().isEmpty()){
+        } else if (txtApellido.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Apellido");
-        }else if(txtTelefono.getText().trim().isEmpty()){
+        } else if (txtTelefono.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Telefono");
-        }else if(txtUsuario.getText().trim().isEmpty()){
+        } else if (txtUsuario.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Usuario");
-        }else if(txtCorreo.getText().trim().isEmpty()){
+        } else if (txtCorreo.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Correo");
-        }else{
+        } else {
             Apoderado apoderado = new Apoderado();
             apoderado.setRun(txtRun.getText());
             apoderado.setUser(txtUsuario.getText());
@@ -344,23 +436,61 @@ public class GestionApoderado extends javax.swing.JFrame {
             apoderado.setCorreo(txtCorreo.getText());
             apoderado.setNombre(txtNombre.getText());
             apoderado.setApellido(txtApellido.getText());
-            if(chbRepresentante.isSelected()){
+            if (chbRepresentante.isSelected()) {
                 apoderado.setRepresentante(1);
-            }else{
+            } else {
                 apoderado.setRepresentante(0);
             }
-                new ApoderadoDaoImp().insertar(apoderado);
-                txtRun.setText(null);
-                txtUsuario.setText(null);
-                txtNombre.setText(null);
-                txtApellido.setText(null);
-                txtTelefono.setText(null);
-                txtCorreo.setText(null);
-                chbRepresentante.setSelected(false);
-                tablaApoderados.clearSelection();
-                MostrarApoderados();
+            new ApoderadoDaoImp().insertar(apoderado);
+            LimpiarFormulario();
+            tablaApoderados.clearSelection();
+            MostrarApoderados();
         }
     }//GEN-LAST:event_btnAgregarApoderadoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        if (txtNombre.getText().trim().isEmpty()) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Nombre");
+        } else if (txtApellido.getText().trim().isEmpty()) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Apellido");
+        } else if (txtTelefono.getText().trim().isEmpty()) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Telefono");
+        } else if (txtUsuario.getText().trim().isEmpty()) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Usuario");
+        } else if (txtCorreo.getText().trim().isEmpty()) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Correo");
+        } else {
+            Apoderado apoderado = new Apoderado();
+            apoderado.setRun(txtRun.getText());
+            apoderado.setUser(txtUsuario.getText());
+            apoderado.setTelefono(txtTelefono.getText());
+            apoderado.setCorreo(txtCorreo.getText());
+            apoderado.setNombre(txtNombre.getText());
+            apoderado.setApellido(txtApellido.getText());
+            if (chbRepresentante.isSelected()) {
+                apoderado.setRepresentante(1);
+            } else {
+                apoderado.setRepresentante(0);
+            }
+            new ApoderadoDaoImp().modificar(apoderado);
+            LimpiarFormulario();
+            tablaApoderados.clearSelection();
+            MostrarApoderados();
+            resetBotones();
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    /*RESETEA TODO*/
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        LimpiarFormulario();
+        resetBotones();
+        MostrarApoderados();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -368,6 +498,8 @@ public class GestionApoderado extends javax.swing.JFrame {
     private javax.swing.JPanel PanelTabla;
     private javax.swing.JPanel PanelTitulo;
     private javax.swing.JButton btnAgregarApoderado;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JCheckBox chbRepresentante;
     private javax.swing.JLabel jLabel1;
@@ -377,6 +509,7 @@ public class GestionApoderado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAVOT;
     private javax.swing.JTable tablaApoderados;
