@@ -7,6 +7,7 @@ package DAO;
 
 import CONEXION.Conexion;
 import DTO.Colegio;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -35,7 +36,23 @@ public class ColegioDaoImp implements BaseDao<Colegio>{
 
     @Override
     public boolean modificar(Colegio dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CONEXION.Conexion obj = new Conexion();
+        try {
+            Connection con = obj.getConnection();
+            String sql;
+            sql = "{call PR_UPDATE_COLEGIO(?,?,?,?,?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setInt("IN_ID_COLEGIO", dto.getId_colegio());
+            proc.setString("IN_NOMBRE", dto.getNombre());
+            proc.setString("IN_DIRECCION", dto.getDireccion());
+            proc.setString("IN_RUT", dto.getRut());
+            proc.setString("IN_TELEFONO", dto.getTelefono());
+            proc.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Ocurrio un problema con el procedure PR_UPDATE_APODERADO: " + ex.getMessage());
+            return false;
+        }
     }
 
     @Override

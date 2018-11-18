@@ -35,7 +35,7 @@ public class GestionApoderado extends javax.swing.JFrame {
      */
     public GestionApoderado() {
         initComponents();
-        resetBotones();
+        ResetBotones();
         listaApoderados = new ArrayList<>();
         this.setLocationRelativeTo(null);
         MostrarApoderados();
@@ -45,11 +45,10 @@ public class GestionApoderado extends javax.swing.JFrame {
     }
 
     /*ocultar guardar y cancelar, mostrar agregar*/
-    public void resetBotones() {
+    public void ResetBotones() {
         btnAgregarApoderado.setVisible(true);
         btnCancelar.setVisible(false);
         btnGuardar.setVisible(false);
-
     }
 
     /*metodo nuevo pa limpiar*/
@@ -109,14 +108,19 @@ public class GestionApoderado extends javax.swing.JFrame {
                     Apoderado apoderado = new Apoderado();
                     apoderado = listaApoderados.get(fila);
                     new ApoderadoDaoImp().eliminar(apoderado);
+                    LimpiarFormulario();
+                    tablaApoderados.clearSelection();
+                    MostrarApoderados();
+                    ResetBotones();
+
                 }
 
             };
             /*ESTA PARTE ES LA QUE AGREGA EL BOTTON ELIMINAR CON ACCION DECLARADA ANTERIORMENTE*/
             ButtonColumn buttonEliminar = new ButtonColumn(tablaApoderados, borrar, 8);
             buttonEliminar.setMnemonic(KeyEvent.VK_D);
-            
-            /* AGREGA LA ACCION AL BOTTON ELIMINAR*/
+
+            /* AGREGA LA ACCION AL BOTTON editar*/
             Action editar = new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -481,13 +485,13 @@ public class GestionApoderado extends javax.swing.JFrame {
             LimpiarFormulario();
             tablaApoderados.clearSelection();
             MostrarApoderados();
-            resetBotones();
+            ResetBotones();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         LimpiarFormulario();
-        resetBotones();
+        ResetBotones();
         MostrarApoderados();
     }//GEN-LAST:event_btnCancelarActionPerformed
 

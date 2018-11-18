@@ -18,6 +18,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import static DTO.ValidaRut.validarRut;
+import VISTA.CONTROLES.ButtonColumn;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,9 +30,11 @@ import javax.swing.JOptionPane;
  * @author Seba
  */
 public class GestionColegio extends javax.swing.JFrame {
+
     ArrayList<Colegio> listaColegios;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
+    Colegio col =  new Colegio();
 
     /**
      * Creates new form GestionColegio
@@ -36,17 +43,33 @@ public class GestionColegio extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarColegios();
+        ResetBotones();
         RestrictedTextField rtfNumber = new RestrictedTextField(txtTelefono);
         RestrictedTextField rtfLetras = new RestrictedTextField(txtNombre);
         RestrictedTextField rtf = new RestrictedTextField(txtRun);
         rtf.setLimit(12);
         rtfNumber.setOnlyNums(rootPaneCheckingEnabled);
         rtfLetras.setOnlyText(rootPaneCheckingEnabled);
+        rtfLetras.setAcceptSpace(true);
     }
-    
-    public void MostrarColegios(){
+
+    public void ResetBotones() {
+        btnAgregarColegio.setVisible(true);
+        btnCancelar.setVisible(false);
+        btnGuardar.setVisible(false);
+    }
+
+    public void LimpiarFormulario() {
+        txtRun.setText(null);
+        txtDireccion.setText(null);
+        txtNombre.setText(null);
+        txtTelefono.setText(null);
+    }
+
+    public void MostrarColegios() {
         listaColegios = new ColegioDaoImp().listar();
         modelo = new DefaultTableModel();
+        modelo.addColumn("");
         modelo.addColumn("ID");
         modelo.addColumn("NOMBRE");
         modelo.addColumn("DIRECCION");
@@ -56,6 +79,7 @@ public class GestionColegio extends javax.swing.JFrame {
         if (listaColegios.size() > 0) {
             for (Colegio colegio : listaColegios) {
                 modelo.addRow(new Object[]{
+                    "EDITAR",
                     colegio.getId_colegio(),
                     colegio.getNombre(),
                     colegio.getDireccion(),
@@ -66,6 +90,51 @@ public class GestionColegio extends javax.swing.JFrame {
             }
             tablaColegios.setModel(modelo);
         }
+
+        /* AGREGA LA ACCION DEL BOTTON ELIMINAR*/
+        Action borrar = new AbstractAction() {
+            @Override
+            /*ESTE ES EL METODO DEL BOTON CUANDO SE PRESIONA*/
+            public void actionPerformed(ActionEvent e) {
+                int fila = Integer.valueOf(e.getActionCommand());
+                col = new Colegio();
+                col = listaColegios.get(fila);
+                new ColegioDaoImp().eliminar(col);
+                col = new Colegio();
+                LimpiarFormulario();
+                tablaColegios.clearSelection();
+                ResetBotones();
+                MostrarColegios();
+
+            }
+
+        };
+        /*ESTA PARTE ES LA QUE AGREGA EL BOTTON ELIMINAR CON ACCION DECLARADA ANTERIORMENTE*/
+        ButtonColumn buttonEliminar = new ButtonColumn(tablaColegios, borrar, 6);
+        buttonEliminar.setMnemonic(KeyEvent.VK_D);
+
+        /* AGREGA LA ACCION AL BOTTON EDITAR*/
+        Action editar = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int fila = Integer.valueOf(e.getActionCommand());
+                col = new Colegio();
+                col = listaColegios.get(fila);
+                txtRun.setText(col.getRut());
+                txtRun.enableInputMethods(false);
+                txtNombre.setText(col.getNombre());
+                txtDireccion.setText(col.getDireccion());
+                txtTelefono.setText(col.getTelefono());
+                btnAgregarColegio.setVisible(false);
+                btnCancelar.setVisible(true);
+                btnGuardar.setVisible(true);
+            }
+
+        };
+        /*AGREGA EL BOTTON EDITAR A LA COLUMNA CON LA ACCION DECLARADA ANTERIORMENTE*/
+        ButtonColumn buttonEditar = new ButtonColumn(tablaColegios, editar, 0);
+        buttonEditar.setMnemonic(KeyEvent.VK_D);
+
     }
 
     /**
@@ -93,6 +162,8 @@ public class GestionColegio extends javax.swing.JFrame {
         btnAgregarColegio = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -180,33 +251,50 @@ public class GestionColegio extends javax.swing.JFrame {
 
         jLabel9.setText("Telefono");
 
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
         PanelInsertar.setLayout(PanelInsertarLayout);
         PanelInsertarLayout.setHorizontalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelInsertarLayout.createSequentialGroup()
-                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelInsertarLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(PanelInsertarLayout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel3))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelInsertarLayout.createSequentialGroup()
-                                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel5))
-                                .addGap(47, 47, 47)
-                                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtRun, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(PanelInsertarLayout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(btnAgregarColegio)))
+                .addGap(32, 32, 32)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PanelInsertarLayout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnAgregarColegio)
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(PanelInsertarLayout.createSequentialGroup()
+                            .addComponent(btnCancelar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGuardar)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelInsertarLayout.createSequentialGroup()
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
+                        .addGap(47, 47, 47)
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtRun, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         PanelInsertarLayout.setVerticalGroup(
@@ -228,9 +316,13 @@ public class GestionColegio extends javax.swing.JFrame {
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(btnAgregarColegio)
-                .addGap(56, 56, 56))
+                .addGap(40, 40, 40)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardar))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -266,31 +358,59 @@ public class GestionColegio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnAgregarColegioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarColegioActionPerformed
-        if(validarRut(txtRun.getText().trim())==false){
+        if (validarRut(txtRun.getText().trim()) == false) {
             JOptionPane.showMessageDialog(null, "El rut ingresado no es valido o ya esta registrado");
-        }else if(txtRun.getText().trim().isEmpty()){            
+        } else if (txtRun.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un RUT");
-        }else if(txtNombre.getText().trim().isEmpty()){            
+        } else if (txtNombre.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Nombre");
-        }else if(txtDireccion.getText().trim().isEmpty()){            
+        } else if (txtDireccion.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese una Direccion");
-        }else if(txtTelefono.getText().trim().isEmpty()){            
+        } else if (txtTelefono.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Telefono");
-        }else{
+        } else {
             Colegio col = new Colegio();
             col.setRut(txtRun.getText());
             col.setNombre(txtNombre.getText());
             col.setDireccion(txtDireccion.getText());
             col.setTelefono(txtTelefono.getText());
             new ColegioDaoImp().insertar(col);
-            txtRun.setText(null);
-            txtDireccion.setText(null);
-            txtNombre.setText(null);            
-            txtTelefono.setText(null);
+            LimpiarFormulario();
             tablaColegios.clearSelection();
+            ResetBotones();
             MostrarColegios();
         }
     }//GEN-LAST:event_btnAgregarColegioActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        LimpiarFormulario();
+        tablaColegios.clearSelection();
+        ResetBotones();
+        MostrarColegios();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        if (txtRun.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un RUT");
+        } else if (txtNombre.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Nombre");
+        } else if (txtDireccion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese una Direccion");
+        } else if (txtTelefono.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Telefono");
+        } else {
+            col.setRut(txtRun.getText());
+            col.setNombre(txtNombre.getText());
+            col.setDireccion(txtDireccion.getText());
+            col.setTelefono(txtTelefono.getText());
+            new ColegioDaoImp().modificar(col);
+            LimpiarFormulario();
+            tablaColegios.clearSelection();
+            ResetBotones();
+            MostrarColegios();
+            col = new Colegio();
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -298,6 +418,8 @@ public class GestionColegio extends javax.swing.JFrame {
     private javax.swing.JPanel PanelTabla;
     private javax.swing.JPanel PanelTitulo;
     private javax.swing.JButton btnAgregarColegio;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -10,11 +10,18 @@ import DAO.AgenteDaoImp;
 import DTO.Agente;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,8 +36,22 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
+        Action action = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnIniciarSesion.doClick();
+            }
+        };
+        txtUsuario.addActionListener(action);
+        jPassword.addActionListener(action);
+        /*
+        Borrar esto para eliminar credenciales automáticas
+         */
+        txtUsuario.setText("ADMIN");
+        jPassword.setText("PASO");
+        /*hasta aca*/
     }
-
+    
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/icono-login-png-6.png"));
         return retValue;
@@ -117,7 +138,7 @@ public class Login extends javax.swing.JFrame {
             PreparedStatement st = con.prepareStatement(query);
             st.setString(1, user);
             st.setString(2, pass);
-
+            
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 if (user.isEmpty()) {
@@ -131,7 +152,7 @@ public class Login extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Usuario Inactivo. Contactese con el Administrador.");
                 } else {
                     this.setVisible(false);
-                    int admin=administrador();
+                    int admin = administrador();
                     new Index(admin).setVisible(true);
                 }
             } else {
@@ -139,7 +160,7 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta");
             }
         } catch (Exception ex) {
-
+            
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
     /**
@@ -161,7 +182,7 @@ public class Login extends javax.swing.JFrame {
             PreparedStatement st = con.prepareStatement(query);
             st.setString(1, user);
             st.setString(2, pass);
-
+            
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 estado = rs.getInt("estado");
@@ -193,7 +214,7 @@ public class Login extends javax.swing.JFrame {
             PreparedStatement st = con.prepareStatement(query);
             st.setString(1, user);
             st.setString(2, pass);
-
+            
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 admin = rs.getInt("ADMINISTRADOR");
@@ -221,21 +242,21 @@ public class Login extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Login.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Login.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Login.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
