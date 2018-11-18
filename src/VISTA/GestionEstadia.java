@@ -21,6 +21,7 @@ public class GestionEstadia extends javax.swing.JFrame {
     ArrayList<Estadia> listaEstadia;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
+    int flag;
 
     /**
      * Creates new form GestionEstadia
@@ -33,6 +34,33 @@ public class GestionEstadia extends javax.swing.JFrame {
         restricted1.setOnlyNums(rootPaneCheckingEnabled);
         RestrictedTextField restricted2= new RestrictedTextField(txtCostoPorDia);
         restricted2.setOnlyNums(rootPaneCheckingEnabled);
+    }
+    
+    public GestionEstadia(int admin) {
+        Admin(admin);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        MostrarEstadias();
+        RestrictedTextField restricted1= new RestrictedTextField(txtCapacidad);
+        restricted1.setOnlyNums(rootPaneCheckingEnabled);
+        RestrictedTextField restricted2= new RestrictedTextField(txtCostoPorDia);
+        restricted2.setOnlyNums(rootPaneCheckingEnabled);
+    }
+    
+    /***
+     * Metodo para ver si el usuario posee perfil de administrador.
+     * @param admin
+     * @return 
+     */
+    public boolean Admin(int admin) {
+        this.flag = admin;
+        if (admin == 1) {
+            flag = 1;
+            return true;
+        } else {
+            flag = 0;
+            return false;
+        }
     }
     
     public void MostrarEstadias(){
@@ -275,8 +303,9 @@ public class GestionEstadia extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        Index x = new Index();
+        Index x = new Index(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 

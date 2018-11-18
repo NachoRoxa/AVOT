@@ -343,13 +343,14 @@ public class Index extends javax.swing.JFrame {
     private void btnApoderadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApoderadosActionPerformed
         Admin(flag);        
         this.setVisible(false);
-        GestionApoderado x = new GestionApoderado();
+        GestionApoderado x = new GestionApoderado(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnApoderadosActionPerformed
 
     private void btnToursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToursActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        GestionTour x = new GestionTour();
+        GestionTour x = new GestionTour(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnToursActionPerformed
 
@@ -360,7 +361,7 @@ public class Index extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Accion no permitida para su perfil.");
         } else {
             this.setVisible(false);
-            GestionViaje x = new GestionViaje();
+            GestionViaje x = new GestionViaje(flag);
             x.setVisible(true);
         }
     }//GEN-LAST:event_btnViajesActionPerformed
@@ -372,7 +373,7 @@ public class Index extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Accion no permitida para su perfil.");
         } else {
             this.setVisible(false);
-            GestionSeguro x = new GestionSeguro();
+            GestionSeguro x = new GestionSeguro(flag);
             x.setVisible(true);
         }
     }//GEN-LAST:event_btnSeguroActionPerformed
@@ -384,7 +385,7 @@ public class Index extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Accion no permitida para su perfil.");
         } else {
             this.setVisible(false);
-            GestionEstadia x = new GestionEstadia();
+            GestionEstadia x = new GestionEstadia(flag);
             x.setVisible(true);
         }
     }//GEN-LAST:event_btnEstadiasActionPerformed
@@ -396,26 +397,29 @@ public class Index extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Accion no permitida para su perfil.");
         } else {
             this.setVisible(false);
-            GestionActividadGira x = new GestionActividadGira();
+            GestionActividadGira x = new GestionActividadGira(flag);
             x.setVisible(true);
         }
     }//GEN-LAST:event_btnActividadesGiraActionPerformed
 
     private void btnCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCursosActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        GestionCurso x = new GestionCurso();
+        GestionCurso x = new GestionCurso(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnCursosActionPerformed
 
     private void btnAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlumnosActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        GestionAlumno x = new GestionAlumno();
+        GestionAlumno x = new GestionAlumno(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnAlumnosActionPerformed
 
     private void btnColegiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColegiosActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        GestionColegio x = new GestionColegio();
+        GestionColegio x = new GestionColegio(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnColegiosActionPerformed
 
@@ -436,20 +440,23 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgentesActionPerformed
 
     private void btnEmpresasTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresasTransporteActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        GestionEmpresaTransporte x = new GestionEmpresaTransporte();
+        GestionEmpresaTransporte x = new GestionEmpresaTransporte(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnEmpresasTransporteActionPerformed
 
     private void btnAseguradoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAseguradoraActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        GestionAseguradora x = new GestionAseguradora();
+        GestionAseguradora x = new GestionAseguradora(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnAseguradoraActionPerformed
 
     private void btnContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContratoActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        GeneradorContratoPDF x = new GeneradorContratoPDF();
+        GeneradorContratoPDF x = new GeneradorContratoPDF(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnContratoActionPerformed
 

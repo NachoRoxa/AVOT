@@ -25,8 +25,9 @@ public class GestionSeguro extends javax.swing.JFrame {
     ArrayList<Seguro> listaSeguros;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
-
-
+    int flag;
+    
+    
     /**
      * Creates new form GestionSeguro
      */
@@ -35,6 +36,31 @@ public class GestionSeguro extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         MostrarSeguros();
     }
+    
+    public GestionSeguro(int admin)
+    {
+        Admin(admin);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        MostrarSeguros();
+    }
+    
+    /***
+     * Metodo para ver si el usuario posee perfil de administrador.
+     * @param admin
+     * @return 
+     */
+    public boolean Admin(int admin) {
+        this.flag = admin;
+        if (admin == 1) {
+            flag = 1;
+            return true;
+        } else {
+            flag = 0;
+            return false;
+        }
+    }
+    
     public void MostrarSeguros(){
         listaSeguros = new SeguroDaoImp().listar();
         modelo = new DefaultTableModel();
@@ -165,8 +191,9 @@ public class GestionSeguro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        Index x = new Index();
+        Index x = new Index(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 

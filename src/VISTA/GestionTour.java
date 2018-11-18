@@ -25,6 +25,7 @@ public class GestionTour extends javax.swing.JFrame {
     ArrayList<Tour> listaTour;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
+    int flag;
     /**
      * Creates new form GestionTour
      */
@@ -34,6 +35,29 @@ public class GestionTour extends javax.swing.JFrame {
         MostrarTours();
     }
     
+    public GestionTour(int admin)
+    {
+        Admin(admin);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        MostrarTours();
+    }
+    
+    /***
+     * Metodo para ver si el usuario posee perfil de administrador.
+     * @param admin
+     * @return 
+     */
+    public boolean Admin(int admin) {
+        this.flag = admin;
+        if (admin == 1) {
+            flag = 1;
+            return true;
+        } else {
+            flag = 0;
+            return false;
+        }
+    }
     
     public void MostrarTours(){
         listaTour = new TourDaoImp().listar();
@@ -165,8 +189,9 @@ public class GestionTour extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        Index x = new Index();
+        Index x = new Index(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 

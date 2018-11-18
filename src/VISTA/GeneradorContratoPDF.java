@@ -17,12 +17,37 @@ import javax.swing.JOptionPane;
  */
 public class GeneradorContratoPDF extends javax.swing.JFrame {
     ArrayList<Tour> listaTour;
+    int flag;
+    
     /**
      * Creates new form Generador
      */
     public GeneradorContratoPDF() {
         initComponents();
         datosCombobox();
+    }
+    
+    public GeneradorContratoPDF(int admin)
+    {
+        Admin(admin);
+        initComponents();
+        datosCombobox();
+    }            
+    
+    /***
+     * Metodo para ver si el usuario posee perfil de administrador.
+     * @param admin
+     * @return 
+     */
+    public boolean Admin(int admin) {
+        this.flag = admin;
+        if (admin == 1) {
+            flag = 1;
+            return true;
+        } else {
+            flag = 0;
+            return false;
+        }
     }
 
     /**
@@ -159,8 +184,9 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGenerarContratoActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        Index x = new Index();
+        Index x = new Index(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
     public void datosCombobox(){

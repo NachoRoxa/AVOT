@@ -26,6 +26,7 @@ public class GestionCurso extends javax.swing.JFrame {
     ArrayList<Curso> listaCursos;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
+    int flag;
 
     /**
      * Creates new form GestionCurso
@@ -35,6 +36,31 @@ public class GestionCurso extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         MostrarCursos();
         datosCombobox();
+    }
+    
+    public GestionCurso(int admin)
+    {
+        Admin(admin);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        MostrarCursos();
+        datosCombobox();
+    }
+    
+    /***
+     * Metodo para ver si el usuario posee perfil de administrador.
+     * @param admin
+     * @return 
+     */
+    public boolean Admin(int admin) {
+        this.flag = admin;
+        if (admin == 1) {
+            flag = 1;
+            return true;
+        } else {
+            flag = 0;
+            return false;
+        }
     }
     
     public void MostrarCursos(){
@@ -77,9 +103,10 @@ public class GestionCurso extends javax.swing.JFrame {
             }
             
         } catch (Exception ex) {
+            Admin(flag);
             this.setVisible(false);
             JOptionPane.showMessageDialog(null, "Problemas de conexion");
-            Index in = new Index();
+            Index in = new Index(flag);
             
             in.setVisible(true);
         }
@@ -287,8 +314,9 @@ public class GestionCurso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        Index x = new Index();
+        Index x = new Index(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
