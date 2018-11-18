@@ -29,6 +29,7 @@ public class GestionApoderado extends javax.swing.JFrame {
     ArrayList<Apoderado> listaApoderados;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
+    int flag;
 
     /**
      * Creates new form GestionApoderado
@@ -41,9 +42,35 @@ public class GestionApoderado extends javax.swing.JFrame {
         MostrarApoderados();
         RestrictedTextField restricted = new RestrictedTextField(txtRun);
         restricted.setLimit(12);
-
     }
-
+    
+    public GestionApoderado(int admin) {
+        Admin(admin);
+        initComponents();
+        ResetBotones();
+        listaApoderados = new ArrayList<>();
+        this.setLocationRelativeTo(null);
+        MostrarApoderados();
+        RestrictedTextField restricted = new RestrictedTextField(txtRun);
+        restricted.setLimit(12);
+    }
+    
+    /***
+     * Metodo para ver si el usuario posee perfil de administrador.
+     * @param admin
+     * @return 
+     */
+    public boolean Admin(int admin) {
+        this.flag = admin;
+        if (admin == 1) {
+            flag = 1;
+            return true;
+        } else {
+            flag = 0;
+            return false;
+        }
+    }
+    
     /*ocultar guardar y cancelar, mostrar agregar*/
     public void ResetBotones() {
         btnAgregarApoderado.setVisible(true);
@@ -408,8 +435,9 @@ public class GestionApoderado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        Index x = new Index();
+        Index x = new Index(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 

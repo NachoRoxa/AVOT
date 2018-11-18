@@ -341,6 +341,7 @@ public class Index extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnApoderadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApoderadosActionPerformed
+        Admin(flag);        
         this.setVisible(false);
         GestionApoderado x = new GestionApoderado();
         x.setVisible(true);
@@ -429,7 +430,7 @@ public class Index extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Accion no permitida para su perfil.");
         } else {
             this.setVisible(false);
-            GestionAgente x = new GestionAgente();
+            GestionAgente x = new GestionAgente(flag);
             x.setVisible(true);
         }
     }//GEN-LAST:event_btnAgentesActionPerformed
