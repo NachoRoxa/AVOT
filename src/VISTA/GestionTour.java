@@ -8,13 +8,7 @@ package VISTA;
 import CONEXION.Conexion;
 import DAO.TourDaoImp;
 import DTO.Tour;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,13 +22,8 @@ public class GestionTour extends javax.swing.JFrame {
     int flag;
     /**
      * Creates new form GestionTour
+     * @param admin
      */
-    public GestionTour() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        MostrarTours();
-    }
-    
     public GestionTour(int admin)
     {
         Admin(admin);

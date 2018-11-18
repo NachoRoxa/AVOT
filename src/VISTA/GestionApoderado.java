@@ -17,7 +17,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import Atxy2k.CustomTextField.RestrictedTextField;
 
 /**
@@ -33,17 +32,8 @@ public class GestionApoderado extends javax.swing.JFrame {
 
     /**
      * Creates new form GestionApoderado
+     * @param admin
      */
-    public GestionApoderado() {
-        initComponents();
-        ResetBotones();
-        listaApoderados = new ArrayList<>();
-        this.setLocationRelativeTo(null);
-        MostrarApoderados();
-        RestrictedTextField restricted = new RestrictedTextField(txtRun);
-        restricted.setLimit(12);
-    }
-    
     public GestionApoderado(int admin) {
         Admin(admin);
         initComponents();

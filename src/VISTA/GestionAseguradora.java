@@ -9,7 +9,6 @@ import Atxy2k.CustomTextField.RestrictedTextField;
 import CONEXION.Conexion;
 import DAO.AseguradoraDaoImp;
 import DTO.Aseguradora;
-import static DTO.ValidaRut.formatearRut;
 import static DTO.ValidaRut.validarRut;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -28,17 +27,8 @@ public class GestionAseguradora extends javax.swing.JFrame {
 
     /**
      * Creates new form GestionAseguradora
+     * @param admin
      */
-    public GestionAseguradora() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        MostrarAseguradoras();
-        RestrictedTextField rtf = new RestrictedTextField(txtRut);
-        rtf.setLimit(12);
-        RestrictedTextField restricted1 = new RestrictedTextField(txtNombre);
-        restricted1.setOnlyText(true);
-    }
-    
     public GestionAseguradora(int admin) {
         Admin(admin);
         initComponents();

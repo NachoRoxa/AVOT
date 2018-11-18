@@ -9,13 +9,7 @@ import Atxy2k.CustomTextField.RestrictedTextField;
 import CONEXION.Conexion;
 import DAO.ColegioDaoImp;
 import DTO.Colegio;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import static DTO.ValidaRut.validarRut;
 import VISTA.CONTROLES.ButtonColumn;
@@ -40,20 +34,6 @@ public class GestionColegio extends javax.swing.JFrame {
     /**
      * Creates new form GestionColegio
      */
-    public GestionColegio() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        MostrarColegios();
-        ResetBotones();
-        RestrictedTextField rtfNumber = new RestrictedTextField(txtTelefono);
-        RestrictedTextField rtfLetras = new RestrictedTextField(txtNombre);
-        RestrictedTextField rtf = new RestrictedTextField(txtRun);
-        rtf.setLimit(12);
-        rtfNumber.setOnlyNums(rootPaneCheckingEnabled);
-        rtfLetras.setOnlyText(rootPaneCheckingEnabled);
-        rtfLetras.setAcceptSpace(true);
-    }
-    
     public GestionColegio(int admin) {
         Admin(admin);
         initComponents();

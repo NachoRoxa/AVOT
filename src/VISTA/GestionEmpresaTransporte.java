@@ -25,15 +25,8 @@ public class GestionEmpresaTransporte extends javax.swing.JFrame {
 
     /**
      * Creates new form GestionarEmpresaTransporte
+     * @param admin
      */
-    public GestionEmpresaTransporte() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        MostrarEmpresasTransporte();
-        RestrictedTextField restricted1 = new RestrictedTextField(txtNombreEmpresa);
-        restricted1.setOnlyText(true);
-    }
-    
     public GestionEmpresaTransporte(int admin) {
         Admin(admin);
         initComponents();

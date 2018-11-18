@@ -21,12 +21,8 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
     
     /**
      * Creates new form Generador
-     */
-    public GeneradorContratoPDF() {
-        initComponents();
-        datosCombobox();
-    }
-    
+     * @param admin
+     */    
     public GeneradorContratoPDF(int admin)
     {
         Admin(admin);

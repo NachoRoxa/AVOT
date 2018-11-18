@@ -24,17 +24,9 @@ public class GestionActividadGira extends javax.swing.JFrame {
     DefaultTableModel modelo;
     int flag;
     
-    /** Creates new form GestionarActividad */
-    public GestionActividadGira() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        MostrarActividadGira();
-        RestrictedTextField restricted = new RestrictedTextField(txtCosto);
-        restricted.setOnlyNums(rootPaneCheckingEnabled);
-    }
-    
-    public GestionActividadGira(int admin)
-    {
+    /** Creates new form GestionarActividad
+     * @param admin */
+    public GestionActividadGira(int admin){
         Admin(admin);
         initComponents();
         this.setLocationRelativeTo(null);

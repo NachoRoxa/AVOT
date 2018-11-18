@@ -32,7 +32,6 @@ public class Index extends javax.swing.JFrame {
         return retValue;
     }
 
-    
 
     public boolean Admin(int admin) {
         this.flag = admin;

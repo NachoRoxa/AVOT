@@ -8,7 +8,6 @@ package VISTA;
 import CONEXION.Conexion;
 import DAO.AlumnoDaoImp;
 import DTO.Alumno;
-import DTO.Apoderado;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,13 +23,8 @@ public class GestionAlumno extends javax.swing.JFrame {
 
     /**
      * Creates new form GestionAlumno
+     * @param admin
      */
-    public GestionAlumno() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        MostrarAlumnos();
-    }
-    
     public GestionAlumno(int admin)
     {
         Admin(admin);

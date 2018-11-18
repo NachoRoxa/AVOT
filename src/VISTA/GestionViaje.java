@@ -8,13 +8,7 @@ package VISTA;
 import CONEXION.Conexion;
 import DAO.ViajeDaoImp;
 import DTO.Viaje;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,13 +23,8 @@ public class GestionViaje extends javax.swing.JFrame {
 
     /**
      * Creates new form GestionViaje
-     */
-    public GestionViaje() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        MostrarViajes();
-    }
-    
+     * @param admin
+     */    
     public GestionViaje(int admin)
     {
         Admin(admin);
