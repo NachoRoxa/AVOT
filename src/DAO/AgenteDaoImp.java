@@ -72,7 +72,26 @@ public class AgenteDaoImp implements BaseDao<Agente> {
 
     @Override
     public boolean modificar(Agente dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CONEXION.Conexion obj = new Conexion();
+        try {
+            Connection con = obj.getConnection();
+            String sql;
+            sql = "{call PR_UPDATE_AGENTE(?,?,?,?,?,?,?,?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setString(1,dto.getRun());
+            proc.setString(2,dto.getUser());
+            proc.setString(3,dto.getPasswd());
+            proc.setString(4,dto.getNombre());
+            proc.setString(5,dto.getApellido_paterno());
+            proc.setString(6,dto.getApellido_materno());
+            proc.setInt(7,dto.getAdministrador());
+            proc.setInt(8,dto.getEstado());
+            proc.executeQuery();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Ocurrio un problema con el procedure PR_AGREGAR_AGENTE: " + ex.getMessage());
+            return false;
+        }
     }
 
     @Override
@@ -118,7 +137,7 @@ public class AgenteDaoImp implements BaseDao<Agente> {
                 agente.setEstado(re.getInt(8));
                 lista.add(agente);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             return lista;
         }
         return lista;

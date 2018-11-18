@@ -13,16 +13,23 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Atxy2k.CustomTextField.RestrictedTextField;
+import VISTA.CONTROLES.ButtonColumn;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 /**
  *
  * @author Seba
  */
 public class GestionAgente extends javax.swing.JFrame {
+
+    Agente agente = new Agente();
     ArrayList<Agente> listaAgentes;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
-    
+
     /**
      * Creates new form GestionarAgente
      */
@@ -38,15 +45,34 @@ public class GestionAgente extends javax.swing.JFrame {
         restricted2.setOnlyText(true);
         RestrictedTextField restricted3 = new RestrictedTextField(txtApellidoM);
         restricted3.setOnlyText(true);
+        ResetBotones();
     }
-    
+
+    public void ResetBotones() {
+        btnAgregarAgente.setVisible(true);
+        btnCancelar.setVisible(false);
+        btnGuardar.setVisible(false);
+    }
+
+    public void LimpiarFormulario() {
+        txtRun.setText(null);
+        txtUsuario.setText(null);
+        txtContraseña.setText(null);
+        txtNombre.setText(null);
+        txtApellidoP.setText(null);
+        txtApellidoM.setText(null);
+        chbAdministrador.setSelected(false);
+        BGrupEstado.clearSelection();
+    }
+
     public void MostrarAgentes() {
         listaAgentes = new AgenteDaoImp().listar();
         modelo = new DefaultTableModel();
+        modelo.addColumn("");
         modelo.addColumn("RUN");
         modelo.addColumn("NOMBRE");
         modelo.addColumn("APELLIDO");
-        //modelo.addColumn("APELLIDO MATERNO");
+        modelo.addColumn("APELLIDO MATERNO");
         modelo.addColumn("USUARIO");
         modelo.addColumn("ADMIN");
         modelo.addColumn("ESTADO");
@@ -66,10 +92,11 @@ public class GestionAgente extends javax.swing.JFrame {
                     estado = "ACTIVO";
                 }
                 modelo.addRow(new Object[]{
+                    "EDITAR",
                     agente.getRun(),
                     agente.getNombre(),
                     agente.getApellido_paterno(),
-                    //agente.getApellido_materno(),
+                    agente.getApellido_materno(),
                     agente.getUser(),
                     admin,
                     estado,
@@ -77,6 +104,52 @@ public class GestionAgente extends javax.swing.JFrame {
                 );
             }
             tablaAgentes.setModel(modelo);
+
+            /* AGREGA LA ACCION DEL BOTTON ELIMINAR*/
+            Action borrar = new AbstractAction() {
+                @Override
+                /*ESTE ES EL METODO DEL BOTON CUANDO SE PRESIONA*/
+                public void actionPerformed(ActionEvent e) {
+                    int fila = Integer.valueOf(e.getActionCommand());
+                    Agente agente = new Agente();
+                    agente = listaAgentes.get(fila);
+                    new AgenteDaoImp().eliminar(agente);
+                    LimpiarFormulario();
+                    tablaAgentes.clearSelection();
+                    MostrarAgentes();
+                    ResetBotones();
+
+                }
+
+            };
+            /*ESTA PARTE ES LA QUE AGREGA EL BOTTON ELIMINAR CON ACCION DECLARADA ANTERIORMENTE*/
+            ButtonColumn buttonEliminar = new ButtonColumn(tablaAgentes, borrar, 8);
+            buttonEliminar.setMnemonic(KeyEvent.VK_D);
+
+            /* AGREGA LA ACCION AL BOTTON editar*/
+            Action editar = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int fila = Integer.valueOf(e.getActionCommand());
+                    agente = listaAgentes.get(fila);
+                    txtRun.setText(agente.getRun());
+                    txtRun.enableInputMethods(false);
+                    txtNombre.setText(agente.getNombre());
+                    txtApellidoP.setText(agente.getApellido_paterno());
+                    txtApellidoM.setText(agente.getApellido_materno());
+                    txtUsuario.setText(agente.getUser());
+                    txtContraseña.setText(agente.getPasswd());
+                    chbAdministrador.setSelected(agente.getAdministrador() > 0);
+                    RBActivo.setSelected(agente.getEstado() > 0);
+                    btnAgregarAgente.setVisible(false);
+                    btnCancelar.setVisible(true);
+                    btnGuardar.setVisible(true);
+                }
+
+            };
+            /*AGREGA EL BOTTON EDITAR A LA COLUMNA CON LA ACCION DECLARADA ANTERIORMENTE*/
+            ButtonColumn buttonEditar = new ButtonColumn(tablaAgentes, editar, 0);
+            buttonEditar.setMnemonic(KeyEvent.VK_D);
         }
     }
 
@@ -115,6 +188,8 @@ public class GestionAgente extends javax.swing.JFrame {
         RBActivo = new javax.swing.JRadioButton();
         RBInactivo = new javax.swing.JRadioButton();
         txtContraseña = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -216,6 +291,20 @@ public class GestionAgente extends javax.swing.JFrame {
         BGrupEstado.add(RBInactivo);
         RBInactivo.setText("Inactivo");
 
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
         PanelInsertar.setLayout(PanelInsertarLayout);
         PanelInsertarLayout.setHorizontalGroup(
@@ -248,7 +337,11 @@ public class GestionAgente extends javax.swing.JFrame {
                                 .addGap(61, 61, 61)
                                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNombre)
-                                    .addComponent(txtRun))))
+                                    .addComponent(txtRun)))
+                            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                                .addComponent(btnCancelar)
+                                .addGap(107, 107, 107)
+                                .addComponent(btnGuardar)))
                         .addGap(25, 25, 25))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -299,7 +392,10 @@ public class GestionAgente extends javax.swing.JFrame {
                     .addComponent(RBInactivo))
                 .addGap(18, 18, 18)
                 .addComponent(btnAgregarAgente)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardar)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -333,63 +429,87 @@ public class GestionAgente extends javax.swing.JFrame {
         Index x = new Index();
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
-  
+
     private void btnAgregarAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAgenteActionPerformed
         //Crea un nuevo objetoAgente
         Agente agente = new Agente();
-        if(validarRut(txtRun.getText().trim())==false){
+        if (validarRut(txtRun.getText().trim()) == false) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "El rut ingresado no es valido o ya esta registrado");
-        }else if(txtNombre.getText().trim().isEmpty()){
+        } else if (txtNombre.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Nombre");
-        }else if(txtApellidoP.getText().trim().isEmpty()){
+        } else if (txtApellidoP.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Apellido Paterno");
-        }else if(txtApellidoM.getText().trim().isEmpty()){
+        } else if (txtApellidoM.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Apellido Materno");
-        }else if(txtUsuario.getText().trim().isEmpty()){
+        } else if (txtUsuario.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Usuario");
-        }else if(txtContraseña.getText().trim().isEmpty()){
+        } else if (txtContraseña.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Pasword");
-        }else{
-            
+        } else {
+
             agente.setRun(txtRun.getText());
             agente.setNombre(txtNombre.getText());
             agente.setApellido_paterno(txtApellidoP.getText());
             agente.setApellido_materno(txtApellidoM.getText());
             agente.setUser(txtUsuario.getText());
             agente.setPasswd(txtContraseña.getText());
-            if(chbAdministrador.isSelected()){
+            if (chbAdministrador.isSelected()) {
                 agente.setAdministrador(1);
-            }else{
+            } else {
                 agente.setAdministrador(0);
             }
-            if(RBActivo.isSelected()){
+            if (RBActivo.isSelected()) {
                 agente.setEstado(1);
-            }else{
+            } else {
                 agente.setEstado(0);
             }
-                //Agrega un Agente
-                new AgenteDaoImp().insertar(agente);
-                //Limpia los datos de los txtBox
-                txtRun.setText(null);
-                txtUsuario.setText(null);
-                txtContraseña.setText(null);
-                txtNombre.setText(null);
-                txtApellidoP.setText(null);
-                txtApellidoM.setText(null);
-                chbAdministrador.setSelected(false);
-                BGrupEstado.clearSelection();
-                //Limpimpia la tabla
-                tablaAgentes.clearSelection();
-                //Setea nuevamente la tabla
-                MostrarAgentes();
+            //Agrega un Agente
+            new AgenteDaoImp().insertar(agente);
+            //Limpia los datos de los txtBox
+            LimpiarFormulario();
+            //Limpimpia la tabla
+            tablaAgentes.clearSelection();
+            //Setea nuevamente la tabla
+            MostrarAgentes();
         }
     }//GEN-LAST:event_btnAgregarAgenteActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        ResetBotones();
+        LimpiarFormulario();
+        tablaAgentes.clearSelection();
+        MostrarAgentes();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        agente.setRun(txtRun.getText());
+        agente.setNombre(txtNombre.getText());
+        agente.setApellido_paterno(txtApellidoP.getText());
+        agente.setApellido_materno(txtApellidoM.getText());
+        agente.setUser(txtUsuario.getText());
+        agente.setPasswd(txtContraseña.getText());
+        if (chbAdministrador.isSelected()) {
+            agente.setAdministrador(1);
+        } else {
+            agente.setAdministrador(0);
+        }
+        if (RBActivo.isSelected()) {
+            agente.setEstado(1);
+        } else {
+            agente.setEstado(0);
+        }
+        new AgenteDaoImp().modificar(agente);
+        ResetBotones();
+        LimpiarFormulario();
+        tablaAgentes.clearSelection();
+        MostrarAgentes();
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup BGrupEstado;
@@ -399,6 +519,8 @@ public class GestionAgente extends javax.swing.JFrame {
     private javax.swing.JRadioButton RBActivo;
     private javax.swing.JRadioButton RBInactivo;
     private javax.swing.JButton btnAgregarAgente;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JCheckBox chbAdministrador;
     private javax.swing.JLabel jLabel1;

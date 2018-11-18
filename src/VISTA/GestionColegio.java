@@ -369,12 +369,12 @@ public class GestionColegio extends javax.swing.JFrame {
         } else if (txtTelefono.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Telefono");
         } else {
-            Colegio col = new Colegio();
-            col.setRut(txtRun.getText());
-            col.setNombre(txtNombre.getText());
-            col.setDireccion(txtDireccion.getText());
-            col.setTelefono(txtTelefono.getText());
-            new ColegioDaoImp().insertar(col);
+            Colegio colegio = new Colegio();
+            colegio.setRut(txtRun.getText());
+            colegio.setNombre(txtNombre.getText());
+            colegio.setDireccion(txtDireccion.getText());
+            colegio.setTelefono(txtTelefono.getText());
+            new ColegioDaoImp().insertar(colegio);
             LimpiarFormulario();
             tablaColegios.clearSelection();
             ResetBotones();
