@@ -17,7 +17,16 @@ public class Curso {
     private int monto_recaudado;
     private Colegio colegio;
     private String descripcion;
+    private List<Alumno> alumnos;
     private List<ActividadColegio> actividades;
+
+    public List<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(List<Alumno> alumnos) {
+        this.alumnos = alumnos;
+    }
 
     public Curso() {
     }
