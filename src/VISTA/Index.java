@@ -20,11 +20,11 @@ public class Index extends javax.swing.JFrame {
      */
     Login log = new Login();
     int flag;
-
-    public Index() {
+    
+    public Index(int admin) {
+        Admin(admin);
         initComponents();
         this.setLocationRelativeTo(null);
-
     }
 
     public Image getIconImage() {
@@ -32,10 +32,7 @@ public class Index extends javax.swing.JFrame {
         return retValue;
     }
 
-    public Index(int admin) {
-        Admin(admin);
-        initComponents();
-    }
+    
 
     public boolean Admin(int admin) {
         this.flag = admin;
