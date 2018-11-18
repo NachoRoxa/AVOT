@@ -19,6 +19,7 @@ public class Index extends javax.swing.JFrame {
      * Creates new form Index
      */
     Login log = new Login();
+    int flag;
 
     public Index() {
         initComponents();
@@ -31,12 +32,19 @@ public class Index extends javax.swing.JFrame {
         return retValue;
     }
 
-    public void Admin() {
-        Login log = new Login();
-        if (log.administrador() == 1) {
-            PanelAgencia.setVisible(true);
+    public Index(int admin) {
+        Admin(admin);
+        initComponents();
+    }
+
+    public boolean Admin(int admin) {
+        this.flag = admin;
+        if (admin == 1) {
+            flag = 1;
+            return true;
         } else {
-            PanelAgencia.setVisible(false);
+            flag = 0;
+            return false;
         }
     }
 
@@ -345,27 +353,51 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_btnToursActionPerformed
 
     private void btnViajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViajesActionPerformed
-        this.setVisible(false);
-        GestionViaje x = new GestionViaje();
-        x.setVisible(true);
+        Admin(flag);
+        if (flag == 0) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Accion no permitida para su perfil.");
+        } else {
+            this.setVisible(false);
+            GestionViaje x = new GestionViaje();
+            x.setVisible(true);
+        }
     }//GEN-LAST:event_btnViajesActionPerformed
 
     private void btnSeguroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeguroActionPerformed
-        this.setVisible(false);
-        GestionSeguro x = new GestionSeguro();
-        x.setVisible(true);
+        Admin(flag);
+        if (flag == 0) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Accion no permitida para su perfil.");
+        } else {
+            this.setVisible(false);
+            GestionSeguro x = new GestionSeguro();
+            x.setVisible(true);
+        }
     }//GEN-LAST:event_btnSeguroActionPerformed
 
     private void btnEstadiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadiasActionPerformed
-        this.setVisible(false);
-        GestionEstadia x = new GestionEstadia();
-        x.setVisible(true);
+        Admin(flag);
+        if (flag == 0) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Accion no permitida para su perfil.");
+        } else {
+            this.setVisible(false);
+            GestionEstadia x = new GestionEstadia();
+            x.setVisible(true);
+        }
     }//GEN-LAST:event_btnEstadiasActionPerformed
 
     private void btnActividadesGiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActividadesGiraActionPerformed
-        this.setVisible(false);
-        GestionActividadGira x = new GestionActividadGira();
-        x.setVisible(true);
+        Admin(flag);
+        if (flag == 0) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Accion no permitida para su perfil.");
+        } else {
+            this.setVisible(false);
+            GestionActividadGira x = new GestionActividadGira();
+            x.setVisible(true);
+        }
     }//GEN-LAST:event_btnActividadesGiraActionPerformed
 
     private void btnCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCursosActionPerformed
@@ -391,7 +423,8 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAgentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgentesActionPerformed
-        if (log.administrador() == 0) {
+        Admin(flag);
+        if (flag == 0) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Accion no permitida para su perfil.");
         } else {

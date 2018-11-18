@@ -112,8 +112,7 @@ public class Login extends javax.swing.JFrame {
         String query = "select usuario, passwd, estado, administrador from agentes where usuario =?  and passwd =?";
         String user = txtUsuario.getText();
         String pass = String.valueOf(jPassword.getPassword());
-        Index x = new Index();
-
+        
         try {
             PreparedStatement st = con.prepareStatement(query);
             st.setString(1, user);
@@ -132,7 +131,8 @@ public class Login extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Usuario Inactivo. Contactese con el Administrador.");
                 } else {
                     this.setVisible(false);
-                    x.setVisible(true);
+                    int admin=administrador();
+                    new Index(admin).setVisible(true);
                 }
             } else {
                 this.setVisible(true);
