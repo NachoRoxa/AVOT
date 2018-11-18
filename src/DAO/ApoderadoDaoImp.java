@@ -70,9 +70,28 @@ public class ApoderadoDaoImp implements ApoderadoDao {
         }
     }
 
+    /*LLAMADO A PROCEDIMIENTO PARA ACTUALIZAR*/
     @Override
     public boolean modificar(Apoderado dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CONEXION.Conexion obj = new Conexion();
+        try {
+            Connection con = obj.getConnection();
+            String sql;
+            sql = "{call PR_UPDATE_APODERADO(?,?,?,?,?,?,?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setString("IN_RUN", dto.getRun());
+            proc.setString("IN_USUARIO", dto.getUser());
+            proc.setString("IN_TELEFONO", dto.getTelefono());
+            proc.setString("IN_CORREO", dto.getCorreo());
+            proc.setString("IN_NOMBRE", dto.getNombre());
+            proc.setString("IN_APELLIDO", dto.getApellido());
+            proc.setInt("IN_REPRESENTANTE", dto.getRepresentante());
+            proc.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Ocurrio un problema con el procedure PR_UPDATE_APODERADO: " + ex.getMessage());
+            return false;
+        }
     }
 
     @Override
