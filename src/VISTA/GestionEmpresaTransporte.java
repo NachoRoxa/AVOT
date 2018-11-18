@@ -21,6 +21,7 @@ public class GestionEmpresaTransporte extends javax.swing.JFrame {
     ArrayList<EmpresaTransporte> listaEmpresasTransporte;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
+    int flag;
 
     /**
      * Creates new form GestionarEmpresaTransporte
@@ -32,6 +33,32 @@ public class GestionEmpresaTransporte extends javax.swing.JFrame {
         RestrictedTextField restricted1 = new RestrictedTextField(txtNombreEmpresa);
         restricted1.setOnlyText(true);
     }
+    
+    public GestionEmpresaTransporte(int admin) {
+        Admin(admin);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        MostrarEmpresasTransporte();
+        RestrictedTextField restricted1 = new RestrictedTextField(txtNombreEmpresa);
+        restricted1.setOnlyText(true);
+    }
+    
+    /***
+     * Metodo para ver si el usuario posee perfil de administrador.
+     * @param admin
+     * @return 
+     */
+    public boolean Admin(int admin) {
+        this.flag = admin;
+        if (admin == 1) {
+            flag = 1;
+            return true;
+        } else {
+            flag = 0;
+            return false;
+        }
+    }
+    
     public void MostrarEmpresasTransporte() {
         listaEmpresasTransporte = new EmpresaTransporteDaoImp().listar();
         modelo = new DefaultTableModel();
@@ -224,8 +251,9 @@ public class GestionEmpresaTransporte extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        Index x = new Index();
+        Index x = new Index(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 

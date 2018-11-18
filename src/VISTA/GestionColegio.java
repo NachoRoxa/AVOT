@@ -35,6 +35,7 @@ public class GestionColegio extends javax.swing.JFrame {
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
     Colegio col =  new Colegio();
+    int flag;
 
     /**
      * Creates new form GestionColegio
@@ -52,7 +53,38 @@ public class GestionColegio extends javax.swing.JFrame {
         rtfLetras.setOnlyText(rootPaneCheckingEnabled);
         rtfLetras.setAcceptSpace(true);
     }
-
+    
+    public GestionColegio(int admin) {
+        Admin(admin);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        MostrarColegios();
+        ResetBotones();
+        RestrictedTextField rtfNumber = new RestrictedTextField(txtTelefono);
+        RestrictedTextField rtfLetras = new RestrictedTextField(txtNombre);
+        RestrictedTextField rtf = new RestrictedTextField(txtRun);
+        rtf.setLimit(12);
+        rtfNumber.setOnlyNums(rootPaneCheckingEnabled);
+        rtfLetras.setOnlyText(rootPaneCheckingEnabled);
+        rtfLetras.setAcceptSpace(true);
+    }
+    
+    /***
+     * Metodo para ver si el usuario posee perfil de administrador.
+     * @param admin
+     * @return 
+     */
+    public boolean Admin(int admin) {
+        this.flag = admin;
+        if (admin == 1) {
+            flag = 1;
+            return true;
+        } else {
+            flag = 0;
+            return false;
+        }
+    }
+    
     public void ResetBotones() {
         btnAgregarColegio.setVisible(true);
         btnCancelar.setVisible(false);
@@ -352,8 +384,9 @@ public class GestionColegio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        Index x = new Index();
+        Index x = new Index(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 

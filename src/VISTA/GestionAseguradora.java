@@ -24,6 +24,7 @@ public class GestionAseguradora extends javax.swing.JFrame {
     ArrayList<Aseguradora> listaAseguradoras;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
+    int flag;
 
     /**
      * Creates new form GestionAseguradora
@@ -36,8 +37,33 @@ public class GestionAseguradora extends javax.swing.JFrame {
         rtf.setLimit(12);
         RestrictedTextField restricted1 = new RestrictedTextField(txtNombre);
         restricted1.setOnlyText(true);
-        
-        
+    }
+    
+    public GestionAseguradora(int admin) {
+        Admin(admin);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        MostrarAseguradoras();
+        RestrictedTextField rtf = new RestrictedTextField(txtRut);
+        rtf.setLimit(12);
+        RestrictedTextField restricted1 = new RestrictedTextField(txtNombre);
+        restricted1.setOnlyText(true);
+    }
+    
+    /***
+     * Metodo para ver si el usuario posee perfil de administrador.
+     * @param admin
+     * @return 
+     */
+    public boolean Admin(int admin) {
+        this.flag = admin;
+        if (admin == 1) {
+            flag = 1;
+            return true;
+        } else {
+            flag = 0;
+            return false;
+        }
     }
 
     public void MostrarAseguradoras() {
@@ -244,8 +270,9 @@ public class GestionAseguradora extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        Admin(flag);
         this.setVisible(false);
-        Index x = new Index();
+        Index x = new Index(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
