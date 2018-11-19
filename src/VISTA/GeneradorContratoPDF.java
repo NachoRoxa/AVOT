@@ -11,6 +11,8 @@ import DAO.EstadiaDaoImp;
 import DAO.SeguroDaoImp;
 import DAO.TourDaoImp;
 import DAO.ViajeDaoImp;
+import DTO.Alumno;
+import DTO.Apoderado;
 import DTO.Colegio;
 import DTO.GenerarContratoPDF;
 import DTO.Tour;
@@ -28,6 +30,7 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
     ArrayList<Tour> listaTour;
     Tour tour;
     Colegio colegio;
+    Apoderado apoderadojefe; 
     int flag;
     
     /**
@@ -198,6 +201,12 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
         tour.setViajes(new ViajeDaoImp().listarViajesTour(tour.getId_tour()));
         colegio = new Colegio();
         colegio = new ContratoDao().getColegiosContrato(tour.getId_tour());
+        for (Alumno alumno : colegio.getCurso().getAlumnos()) {
+            if (alumno.getApoderado().getRepresentante()>0) {
+                apoderadojefe = alumno.getApoderado();
+                break;
+            }
+        }
         colegio.getCurso().setActividades(new ContratoDao().getActividadesColegio(colegio.getCurso().getId_curso()));
                 
         if (colegio.getCurso().getAlumnos().size() > 0) {
