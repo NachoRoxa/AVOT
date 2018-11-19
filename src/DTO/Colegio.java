@@ -16,6 +16,15 @@ public class Colegio {
     private String direccion;
     private String rut;
     private String telefono;
+    private Curso curso;
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
 
     public Colegio() {
     }

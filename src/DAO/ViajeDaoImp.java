@@ -8,16 +8,18 @@ package DAO;
 import CONEXION.Conexion;
 import DTO.EmpresaTransporte;
 import DTO.Viaje;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import oracle.jdbc.OracleTypes;
 
 /**
  *
  * @author Seba
  */
-public class ViajeDaoImp implements BaseDao<Viaje>{
+public class ViajeDaoImp implements BaseDao<Viaje> {
 
     @Override
     public boolean insertar(Viaje dto) {
@@ -72,6 +74,40 @@ public class ViajeDaoImp implements BaseDao<Viaje>{
             return lista;
         }
         return lista;
-        
+
+    }
+
+    public ArrayList<Viaje> listarViajesTour(int idTour) {
+        CONEXION.Conexion obj = new Conexion();
+        ArrayList<Viaje> lista = new ArrayList<>();
+        try {
+            Connection con = obj.getConnection();
+            String sql = "{call PR_LISTAR_VIAJES_CONTRATO(?,?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setInt("IN_ID_TOUR", idTour);
+            proc.registerOutParameter("out_list", OracleTypes.CURSOR);
+            proc.executeUpdate();
+            ResultSet re = (ResultSet) proc.getObject("out_list");
+            while (re.next()) {
+                Viaje viaje = new Viaje();
+                EmpresaTransporte empt = new EmpresaTransporte();
+                viaje.setId_viaje(re.getInt("ID VIAJE"));
+                viaje.setOrigen(re.getString("ORIGEN"));
+                viaje.setDestino(re.getString("DESTINO"));
+                viaje.setCosto(re.getInt("COSTO"));
+                viaje.setEstado(re.getInt("ESTADO"));
+                viaje.setFechaInicio(re.getDate("FECHA INICIO"));
+                viaje.setFechaInicio(re.getDate("FECHA TERMINO"));
+                empt.setNombre_empresa(re.getString("NOMBRE EMPRESA"));
+                empt.setId_transporte(re.getInt("ID TRANSPORTE"));
+                empt.setTipo_transporte("TIPO TRANSPORTE");
+                viaje.setEmpresa_transporte(empt);
+                lista.add(viaje);
+            }
+        } catch (Exception e) {
+            return lista;
+        }
+        return lista;
+
     }
 }

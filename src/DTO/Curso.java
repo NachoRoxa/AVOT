@@ -5,6 +5,7 @@
  */
 package DTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,12 +18,21 @@ public class Curso {
     private int monto_recaudado;
     private Colegio colegio;
     private String descripcion;
-    private List<ActividadColegio> actividades;
+    private ArrayList<Alumno> alumnos;
+    private ArrayList<ActividadColegio> actividades;
+
+    public ArrayList<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(ArrayList<Alumno> alumnos) {
+        this.alumnos = alumnos;
+    }
 
     public Curso() {
     }
 
-    public Curso(int id_curso, int monto_recaudado, Colegio colegio, String descripcion, List<ActividadColegio> actividades) {
+    public Curso(int id_curso, int monto_recaudado, Colegio colegio, String descripcion, ArrayList<ActividadColegio> actividades) {
         this.id_curso = id_curso;
         this.monto_recaudado = monto_recaudado;
         this.colegio = colegio;
@@ -74,11 +84,11 @@ public class Curso {
         this.colegio = colegio;
     }
 
-    public List<ActividadColegio> getActividades() {
+    public ArrayList<ActividadColegio> getActividades() {
         return actividades;
     }
 
-    public void setActividades(List<ActividadColegio> actividades) {
+    public void setActividades(ArrayList<ActividadColegio> actividades) {
         this.actividades = actividades;
     }
 

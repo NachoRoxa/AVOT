@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import oracle.jdbc.OracleTypes;
 
 /**
  *
@@ -84,5 +85,35 @@ public class EstadiaDaoImp implements BaseDao<Estadia> {
             return lista;
         }
         return lista;
+    }
+    
+    public ArrayList<Estadia> listarEstadiasTour(int idTour) {
+        CONEXION.Conexion obj = new Conexion();
+        ArrayList<Estadia> lista = new ArrayList<>();
+        try {
+            Connection con = obj.getConnection();
+            String sql = "{call PR_LISTAR_ESTADIAS_CONTRATO(?,?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setInt("IN_ID_TOUR", idTour);
+            proc.registerOutParameter("out_list", OracleTypes.CURSOR);
+            proc.executeUpdate();
+            ResultSet re = (ResultSet)proc.getObject("out_list");
+            while (re.next()) {
+                Estadia estadia = new Estadia();
+                estadia.setId_estadia(re.getInt("ID ESTADIA"));
+                estadia.setFecha_ingreso(re.getDate("FECHA INGRESO"));
+                estadia.setFecha_salida(re.getDate("FECHA SALIDA"));
+                estadia.setNombre(re.getString("NOMBRE ESTADIA"));
+                estadia.setCosto_por_dia(re.getInt("COSTO POR DIA"));
+                estadia.setDireccion(re.getString("DIRECCION"));
+                estadia.setEstado(re.getInt("ESTADO"));
+                estadia.setCapacidad(re.getInt("CAPACIDAD"));
+                lista.add(estadia);
+            }
+        } catch (Exception e) {
+            return lista;
+        }
+        return lista;
+
     }
 }
