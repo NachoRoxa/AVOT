@@ -48,9 +48,9 @@ public class Login extends javax.swing.JFrame {
         /* Edit Rocha: Lo deje comentado x mientras
         para poder probar los q no son Admin.
         ACORDEMONOS DE BORRAR DSP ESTO!!.
-        Borrar esto para eliminar credenciales automáticas*/
+        Borrar esto para eliminar credenciales automáticas
         txtUsuario.setText("ADMIN");
-        jPassword.setText("PASO");
+        jPassword.setText("PASO");*/
       
     }
     

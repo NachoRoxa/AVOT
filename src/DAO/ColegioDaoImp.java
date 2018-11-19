@@ -26,12 +26,13 @@ public class ColegioDaoImp implements BaseDao<Colegio>{
         try
         {
             Connection cx = con.getConnection();
-            String sql="{call PR_AGREGAR_COLEGIO(?,?,?,?)}";
+            String sql="{call PR_AGREGAR_COLEGIO(?,?,?,?,?)}";
             CallableStatement proc = cx.prepareCall(sql);
-            proc.setString(1, dto.getRut());
+            proc.setInt(1, dto.getId_colegio());
             proc.setString(2, dto.getNombre());
             proc.setString(3, dto.getDireccion());
-            proc.setString(4, dto.getTelefono());
+            proc.setString(4, dto.getRut());
+            proc.setString(5, dto.getTelefono());
             proc.executeQuery();
             return true;            
         }catch(Exception ex)
