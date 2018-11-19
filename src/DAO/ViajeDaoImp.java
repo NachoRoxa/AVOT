@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import oracle.jdbc.OracleTypes;
 
 /**
  *
@@ -81,13 +82,15 @@ public class ViajeDaoImp implements BaseDao<Viaje> {
         ArrayList<Viaje> lista = new ArrayList<>();
         try {
             Connection con = obj.getConnection();
-            String sql = "{call PR_LISTAR_VIAJES_CONTRATO(?)}";
+            String sql = "{call PR_LISTAR_VIAJES_CONTRATO(?,?)}";
             CallableStatement proc = con.prepareCall(sql);
             proc.setInt("IN_ID_TOUR", idTour);
-            ResultSet re = proc.executeQuery();
+            proc.registerOutParameter("out_list", OracleTypes.CURSOR);
+            proc.executeUpdate();
+            ResultSet re = (ResultSet) proc.getObject("out_list");
             while (re.next()) {
                 Viaje viaje = new Viaje();
-                EmpresaTransporte empt;
+                EmpresaTransporte empt = new EmpresaTransporte();
                 viaje.setId_viaje(re.getInt("ID VIAJE"));
                 viaje.setOrigen(re.getString("ORIGEN"));
                 viaje.setDestino(re.getString("DESTINO"));
@@ -95,10 +98,10 @@ public class ViajeDaoImp implements BaseDao<Viaje> {
                 viaje.setEstado(re.getInt("ESTADO"));
                 viaje.setFechaInicio(re.getDate("FECHA INICIO"));
                 viaje.setFechaInicio(re.getDate("FECHA TERMINO"));
-                viaje.setEmpresa_transporte(empt = new EmpresaTransporte());
                 empt.setNombre_empresa(re.getString("NOMBRE EMPRESA"));
                 empt.setId_transporte(re.getInt("ID TRANSPORTE"));
                 empt.setTipo_transporte("TIPO TRANSPORTE");
+                viaje.setEmpresa_transporte(empt);
                 lista.add(viaje);
             }
         } catch (Exception e) {

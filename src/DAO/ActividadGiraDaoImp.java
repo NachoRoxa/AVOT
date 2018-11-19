@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import oracle.jdbc.OracleTypes;
 
 /**
  *
@@ -90,17 +91,21 @@ public class ActividadGiraDaoImp implements BaseDao<ActividadGira> {
         ArrayList<ActividadGira> lista = new ArrayList<>();
         try {
             Connection con = obj.getConnection();
-            String sql = "{call PR_LISTAR_ACT_CONTRATO(?)}";
+            String sql = "{call PR_LISTAR_ACT_CONTRATO(?,?)}";
             CallableStatement proc = con.prepareCall(sql);
             proc.setInt("IN_ID_TOUR", idTour);
-            ResultSet re = proc.executeQuery();
+            proc.registerOutParameter("out_list", OracleTypes.CURSOR);
+            proc.executeUpdate();
+            ResultSet re = (ResultSet) proc.getObject("out_list");
             while (re.next()) {
                 ActividadGira actividadGira = new ActividadGira();
+                actividadGira.setFecha(re.getDate("FECHA"));
+                actividadGira.setDuracion_horas(re.getInt("DURACION_HORAS"));
                 actividadGira.setId_actividad(re.getInt("ID ACTIVIDAD"));
                 actividadGira.setTipo_actividad(re.getString("TIPO ACTIVIDAD"));
                 actividadGira.setCosto(re.getInt("COSTO"));
                 actividadGira.setDescripcion(re.getString("DESCRIPCION"));
-                actividadGira.setEstado(re.getInt(5));
+                actividadGira.setEstado(re.getInt("ESTADO"));
                 lista.add(actividadGira);
             }
         } catch (SQLException e) {

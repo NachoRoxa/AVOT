@@ -5,6 +5,7 @@
  */
 package DTO;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -19,6 +20,11 @@ public class Tour {
     private Agente agente;
     private Date fecha_creacion;
     private Date fecha_inicio;
+    private ArrayList<Viaje> viajes;
+    private ArrayList<Seguro> seguros;
+    private ArrayList<Estadia> estadias;
+    private ArrayList<ActividadGira> actividades;
+    
 
     public Tour() {
     }
@@ -87,6 +93,38 @@ public class Tour {
 
     public void setFecha_inicio(Date fecha_inicio) {
         this.fecha_inicio = fecha_inicio;
+    }
+
+    public ArrayList<Viaje> getViajes() {
+        return viajes;
+    }
+
+    public void setViajes(ArrayList<Viaje> viajes) {
+        this.viajes = viajes;
+    }
+
+    public ArrayList<Seguro> getSeguros() {
+        return seguros;
+    }
+
+    public void setSeguros(ArrayList<Seguro> seguros) {
+        this.seguros = seguros;
+    }
+
+    public ArrayList<Estadia> getEstadias() {
+        return estadias;
+    }
+
+    public void setEstadias(ArrayList<Estadia> estadias) {
+        this.estadias = estadias;
+    }
+
+    public ArrayList<ActividadGira> getActividades() {
+        return actividades;
+    }
+
+    public void setActividades(ArrayList<ActividadGira> actividades) {
+        this.actividades = actividades;
     }
     
     
