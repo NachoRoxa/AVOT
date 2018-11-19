@@ -25,17 +25,8 @@ public class GestionEstadia extends javax.swing.JFrame {
 
     /**
      * Creates new form GestionEstadia
+     * @param admin
      */
-    public GestionEstadia() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        MostrarEstadias();
-        RestrictedTextField restricted1= new RestrictedTextField(txtCapacidad);
-        restricted1.setOnlyNums(rootPaneCheckingEnabled);
-        RestrictedTextField restricted2= new RestrictedTextField(txtCostoPorDia);
-        restricted2.setOnlyNums(rootPaneCheckingEnabled);
-    }
-    
     public GestionEstadia(int admin) {
         Admin(admin);
         initComponents();

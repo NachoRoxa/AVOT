@@ -30,10 +30,7 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
     Colegio colegio;
     int flag;
 
-    /**
-     * Creates new form Generador
-<<<<<<< HEAD
-     */
+
     public GeneradorContratoPDF() {
         initComponents();
         datosCombobox();
@@ -43,13 +40,11 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
 
     }
 
-    public GeneradorContratoPDF(int admin) {
-=======
-     * @param admin
-     */    
+    
+ 
     public GeneradorContratoPDF(int admin)
     {
->>>>>>> origin/master
+
         Admin(admin);
         initComponents();
         datosCombobox();

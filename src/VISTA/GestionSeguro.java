@@ -8,13 +8,7 @@ package VISTA;
 import CONEXION.Conexion;
 import DAO.SeguroDaoImp;
 import DTO.Seguro;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,13 +24,8 @@ public class GestionSeguro extends javax.swing.JFrame {
     
     /**
      * Creates new form GestionSeguro
+     * @param admin
      */
-    public GestionSeguro() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        MostrarSeguros();
-    }
-    
     public GestionSeguro(int admin)
     {
         Admin(admin);

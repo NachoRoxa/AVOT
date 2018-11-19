@@ -10,11 +10,8 @@ import DAO.CursoDaoImp;
 import DTO.Curso;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,14 +27,8 @@ public class GestionCurso extends javax.swing.JFrame {
 
     /**
      * Creates new form GestionCurso
+     * @param admin
      */
-    public GestionCurso() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        MostrarCursos();
-        datosCombobox();
-    }
-    
     public GestionCurso(int admin)
     {
         Admin(admin);
