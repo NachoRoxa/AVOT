@@ -159,7 +159,7 @@ public class Login extends javax.swing.JFrame {
                 }
             } else {
                 this.setVisible(true);
-                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta");
+                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta","Error",JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception ex) {
             

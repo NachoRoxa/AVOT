@@ -17,6 +17,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,7 +44,8 @@ public class AgenteDaoImp implements BaseDao<Agente> {
             proc.executeQuery();
             return true;
         } catch (Exception ex) {
-            System.out.println("Ocurrio un problema con el procedure PR_AGREGAR_AGENTE: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Ocurrio un problema con el procedimiento, intente mas tarde o comuniquese con el Administrador de Sistema."
+                    ,"error",JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
