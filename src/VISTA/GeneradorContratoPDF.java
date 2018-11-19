@@ -204,6 +204,8 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
         tour.setViajes(new ViajeDaoImp().listarViajesTour(tour.getId_tour()));
         colegio = new Colegio();
         colegio = new ContratoDao().getColegiosContrato(tour.getId_tour());
+        colegio.getCurso().setActividades(new ContratoDao().getActividadesColegio(colegio.getCurso().getId_curso()));
+                
         if (colegio.getCurso().getAlumnos().size() > 0) {
 
             JOptionPane.showMessageDialog(null, "PDF Creado Correctamente, Habemus alumnos, con apoderados, solo faltan datos de prueba");

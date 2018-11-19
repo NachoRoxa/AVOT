@@ -6,6 +6,7 @@
 package DAO;
 
 import CONEXION.Conexion;
+import DTO.ActividadColegio;
 import DTO.Alumno;
 import DTO.Apoderado;
 import DTO.Colegio;
@@ -21,15 +22,16 @@ import oracle.jdbc.OracleTypes;
  *
  * @author Camilo
  */
-public class ContratoDao{
-    public Colegio getColegiosContrato(int idTour){
+public class ContratoDao {
+
+    public Colegio getColegiosContrato(int idTour) {
         CONEXION.Conexion obj = new Conexion();
         Colegio col = new Colegio();
         Curso curso = new Curso();
         ArrayList<Alumno> alumnos = new ArrayList<>();
         boolean colCargado = false;
         boolean curCargado = false;
-        
+
         try {
             Connection con = obj.getConnection();
             String sql = "{call PR_LISTAR_CURSO_CONTRATO(?,?)}";
@@ -37,7 +39,7 @@ public class ContratoDao{
             proc.setInt("IN_ID_TOUR", idTour);
             proc.registerOutParameter("out_list", OracleTypes.CURSOR);
             proc.executeUpdate();
-            ResultSet re = (ResultSet)proc.getObject("out_list");
+            ResultSet re = (ResultSet) proc.getObject("out_list");
             while (re.next()) {
                 if (!colCargado) {
                     col.setId_colegio(re.getInt("ID COLEGIO"));
@@ -68,10 +70,39 @@ public class ContratoDao{
             }
             curso.setAlumnos(alumnos);
             col.setCurso(curso);
-            
+
         } catch (Exception e) {
             return col;
         }
         return col;
+    }
+
+    public ArrayList<ActividadColegio> getActividadesColegio(int idCurso) {
+
+        CONEXION.Conexion obj = new Conexion();
+        ArrayList<ActividadColegio> acts = new ArrayList<>();
+        try {
+            Connection con = obj.getConnection();
+            String sql = "{call PR_LISTAR_ACT_COL_CONTRATO(?,?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setInt("IN_ID_CURSO", idCurso);
+            proc.registerOutParameter("out_list", OracleTypes.CURSOR);
+            proc.executeUpdate();
+            ResultSet re = (ResultSet) proc.getObject("out_list");
+            while (re.next()) {
+                ActividadColegio actividad = new ActividadColegio();
+                actividad.setId_actividad(re.getInt("ID ACTIVIDAD"));
+                actividad.setDescripcion(re.getString("DESCRIPCION"));
+                actividad.setInversion(re.getShort("INVERSION"));
+                actividad.setRecaudacion(re.getInt("RECAUDACION"));
+                actividad.setMonto_deposito(re.getInt("MONTO DEPOSITO"));
+                actividad.setNumero_deposito(re.getString("NUMERO DEPOSITO"));
+                acts.add(actividad);
+            }
+        } catch (Exception e) {
+            return acts;
+        }
+        return acts;
+
     }
 }
