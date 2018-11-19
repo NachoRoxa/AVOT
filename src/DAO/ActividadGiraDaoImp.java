@@ -76,8 +76,7 @@ public class ActividadGiraDaoImp implements BaseDao<ActividadGira> {
                 ActividadGira actividadGira = new ActividadGira();
                 actividadGira.setId_actividad(re.getInt(1));
                 actividadGira.setTipo_actividad(re.getString(2));
-                actividadGira.setCosto(re.getInt(3));
-                //actividadGira.setFecha(re.getDate("FECHA"));
+                actividadGira.setCosto(re.getInt(3));                
                 actividadGira.setDescripcion(re.getString("DESCRIPCION"));
                 actividadGira.setEstado(re.getInt("ESTADO"));
                 lista.add(actividadGira);
