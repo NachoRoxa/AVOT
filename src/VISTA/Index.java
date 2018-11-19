@@ -19,7 +19,7 @@ public class Index extends javax.swing.JFrame {
      * Creates new form Index
      */
     Login log = new Login();
-    int flag;
+    int flag;    
     
     public Index(int admin) {
         Admin(admin);
@@ -28,7 +28,7 @@ public class Index extends javax.swing.JFrame {
     }
 
     public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/rosaViento.jpg"));
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/logout.png"));
         return retValue;
     }
 
@@ -420,7 +420,13 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_btnColegiosActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        System.exit(0);
+        getIconImage();
+        Admin(flag);        
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea salir del sistema?", "Confirmacion salida", JOptionPane.YES_NO_OPTION);
+        if(opcion == JOptionPane.YES_OPTION)
+        {
+            System.exit(0);
+        }
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAgentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgentesActionPerformed
