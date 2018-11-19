@@ -29,19 +29,11 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
     Tour tour;
     Colegio colegio;
     int flag;
-
-
-    public GeneradorContratoPDF() {
-        initComponents();
-        datosCombobox();
-    }
-
-    public void CargarTour() {
-
-    }
-
     
- 
+    /**
+     * Creates new form Generador
+     * @param admin
+     */    
     public GeneradorContratoPDF(int admin)
     {
 
