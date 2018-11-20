@@ -13,10 +13,12 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.sun.glass.ui.SystemClipboard;
 import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -38,19 +40,21 @@ public class GenerarContratoPDF {
     String dateFormat = new SimpleDateFormat("dd/MM/yyyy").format(date);
     
     public void generarPDF(Tour tour, Colegio colegio, Apoderado apJefe){
-        salida="C:\\Users\\Camilo\\Documents\\contrato"+tour.getId_tour()+".pdf";
-        logo = "C:\\Users\\Camilo\\Documents\\NetBeansProjects\\AVOT.LOCAL\\src\\IMG\\icono-login-png-6.png";
+        String ruta = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
+        String rutaLogo = System.getProperty("user.dir");
+        salida=ruta+"\\contrato"+tour.getId_tour()+".pdf";
+        logo = rutaLogo+"\\src\\IMG\\icono-login-png-6.png";
         titulo ="CONTRATO DE PRESTACION DE SERVICIOS";
         saltoLinea="                                                                                      ";
         parrafo1 ="En ciudad de Santiago de Chile,"+dateFormat+" entre Agencia de viajes on Tour Operador "
-                + "Turístico,Rol Único Tributario N°00.000.000-0, empresa del giro de su denominación,repr"
-                + "esentada legalmente por el (Sr.Misterioso), Cédula de Identidad Nº 0.000.000-0, naciona"
-                + "lidad chilena y con domicilio comercial en esta ciudad, Avda. Antonio Varas N°666, loca"
-                + "l 15, comuna de Providencia, en adelante “AVOT” y el señor (a) , Cédula de Identidad Nº"
-                + " :"+tour.getAgente().getNombre()+"   , fono Móvil:,Correo Electrónico: ,en adelante, “DELEGADO DEL GRUPO”,quien en cali"
-                + "dad de representante de la Comisión de apoderados, convienen en celebrar el siguiente c"
-                + "ontrato de prestación de servicios, para la Gira de Estudios, quese regirá por las sigu"
-                + "ientes cláusulas:";
+                + "Turístico, Rol Único Tributario N°xx.xxx.xxx-x, empresa del giro de su denominación,rep"
+                + "resentada legalmente por el Sr.John Snow, Cédula de Identidad Nº xx.xxx.xxx-x, nacional"
+                + "idad chilena y con domicilio comercial en esta ciudad, Avda. Antonio Varas N°666, local"
+                + " 15, comuna de Providencia, en adelante “AVOT” y el señor (a) "+apJefe.getNombre()+"   "
+                + apJefe.getApellido()+", Cédula de Identidad Nº: "+apJefe.getRun()+", fono Móvil : "
+                + ""+apJefe.getTelefono()+" GADO DEL GRUPO”,quien en calidad de representante de la Comisi"
+                + "ón de apoderados, convienen en celebrar el siguiente contrato de prestación de servicio"
+                + "s, para la Gira de Estudios, que se regirá por las siguientes cláusulas:";
         subtitulo1="CONSIDERACIONES GENERALES";
         parrafo2 ="UNO: Se entiende por Operador Turístico, la empresa intermediaria, de carácter privado,"
                 + " dedicada al giro de agencia de viaje y actividades relacionadas, que prestaservicios p"
@@ -61,15 +65,15 @@ public class GenerarContratoPDF {
                 + "os, eximiendo totalmente de responsabilidad a la empresa sobre este aspecto. No obstant"
                 + "e, lo anterior, la empresa se compromete a mantener copia íntegradel contrato suscrito,"
                 + " en formato digital en su página web. Cada apoderado o Representante Legal de los pasaj"
-                + "eros, es personalmente responsable de su compromiso depago con AVOT.CL, por lo que la f"
+                + "eros, es personalmente responsable de su compromiso depago con AVOT, por lo que la f"
                 + "irma de este contrato por parte del DELEGADO(S) DEL GRUPO no implica corresponsabilidad"
                 + " o solidaridad con los compromisoseconómicos adquiridos por parte de los apoderados que"
                 + " suscriben este contrato vía su representación; ellos son solo los representantes del g"
-                + "rupo ante AVOT.CL. Sinembargo, su firma valida este contrato en relación a los compromi"
+                + "rupo ante AVOT. Sinembargo, su firma valida este contrato en relación a los compromi"
                 + "sos mutuos y el programa de viaje de la gira de estudios contratada.";
         subtitulo2="CLAUSULAS";
         parrafo4 ="PRIMERA: EL DELEGADO DEL GRUPO que suscribe el presente contrato, declara pertenecer al"
-                + " curso: , del Establecimiento:Y contrata con AVOT.CL, un viaje Gira de Estudios, denomi"
+                + " curso: , del Establecimiento:Y contrata con AVOT, un viaje Gira de Estudios, denomi"
                 + "nado: ,a realizarse entre el: de: y el de: de 20 Las características e inclusos de este"
                 + " viaje se indican con detalle enel Anexo Nº 1, adjunto, denominado Programa de Viaje, e"
                 + "l cual se considera parte integral de este contrato para todos los efectos legales.";
@@ -270,10 +274,10 @@ public class GenerarContratoPDF {
             Document documento = new Document(PageSize.LETTER,30,30,25,25);
             PdfWriter.getInstance(documento, new FileOutputStream(salida));
             documento.open();
-//            Image imagen = Image.getInstance(logo);
-//            imagen.scaleAbsolute(100,100);
-//            imagen.setAlignment(Element.ALIGN_LEFT);
-//            documento.add(imagen);
+            Image imagen = Image.getInstance(logo);
+            imagen.scaleAbsolute(100,100);
+            imagen.setAlignment(Element.ALIGN_LEFT);
+            documento.add(imagen);
             documento.add(getContenido(saltoLinea));
             documento.add(getTitulo(titulo));
             documento.add(getContenido(saltoLinea));
