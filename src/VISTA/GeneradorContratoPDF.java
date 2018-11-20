@@ -169,30 +169,6 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarContratoActionPerformed
-//        listaTour = new TourDaoImp().listar();
-//        String selecion = cbTourContrato.getSelectedItem().toString();
-//        listaTour = new TourDaoImp().listar();
-//        Tour tour1 = new Tour();
-//        if (listaTour.size() > 0) {
-//            listaTour.forEach((tour) -> {
-//                while(String.valueOf(tour.getId_tour())==selecion){
-//                    tour1.setId_tour(tour.getId_tour());
-//                    tour1.setValor_total(tour.getValor_total());
-//                    tour1.setDescripcion(tour.getDescripcion());
-//                    tour1.setNumero_contrato(tour.getNumero_contrato());
-//                    tour1.setAgente(tour.getAgente());
-//                    tour1.setFecha_creacion(tour.getFecha_creacion());
-//                    tour1.setFecha_inicio(tour.getFecha_inicio());
-//                }
-//            });
-//        }
-//        try{
-//            GenerarContratoPDF contrato = new GenerarContratoPDF();
-//            contrato.generarPDF(tour1);
-//            JOptionPane.showMessageDialog(null, "PDF Creado Correctamente");
-//        }catch(Exception e){
-//            System.out.println("Error"+e.getMessage());
-//        }
 
         tour = listaTour.get(cbTourContrato.getSelectedIndex());
         tour.setActividades(new ActividadGiraDaoImp().listarActividadesTour(tour.getId_tour()));
@@ -210,7 +186,7 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
         colegio.getCurso().setActividades(new ContratoDao().getActividadesColegio(colegio.getCurso().getId_curso()));
                 
         if (colegio.getCurso().getAlumnos().size() > 0) {
-
+            new GenerarContratoPDF().generarPDF(tour,colegio,apoderadojefe);
             JOptionPane.showMessageDialog(null, "PDF Creado Correctamente, Habemus alumnos, con apoderados, solo faltan datos de prueba");
         }
     }//GEN-LAST:event_btnGenerarContratoActionPerformed

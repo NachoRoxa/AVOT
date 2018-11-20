@@ -325,9 +325,9 @@ public class GestionActividadGira extends javax.swing.JFrame {
                 txtCosto.setText(null);
                 txtDescripcion.setText(null);
                 BGrupEstado.clearSelection();
-                //Limpimpia la tabla
-                //tablaActividadesGira.clearSelection();
-                //Setea nuevamente la tabla
+//              Limpimpia la tabla
+                tablaActividadesGira.clearSelection();
+//              Setea nuevamente la tabla
                 MostrarActividadGira();
         }
     }//GEN-LAST:event_btnAgregarActividadActionPerformed

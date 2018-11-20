@@ -66,7 +66,6 @@ public class Index extends javax.swing.JFrame {
         PanelTitulo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
-        txtRUN = new javax.swing.JTextField();
         PanelAgencia = new javax.swing.JPanel();
         btnAgentes = new javax.swing.JButton();
         btnEmpresasTransporte = new javax.swing.JButton();
@@ -104,13 +103,6 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
-        txtRUN.setEditable(false);
-        txtRUN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRUNActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout PanelTituloLayout = new javax.swing.GroupLayout(PanelTitulo);
         PanelTitulo.setLayout(PanelTituloLayout);
         PanelTituloLayout.setHorizontalGroup(
@@ -118,8 +110,6 @@ public class Index extends javax.swing.JFrame {
             .addGroup(PanelTituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(276, 276, 276)
-                .addComponent(txtRUN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -128,11 +118,9 @@ public class Index extends javax.swing.JFrame {
             PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelTituloLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtRUN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnSalir)
-                        .addComponent(jLabel1)))
+                .addGroup(PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSalir)
+                    .addComponent(jLabel1))
                 .addContainerGap())
         );
 
@@ -441,16 +429,6 @@ public class Index extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnColegiosActionPerformed
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        getIconImage();
-        Admin(flag);        
-        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea salir del sistema?", "Confirmacion salida", JOptionPane.YES_NO_OPTION);
-        if(opcion == JOptionPane.YES_OPTION)
-        {
-            System.exit(0);
-        }
-    }//GEN-LAST:event_btnSalirActionPerformed
-
     private void btnAgentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgentesActionPerformed
         Admin(flag);
         if (flag == 0) {
@@ -484,9 +462,15 @@ public class Index extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnContratoActionPerformed
 
-    private void txtRUNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRUNActionPerformed
-       
-    }//GEN-LAST:event_txtRUNActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        getIconImage();
+        Admin(flag);
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea salir del sistema?", "Confirmacion salida", JOptionPane.YES_NO_OPTION);
+        if(opcion == JOptionPane.YES_OPTION)
+        {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -509,6 +493,5 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton btnTours;
     private javax.swing.JButton btnViajes;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField txtRUN;
     // End of variables declaration//GEN-END:variables
 }

@@ -95,6 +95,7 @@ public class GestionEstadia extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         PanelTitulo = new javax.swing.JPanel();
         lblAVOT = new javax.swing.JLabel();
         btnInicio = new javax.swing.JButton();
@@ -203,8 +204,10 @@ public class GestionEstadia extends javax.swing.JFrame {
 
         jLabel7.setText("Capacidad");
 
+        buttonGroup1.add(RBActivo);
         RBActivo.setText("Activo");
 
+        buttonGroup1.add(RBInactivo);
         RBInactivo.setText("Inactivo");
 
         javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
@@ -329,6 +332,7 @@ public class GestionEstadia extends javax.swing.JFrame {
             txtCostoPorDia.setText(null);
             txtDireccion.setText(null);
             txtCapacidad.setText(null);
+            buttonGroup1.clearSelection();
             tablaEstadias.clearSelection();
             MostrarEstadias();
         }
@@ -343,6 +347,7 @@ public class GestionEstadia extends javax.swing.JFrame {
     private javax.swing.JRadioButton RBInactivo;
     private javax.swing.JButton btnAgregarEstadia;
     private javax.swing.JButton btnInicio;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
