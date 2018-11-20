@@ -169,7 +169,7 @@ public class GestionCurso extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        PanelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista Colegios"));
+        PanelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista Cursos"));
 
         tablaCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

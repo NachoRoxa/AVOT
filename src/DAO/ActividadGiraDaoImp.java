@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import oracle.jdbc.OracleTypes;
 
 /**
@@ -34,11 +35,13 @@ public class ActividadGiraDaoImp implements BaseDao<ActividadGira> {
             proc.setString(3, dto.getDescripcion());
             proc.setInt(4, dto.getEstado());
             proc.executeQuery();
-            return true;
+            JOptionPane.showMessageDialog(null, "AGREGADO!");
+            return true;            
         } catch (Exception ex) {
             System.out.println("Ocurrio un problema con el procedure PR_AGREGAR_ACTIVIDADES_GIRA: " + ex.getMessage());
             return false;
         }
+        
     }
 
     @Override
@@ -73,8 +76,7 @@ public class ActividadGiraDaoImp implements BaseDao<ActividadGira> {
                 ActividadGira actividadGira = new ActividadGira();
                 actividadGira.setId_actividad(re.getInt(1));
                 actividadGira.setTipo_actividad(re.getString(2));
-                actividadGira.setCosto(re.getInt(3));
-//                actividadGira.setFecha(re.getDate("FECHA"));
+                actividadGira.setCosto(re.getInt(3));                
                 actividadGira.setDescripcion(re.getString("DESCRIPCION"));
                 actividadGira.setEstado(re.getInt("ESTADO"));
                 lista.add(actividadGira);

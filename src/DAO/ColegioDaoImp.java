@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +22,24 @@ public class ColegioDaoImp implements BaseDao<Colegio>{
 
     @Override
     public boolean insertar(Colegio dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion con = new Conexion();
+        try
+        {
+            Connection cx = con.getConnection();
+            String sql="{call PR_AGREGAR_COLEGIO(?,?,?,?,?)}";
+            CallableStatement proc = cx.prepareCall(sql);
+            proc.setInt(1, dto.getId_colegio());
+            proc.setString(2, dto.getNombre());
+            proc.setString(3, dto.getDireccion());
+            proc.setString(4, dto.getRut());
+            proc.setString(5, dto.getTelefono());
+            proc.executeQuery();
+            return true;            
+        }catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, "Ocurrio un problema con el procedimiento, intente mas tarde o comuniquese con el administrador");
+            return false;
+        }
     }
 
     @Override
@@ -31,7 +49,20 @@ public class ColegioDaoImp implements BaseDao<Colegio>{
 
     @Override
     public boolean eliminar(Colegio dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion cx = new Conexion();
+        try
+        {
+            Connection con = cx.getConnection();
+            String sql="{call PR_BORRAR_COLEGIO(?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setString(1, dto.getRut());
+            proc.executeUpdate();
+            return true;
+        }catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, "Ocurrio un problema con el procedimiento, intente mas tarde o comuniquese con el administrador");
+            return false;
+        }
     }
 
     @Override
