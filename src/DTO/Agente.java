@@ -22,6 +22,14 @@ public class Agente {
 
     public Agente() {
     }
+    
+    public //Object 
+        Agente(String run, int admin)
+    {
+        this.run=run;
+        this.administrador=admin;
+        //return Agente(run, admin);
+    }
 
     public Agente(String run, String user, String passwd, String nombre, String apellido_paterno, String apellido_materno, int administrador, int estado) {
         this.run = run;

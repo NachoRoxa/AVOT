@@ -5,6 +5,7 @@
  */
 package VISTA;
 
+import DTO.Agente;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -19,19 +20,28 @@ public class Index extends javax.swing.JFrame {
      * Creates new form Index
      */
     Login log = new Login();
-    int flag;    
+    int flag;
+    String runFlag;
     
-    public Index(int admin) {
+    public Index(//Agente ag, String ses, 
+            int admin) {
         Admin(admin);
+        //ag.Agente(ses, admin);
         initComponents();
         this.setLocationRelativeTo(null);
-    }
+        //dtxtRUN.setText(ses);
+   }
 
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/logout.png"));
         return retValue;
     }
-
+    
+    public String Sesion(String session)
+    {
+        this.runFlag=session;
+        return session;
+    }
 
     public boolean Admin(int admin) {
         this.flag = admin;
@@ -56,6 +66,7 @@ public class Index extends javax.swing.JFrame {
         PanelTitulo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
+        txtRUN = new javax.swing.JTextField();
         PanelAgencia = new javax.swing.JPanel();
         btnAgentes = new javax.swing.JButton();
         btnEmpresasTransporte = new javax.swing.JButton();
@@ -93,6 +104,13 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
+        txtRUN.setEditable(false);
+        txtRUN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRUNActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelTituloLayout = new javax.swing.GroupLayout(PanelTitulo);
         PanelTitulo.setLayout(PanelTituloLayout);
         PanelTituloLayout.setHorizontalGroup(
@@ -100,6 +118,8 @@ public class Index extends javax.swing.JFrame {
             .addGroup(PanelTituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addGap(276, 276, 276)
+                .addComponent(txtRUN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -108,9 +128,11 @@ public class Index extends javax.swing.JFrame {
             PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelTituloLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSalir)
-                    .addComponent(jLabel1))
+                .addGroup(PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtRUN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnSalir)
+                        .addComponent(jLabel1)))
                 .addContainerGap())
         );
 
@@ -462,6 +484,10 @@ public class Index extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnContratoActionPerformed
 
+    private void txtRUNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRUNActionPerformed
+       
+    }//GEN-LAST:event_txtRUNActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelAgencia;
@@ -483,5 +509,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton btnTours;
     private javax.swing.JButton btnViajes;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField txtRUN;
     // End of variables declaration//GEN-END:variables
 }
