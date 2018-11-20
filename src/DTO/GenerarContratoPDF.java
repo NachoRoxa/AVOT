@@ -37,9 +37,9 @@ public class GenerarContratoPDF {
     Date date = new Date();
     String dateFormat = new SimpleDateFormat("dd/MM/yyyy").format(date);
     
-    public void generarPDF(Tour tour){
-        salida="C:\\Users\\Seba\\Documents\\PDF\\contrato"+tour.getId_tour()+".pdf";
-        logo = "C:\\Users\\Seba\\Documents\\NetBeansProjects\\AVOT.LOCAL\\src\\IMG\\icono-login-png-6.png";
+    public void generarPDF(Tour tour, Colegio colegio, Apoderado apJefe){
+        salida="C:\\Users\\Camilo\\Documents\\contrato"+tour.getId_tour()+".pdf";
+        logo = "C:\\Users\\Camilo\\Documents\\NetBeansProjects\\AVOT.LOCAL\\src\\IMG\\icono-login-png-6.png";
         titulo ="CONTRATO DE PRESTACION DE SERVICIOS";
         saltoLinea="                                                                                      ";
         parrafo1 ="En ciudad de Santiago de Chile,"+dateFormat+" entre Agencia de viajes on Tour Operador "
@@ -270,10 +270,10 @@ public class GenerarContratoPDF {
             Document documento = new Document(PageSize.LETTER,30,30,25,25);
             PdfWriter.getInstance(documento, new FileOutputStream(salida));
             documento.open();
-            Image imagen = Image.getInstance(logo);
-            imagen.scaleAbsolute(100,100);
-            imagen.setAlignment(Element.ALIGN_LEFT);
-            documento.add(imagen);
+//            Image imagen = Image.getInstance(logo);
+//            imagen.scaleAbsolute(100,100);
+//            imagen.setAlignment(Element.ALIGN_LEFT);
+//            documento.add(imagen);
             documento.add(getContenido(saltoLinea));
             documento.add(getTitulo(titulo));
             documento.add(getContenido(saltoLinea));

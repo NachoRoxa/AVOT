@@ -65,6 +65,7 @@ public class ContratoDao {
                 ap.setRun(re.getString("RUN APODERADO"));
                 ap.setNombre(re.getString("NOMBRE APODERADO"));
                 ap.setApellido(re.getString("APELLIDO APODERADO"));
+                ap.setRepresentante(re.getInt("REPRESENTANTE"));
                 alumno.setApoderado(ap);
                 alumnos.add(alumno);
             }
