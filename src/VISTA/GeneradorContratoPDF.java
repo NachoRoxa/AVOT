@@ -19,6 +19,7 @@ import DTO.Tour;
 import VISTA.CONTROLES.ItemCombo;
 import com.itextpdf.text.pdf.AcroFields;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -187,6 +188,11 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
                 
         if (colegio.getCurso().getAlumnos().size() > 0) {
             new GenerarContratoPDF().generarPDF(tour,colegio,apoderadojefe);
+            String path = System.getProperty("user.dir");
+            JOptionPane.showMessageDialog(null, new JFileChooser().getFileSystemView().getDefaultDirectory().toString());
+            JOptionPane.showMessageDialog(null, path);
+            
+            
             JOptionPane.showMessageDialog(null, "PDF Creado Correctamente, Habemus alumnos, con apoderados, solo faltan datos de prueba");
         }
     }//GEN-LAST:event_btnGenerarContratoActionPerformed
