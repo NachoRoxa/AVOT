@@ -73,30 +73,31 @@ public class GenerarContratoPDF {
                 + "sos mutuos y el programa de viaje de la gira de estudios contratada.";
         subtitulo2="CLAUSULAS";
         parrafo4 ="PRIMERA: EL DELEGADO DEL GRUPO que suscribe el presente contrato, declara pertenecer al"
-                + " curso: , del Establecimiento:Y contrata con AVOT, un viaje Gira de Estudios, denomi"
-                + "nado: ,a realizarse entre el: de: y el de: de 20 Las características e inclusos de este"
-                + " viaje se indican con detalle enel Anexo Nº 1, adjunto, denominado Programa de Viaje, e"
-                + "l cual se considera parte integral de este contrato para todos los efectos legales.";
-        parrafo5 ="SEGUNDA: En virtud de este contrato AVOT se obliga a operar el programa contratado e"
-                + "n las condiciones señaladas en el Anexo Nº 1, por tanto, seencargará de realizar todas "
-                + "las acciones necesarias para el adecuado desarrollo del programa, acorde con la calidad"
-                + " pactada y los servicios AVOT podrá introducir cambios en las rutas y horarios previ"
-                + "amente establecidos, por razones de seguridad o fuerza mayor, dando pleno cumplimiento "
-                + "al programa contratado.";
+                + " curso: , del Establecimiento:Y contrata con AVOT, un viaje Gira de Estudios, denominad"
+                + "o: ,a realizarse entre el:"+tour.getFecha_inicio()+" y el "+tour.getFecha_inicio()+" La"
+                + "s características e inclusos de este viaje se indican con detalle enel Anexo Nº 1, adju"
+                + "nto, denominado Programa de Viaje, el cual se considera parte integral de este contrato"
+                + " para todos los efectos legales.";
+        parrafo5 ="SEGUNDA: En virtud de este contrato AVOT se obliga a operar el programa contratado en l"
+                + "as condiciones señaladas en el Anexo Nº 1, por tanto, seencargará de realizar todas las"
+                + " acciones necesarias para el adecuado desarrollo del programa, acorde con la calidad pa"
+                + "ctada y los servicios AVOT podrá introducir cambios en las rutas y horarios previamente"
+                + " establecidos, por razones de seguridad o fuerza mayor, dando pleno cumplimiento al pro"
+                + "grama contratado.";
         parrafo6 ="TERCERA: El transporte del grupo se realizará en los medios descritos en Anexo N.º 1 (p"
                 + "rograma de viaje). En el evento de que el vehículo de transportesufriera un desperfecto"
                 + " mecánico que impidiera la continuación del programa, AVOT, se obliga a reemplazarlo po"
                 + "r otro de características similares,en el menor plazo posible";
-        parrafo7 = "CUARTA: AVOT asignará al grupo un guía coordinador, el cual velará por dar pleno cu"
-                + "mplimiento del viaje contratado y mantendrá informado algrupo del desarrollo del viaje "
-                + "y las actividades pertinentes, para tales efectos el Profesor y/o Apoderado que acompañ"
-                + "e al grupo, se reunirá diariamentecon el Guía Coordinador enviado por AVOT para tomar c"
-                + "onocimiento de las actividades a realizar el día siguiente. Para ello, el Profesor/Apod"
-                + "eradodeberá firmar el itinerario presentado en ese mismo momento. En caso de no firmar "
-                + "el itinerario, se tendrá como aceptado y en conformidad con lasactividades realizadas e"
-                + "se (esos) día(s).";
+        parrafo7 = "CUARTA: AVOT asignará al grupo un guía coordinador, el cual velará por dar pleno cumpl"
+                + "imiento del viaje contratado y mantendrá informado algrupo del desarrollo del viaje y l"
+                + "as actividades pertinentes, para tales efectos el Profesor y/o Apoderado que acompañe a"
+                + "l grupo, se reunirá diariamentecon el Guía Coordinador enviado por AVOT para tomar cono"
+                + "cimiento de las actividades a realizar el día siguiente. Para ello, el Profesor/Apodera"
+                + "dodeberá firmar el itinerario presentado en ese mismo momento. En caso de no firmar el "
+                + "itinerario, se tendrá como aceptado y en conformidad con lasactividades realizadas ese "
+                + "(esos) día(s).";
         parrafo8 = "QUINTA: El programa deberá cumplirse en los términos estipulados, sin embargo, podrá s"
-                + "ufrir modificaciones por razones de fuerza mayor o poracuerdo entre el responsable del "
+                + "ufrir modificaciones por razones de fuerza mayor o por acuerdo entre el responsable del "
                 + "grupo y AVOT.";
         parrafo9 = "Se hace presente que los horarios y tiempos de viaje, tratándose de operaciones terres"
                 + "tres, son estimativas ya que su exacto cumplimiento dependede múltiples factores, entre"

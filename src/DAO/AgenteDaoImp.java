@@ -121,11 +121,10 @@ public class AgenteDaoImp implements BaseDao<Agente> {
         ArrayList<Agente> lista = new ArrayList<>();
         try {
             Connection con = obj.getConnection();
-            String sql = "{call PR_LISTAR_AGENTES(?)}";
-            CallableStatement proc = con.prepareCall(sql);
-            proc.registerOutParameter("out_list", OracleTypes.CURSOR);
-            proc.executeUpdate();
-            ResultSet re = (ResultSet)proc.getObject("out_list");
+            Statement st = con.createStatement();
+            ResultSet re = st.executeQuery("select run,usuario,passwd,nombre,ap"
+                    + "ellido_paterno,apellido_materno,administrador,estado fro"
+                    + "m agentes");
             while (re.next()) {
                 Agente agente = new Agente();
                 agente.setRun(re.getString(1));

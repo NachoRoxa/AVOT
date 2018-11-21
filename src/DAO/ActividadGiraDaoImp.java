@@ -35,7 +35,6 @@ public class ActividadGiraDaoImp implements BaseDao<ActividadGira> {
             proc.setString(3, dto.getDescripcion());
             proc.setInt(4, dto.getEstado());
             proc.executeQuery();
-            JOptionPane.showMessageDialog(null, "AGREGADO!");
             return true;            
         } catch (Exception ex) {
             System.out.println("Ocurrio un problema con el procedure PR_AGREGAR_ACTIVIDADES_GIRA: " + ex.getMessage());
