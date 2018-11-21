@@ -107,6 +107,7 @@ public class GestionTour extends javax.swing.JFrame {
         txtDescripcion = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -202,6 +203,8 @@ public class GestionTour extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel2.setText("Fecha Termino");
+
         javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
         PanelInsertar.setLayout(PanelInsertarLayout);
         PanelInsertarLayout.setHorizontalGroup(
@@ -233,6 +236,10 @@ public class GestionTour extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel6)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelInsertarLayout.setVerticalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,9 +260,11 @@ public class GestionTour extends javax.swing.JFrame {
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(btnAgregarActividad)
                 .addGap(28, 28, 28))
         );
@@ -294,35 +303,7 @@ public class GestionTour extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnAgregarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActividadActionPerformed
-        ActividadGira actividad = new ActividadGira();
-        if(txtActividad.getText().trim().isEmpty()){
-            this.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese una Actividad");
-        }else if(txtCosto.getText().trim().isEmpty()){
-            this.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Costo");
-        }else if(txtDescripcion.getText().trim().isEmpty()){
-            this.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese una Descripcion");
-        }else{
-            actividad.setTipo_actividad(txtActividad.getText());
-            actividad.setCosto(Integer.valueOf(txtCosto.getText()));
-            actividad.setDescripcion(txtDescripcion.getText());
-            if(RBActivo.isSelected()){
-                actividad.setEstado(1);
-            }else{
-                actividad.setEstado(0);
-            }
-            new ActividadGiraDaoImp().insertar(actividad);
-            txtActividad.setText(null);
-            txtCosto.setText(null);
-            txtDescripcion.setText(null);
-            BGrupEstado.clearSelection();
-            //              Limpimpia la tabla
-            tablaTours.clearSelection();
-            //              Setea nuevamente la tabla
-            MostrarActividadGira();
-        }
+        
     }//GEN-LAST:event_btnAgregarActividadActionPerformed
 
 
@@ -334,6 +315,7 @@ public class GestionTour extends javax.swing.JFrame {
     private javax.swing.JButton btnInicio;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
