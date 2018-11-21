@@ -21,6 +21,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.input.KeyCode;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
@@ -47,90 +48,65 @@ public class GestionAgente extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarAgentes();
-        txtRun.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                if (e.getDocument().getLength() == 8) {
-                    String[] array = txtRun.getText().split("");
-                    String rut = "";
-                    for (int i = 0; i < array.length - 1; i++) {
-                        rut = rut + array[0];
-                        if (i == 0 || i == 3 || i == 7) {
-                            rut = rut + ".";
-                        }
-                    }
-                } else {
-                    try {
-                        e.getDocument().getText(0, e.getDocument().getLength()).replace(".", "");
-                        e.getDocument().getText(0, e.getDocument().getLength()).replace("-", "");
-                    } catch (BadLocationException ex) {
-                        Logger.getLogger(GestionAgente.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                if (e.getDocument().getLength() == 8) {
-                    String[] array = txtRun.getText().split("");
-                    String rut = "";
-                    for (int i = 0; i < array.length - 1; i++) {
-                        rut = rut + array[0];
-                        if (i == 0 || i == 3 || i == 7) {
-                            rut = rut + ".";
-                        }
-                    }
-                } else {
-                    try {
-                        e.getDocument().getText(0, e.getDocument().getLength()).replace(".", "");
-                        e.getDocument().getText(0, e.getDocument().getLength()).replace("-", "");
-                    } catch (BadLocationException ex) {
-                        Logger.getLogger(GestionAgente.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                if (e.getDocument().getLength() == 8) {
-                    String[] array = txtRun.getText().split("");
-                    String rut = "";
-                    for (int i = 0; i < array.length - 1; i++) {
-                        rut = rut + array[0];
-                        if (i == 0 || i == 3 || i == 7) {
-                            rut = rut + ".";
-                        }
-                    }
-                } else {
-                    try {
-                        e.getDocument().getText(0, e.getDocument().getLength()).replace(".", "");
-                        e.getDocument().getText(0, e.getDocument().getLength()).replace("-", "");
-                    } catch (BadLocationException ex) {
-                        Logger.getLogger(GestionAgente.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-        });
         txtRun.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (!Character.isDigit(e.getKeyChar())) {
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='k' && e.getKeyCode()!=75 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
                     e.consume();
-                }
+                } 
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                if (!Character.isDigit(e.getKeyChar())) {
+                
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='k' && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
                     e.consume();
+                } else {
+                    String texto;
+                    texto = txtRun.getText();
+                    texto = texto.replace(".", "").replace("-", "");
+                    String[] array = texto.split("");
+                    String rut = "";
+                    switch (texto.length()) {
+                        case 8:
+                            for (int i = 0; i < array.length; i++) {
+                                rut = rut + array[i];
+                                if (i == 0 || i == 3) {
+                                    rut = rut + ".";
+                                }
+                                if (i == 6) {
+                                    rut = rut + "-";
+                                }
+                            }
+                            texto = rut;
+                            break;
+                        case 9:
+                            for (int i = 0; i < array.length; i++) {
+                                rut = rut + array[i];
+                                if (i == 1 || i == 4) {
+                                    rut = rut + ".";
+                                }
+                                if(i == 7) {
+                                    rut = rut + "-";
+                                }
+                            }
+                            texto = rut;
+                            break;
+                        default:
+                            texto = texto.replace(".", "").replace("-", "");
+                            break;
+                    }
+                    txtRun.setText(texto);
+
                 }
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (!Character.isDigit(e.getKeyChar())) {
+//                String texto;
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='k' && e.getKeyCode()!=75 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
                     e.consume();
-                }
+                } 
             }
         });
         RestrictedTextField restricted = new RestrictedTextField(txtRun);
