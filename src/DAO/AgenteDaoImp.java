@@ -10,7 +10,6 @@ import CONEXION.Conexion;
 import DTO.Agente;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
-import org.omg.CORBA.portable.UnknownException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -18,6 +17,8 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import oracle.jdbc.OracleTypes;
+import oracle.jdbc.oracore.OracleType;
 
 /**
  *
@@ -33,24 +34,24 @@ public class AgenteDaoImp implements BaseDao<Agente> {
             String sql;
             sql = "{call PR_AGREGAR_AGENTE(?,?,?,?,?,?,?,?)}";
             CallableStatement proc = con.prepareCall(sql);
-            proc.setString(1,dto.getRun());
-            proc.setString(2,dto.getUser());
-            proc.setString(3,dto.getPasswd());
-            proc.setString(4,dto.getNombre());
-            proc.setString(5,dto.getApellido_paterno());
-            proc.setString(6,dto.getApellido_materno());
-            proc.setInt(7,dto.getAdministrador());
-            proc.setInt(8,dto.getEstado());
+            proc.setString(1, dto.getRun());
+            proc.setString(2, dto.getUser());
+            proc.setString(3, dto.getPasswd());
+            proc.setString(4, dto.getNombre());
+            proc.setString(5, dto.getApellido_paterno());
+            proc.setString(6, dto.getApellido_materno());
+            proc.setInt(7, dto.getAdministrador());
+            proc.setInt(8, dto.getEstado());
             proc.executeQuery();
             return true;
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un problema con el procedimiento, intente mas tarde o comuniquese con el Administrador de Sistema."
-                    ,"error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ocurrio un problema con el procedimiento, intente mas tarde o comuniquese con el Administrador de Sistema.",
+                     "error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
-    
-   @Override
+
+    @Override
     public Agente buscar(Agente dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -80,14 +81,14 @@ public class AgenteDaoImp implements BaseDao<Agente> {
             String sql;
             sql = "{call PR_UPDATE_AGENTE(?,?,?,?,?,?,?,?)}";
             CallableStatement proc = con.prepareCall(sql);
-            proc.setString(1,dto.getRun());
-            proc.setString(2,dto.getUser());
-            proc.setString(3,dto.getPasswd());
-            proc.setString(4,dto.getNombre());
-            proc.setString(5,dto.getApellido_paterno());
-            proc.setString(6,dto.getApellido_materno());
-            proc.setInt(7,dto.getAdministrador());
-            proc.setInt(8,dto.getEstado());
+            proc.setString(1, dto.getRun());
+            proc.setString(2, dto.getUser());
+            proc.setString(3, dto.getPasswd());
+            proc.setString(4, dto.getNombre());
+            proc.setString(5, dto.getApellido_paterno());
+            proc.setString(6, dto.getApellido_materno());
+            proc.setInt(7, dto.getAdministrador());
+            proc.setInt(8, dto.getEstado());
             proc.executeQuery();
             return true;
         } catch (Exception ex) {
@@ -102,7 +103,7 @@ public class AgenteDaoImp implements BaseDao<Agente> {
         Agente ag = new Agente();
         String usuario = ag.getUser();
         String pass = ag.getPasswd();
-        String query = "select usuario, passwd from agente where usuario = "+usuario+" and passwd= "+pass+";";
+        String query = "select usuario, passwd from agente where usuario = " + usuario + " and passwd= " + pass + ";";
         try {
             Connection con = obj.getConnection();
             Statement st = con.createStatement();
@@ -113,20 +114,18 @@ public class AgenteDaoImp implements BaseDao<Agente> {
         }
         return true;
     }
-        
+
     @Override
     public ArrayList listar() {
         CONEXION.Conexion obj = new Conexion();
         ArrayList<Agente> lista = new ArrayList<>();
         try {
             Connection con = obj.getConnection();
-//            String sql = "{call PR_LISTAR_AGENTES}";
-//            CallableStatement proc = con.prepareCall(sql);
-//            ResultSet re = proc.executeQuery(sql);
-            Statement st = con.createStatement();
-            ResultSet re = st.executeQuery("select run,usuario,passwd,nombre,ap"
-                    + "ellido_paterno,apellido_materno,administrador,estado fro"
-                    + "m agentes");
+            String sql = "{call PR_LISTAR_AGENTES(?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.registerOutParameter("out_list", OracleTypes.CURSOR);
+            proc.executeUpdate();
+            ResultSet re = (ResultSet)proc.getObject("out_list");
             while (re.next()) {
                 Agente agente = new Agente();
                 agente.setRun(re.getString(1));
@@ -143,5 +142,13 @@ public class AgenteDaoImp implements BaseDao<Agente> {
             return lista;
         }
         return lista;
-    }    
+    }
+    
+//    public boolean ValidarUsuario(){
+//        try {
+//            
+//        } catch (Exception e) {
+//        
+//        }
+//    }
 }

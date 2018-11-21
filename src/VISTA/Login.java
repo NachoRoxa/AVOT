@@ -44,16 +44,16 @@ public class Login extends javax.swing.JFrame {
         };
         txtUsuario.addActionListener(action);
         jPassword.addActionListener(action);
-        
+
         /* Edit Rocha: Lo deje comentado x mientras
         para poder probar los q no son Admin.
         ACORDEMONOS DE BORRAR DSP ESTO!!.
         Borrar esto para eliminar credenciales automáticas*/
         txtUsuario.setText("ADMIN");
         jPassword.setText("PASO");
-      
+
     }
-    
+
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/icono-login-png-6.png"));
         return retValue;
@@ -135,35 +135,40 @@ public class Login extends javax.swing.JFrame {
         String query = "select usuario, passwd, estado, administrador from agentes where usuario =?  and passwd =?";
         String user = txtUsuario.getText();
         String pass = String.valueOf(jPassword.getPassword());
-        
-        try {
-            PreparedStatement st = con.prepareStatement(query);
-            st.setString(1, user);
-            st.setString(2, pass);
-            
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                if (user.isEmpty()) {
-                    this.setVisible(true);
-                    JOptionPane.showMessageDialog(null, "Por favor, ingrese Usuario");
-                } else if (pass.isEmpty()) {
-                    this.setVisible(true);
-                    JOptionPane.showMessageDialog(null, "Por favor, ingrese contraseña");
-                } else if (estado() == 0) {
-                    this.setVisible(true);
-                    JOptionPane.showMessageDialog(null, "Usuario Inactivo. Contactese con el Administrador.");
-                } else {
-                    this.setVisible(false);
-                    int admin = administrador();
-                    new Index(admin).setVisible(true);
+        if (!user.trim().equalsIgnoreCase("")) {
+            if (!pass.trim().equalsIgnoreCase("")) {
+                try {
+                    PreparedStatement st = con.prepareStatement(query);
+                    st.setString(1, user);
+                    st.setString(2, pass);
+
+                    ResultSet rs = st.executeQuery();
+                    if (rs.next()) {
+                        if (user.isEmpty()) {
+                            this.setVisible(true);
+                            JOptionPane.showMessageDialog(null, "Por favor, ingrese Usuario");
+                        } else if (pass.isEmpty()) {
+                            this.setVisible(true);
+                            JOptionPane.showMessageDialog(null, "Por favor, ingrese contraseña");
+                        } else if (estado() == 0) {
+                            this.setVisible(true);
+                            JOptionPane.showMessageDialog(null, "Usuario Inactivo. Contactese con el Administrador.");
+                        } else {
+                            this.setVisible(false);
+                            int admin = administrador();
+                            new Index(admin).setVisible(true);
+                        }
+                    } else {
+                        this.setVisible(true);
+                        JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+
                 }
-            } else {
-                this.setVisible(true);
-                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta","Error",JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception ex) {
-            
         }
+
+
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
     /**
      * *
@@ -184,7 +189,7 @@ public class Login extends javax.swing.JFrame {
             PreparedStatement st = con.prepareStatement(query);
             st.setString(1, user);
             st.setString(2, pass);
-            
+
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 estado = rs.getInt("estado");
@@ -216,7 +221,7 @@ public class Login extends javax.swing.JFrame {
             PreparedStatement st = con.prepareStatement(query);
             st.setString(1, user);
             st.setString(2, pass);
-            
+
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 admin = rs.getInt("ADMINISTRADOR");
@@ -244,21 +249,21 @@ public class Login extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Login.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Login.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Login.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
