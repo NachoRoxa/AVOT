@@ -22,8 +22,11 @@ import javax.swing.Action;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 
 /**
  *
@@ -62,9 +65,19 @@ public class GestionAgente extends javax.swing.JFrame {
             public void changedUpdate(DocumentEvent e) {
                 if (e.getDocument().getLength()==8) {
                     String[] array = txtRun.getText().split("");
-                    String rut;
+                    String rut = "";
                     for (int i = 0; i < array.length-1; i++) {
-                     
+                        rut = rut+array[0];
+                        if (i==0 || i==3 || i==7) {
+                            rut = rut+".";
+                        }
+                    }
+                }else{
+                    try {
+                        e.getDocument().getText(0,e.getDocument().getLength()).replace(".", "");
+                        e.getDocument().getText(0,e.getDocument().getLength()).replace("-", "");
+                    } catch (BadLocationException ex) {
+                        Logger.getLogger(GestionAgente.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
