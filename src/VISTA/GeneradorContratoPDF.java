@@ -19,6 +19,7 @@ import DTO.Tour;
 import VISTA.CONTROLES.ItemCombo;
 import com.itextpdf.text.pdf.AcroFields;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**

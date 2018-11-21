@@ -16,8 +16,17 @@ import Atxy2k.CustomTextField.RestrictedTextField;
 import VISTA.CONTROLES.ButtonColumn;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 
 /**
  *
@@ -30,30 +39,88 @@ public class GestionAgente extends javax.swing.JFrame {
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
     int flag;
+
     /**
      * Creates new form GestionarAgente
+     *
      * @param admin
      */
-    public GestionAgente(int admin)
-    {
+    public GestionAgente(int admin) {
         Admin(admin);
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarAgentes();
-        RestrictedTextField restricted = new RestrictedTextField(txtRun);
-        restricted.setLimit(12);
+        txtRun.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                if (e.getDocument().getLength()==8) {
+                    String[] array = txtRun.getText().split("");
+                    String rut = "";
+                    for (int i = 0; i < array.length-1; i++) {
+                        rut = rut+array[0];
+                        if (i==0 || i==3 || i==7) {
+                            rut = rut+".";
+                        }
+                    }
+                }else{
+                    try {
+                        e.getDocument().getText(0,e.getDocument().getLength()).replace(".", "");
+                        e.getDocument().getText(0,e.getDocument().getLength()).replace("-", "");
+                    } catch (BadLocationException ex) {
+                        Logger.getLogger(GestionAgente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+        txtRun.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!Character.isDigit(e.getKeyChar()) ) {
+                        e.consume();
+                    }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                                if (!Character.isDigit(e.getKeyChar()) ) {
+                        e.consume();
+                    }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                 if (!Character.isDigit(e.getKeyChar()) ) {
+                        e.consume();
+                    }
+            }
+            });
+        
+                
         RestrictedTextField restricted1 = new RestrictedTextField(txtNombre);
         restricted1.setOnlyText(true);
         RestrictedTextField restricted2 = new RestrictedTextField(txtApellidoP);
         restricted2.setOnlyText(true);
         RestrictedTextField restricted3 = new RestrictedTextField(txtApellidoM);
         restricted3.setOnlyText(true);
+
         ResetBotones();
     }
-    /***
+    /**
+     * *
      * Metodo para ver si el usuario posee perfil de administrador.
+     *
      * @param admin
-     * @return 
+     * @return
      */
     public boolean Admin(int admin) {
         this.flag = admin;
@@ -184,6 +251,7 @@ public class GestionAgente extends javax.swing.JFrame {
         PanelTitulo = new javax.swing.JPanel();
         lblAVOT = new javax.swing.JLabel();
         btnInicio = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         PanelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaAgentes = new javax.swing.JTable();
@@ -226,6 +294,13 @@ public class GestionAgente extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelTituloLayout = new javax.swing.GroupLayout(PanelTitulo);
         PanelTitulo.setLayout(PanelTituloLayout);
         PanelTituloLayout.setHorizontalGroup(
@@ -234,6 +309,8 @@ public class GestionAgente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblAVOT)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(34, 34, 34)
                 .addComponent(btnInicio)
                 .addContainerGap())
         );
@@ -243,7 +320,8 @@ public class GestionAgente extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAVOT)
-                    .addComponent(btnInicio))
+                    .addComponent(btnInicio)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -488,14 +566,19 @@ public class GestionAgente extends javax.swing.JFrame {
             } else {
                 agente.setEstado(0);
             }
-            //Agrega un Agente
-            new AgenteDaoImp().insertar(agente);
-            //Limpia los datos de los txtBox
-            LimpiarFormulario();
-            //Limpimpia la tabla
-            tablaAgentes.clearSelection();
-            //Setea nuevamente la tabla
-            MostrarAgentes();
+            try {
+                //Agrega un Agente
+                new AgenteDaoImp().insertar(agente);
+                //Limpia los datos de los txtBox
+                LimpiarFormulario();
+                //Limpimpia la tabla
+                tablaAgentes.clearSelection();
+                //Setea nuevamente la tabla
+                MostrarAgentes();
+            } catch (Exception e) {
+
+            }
+
         }
     }//GEN-LAST:event_btnAgregarAgenteActionPerformed
 
@@ -530,6 +613,10 @@ public class GestionAgente extends javax.swing.JFrame {
         MostrarAgentes();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        txtRun.setText("asdadasd");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup BGrupEstado;
     private javax.swing.JPanel PanelInsertar;
@@ -542,6 +629,7 @@ public class GestionAgente extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JCheckBox chbAdministrador;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
