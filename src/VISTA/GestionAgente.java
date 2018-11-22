@@ -15,9 +15,16 @@ import javax.swing.table.DefaultTableModel;
 import Atxy2k.CustomTextField.RestrictedTextField;
 import VISTA.CONTROLES.ButtonColumn;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.input.KeyCode;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 
 /**
  *
@@ -30,16 +37,78 @@ public class GestionAgente extends javax.swing.JFrame {
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
     int flag;
+
     /**
      * Creates new form GestionarAgente
+     *
      * @param admin
      */
-    public GestionAgente(int admin)
-    {
+    public GestionAgente(int admin) {
         Admin(admin);
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarAgentes();
+        txtRun.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='k' && e.getKeyCode()!=75 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+                    e.consume();
+                } 
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='k' && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+                    e.consume();
+                } else {
+                    String texto;
+                    texto = txtRun.getText();
+                    texto = texto.replace(".", "").replace("-", "");
+                    String[] array = texto.split("");
+                    String rut = "";
+                    switch (texto.length()) {
+                        case 8:
+                            for (int i = 0; i < array.length; i++) {
+                                rut = rut + array[i];
+                                if (i == 0 || i == 3) {
+                                    rut = rut + ".";
+                                }
+                                if (i == 6) {
+                                    rut = rut + "-";
+                                }
+                            }
+                            texto = rut;
+                            break;
+                        case 9:
+                            for (int i = 0; i < array.length; i++) {
+                                rut = rut + array[i];
+                                if (i == 1 || i == 4) {
+                                    rut = rut + ".";
+                                }
+                                if(i == 7) {
+                                    rut = rut + "-";
+                                }
+                            }
+                            texto = rut;
+                            break;
+                        default:
+                            texto = texto.replace(".", "").replace("-", "");
+                            break;
+                    }
+                    txtRun.setText(texto);
+
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+//                String texto;
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='k' && e.getKeyCode()!=75 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+                    e.consume();
+                } 
+            }
+        });
         RestrictedTextField restricted = new RestrictedTextField(txtRun);
         restricted.setLimit(12);
         RestrictedTextField restricted1 = new RestrictedTextField(txtNombre);
@@ -50,10 +119,13 @@ public class GestionAgente extends javax.swing.JFrame {
         restricted3.setOnlyText(true);
         ResetBotones();
     }
-    /***
+
+    /**
+     * *
      * Metodo para ver si el usuario posee perfil de administrador.
+     *
      * @param admin
-     * @return 
+     * @return
      */
     public boolean Admin(int admin) {
         this.flag = admin;
@@ -487,14 +559,19 @@ public class GestionAgente extends javax.swing.JFrame {
             } else {
                 agente.setEstado(0);
             }
-            //Agrega un Agente
-            new AgenteDaoImp().insertar(agente);
-            //Limpia los datos de los txtBox
-            LimpiarFormulario();
-            //Limpimpia la tabla
-            tablaAgentes.clearSelection();
-            //Setea nuevamente la tabla
-            MostrarAgentes();
+            try {
+                //Agrega un Agente
+                new AgenteDaoImp().insertar(agente);
+                //Limpia los datos de los txtBox
+                LimpiarFormulario();
+                //Limpimpia la tabla
+                tablaAgentes.clearSelection();
+                //Setea nuevamente la tabla
+                MostrarAgentes();
+            } catch (Exception e) {
+
+            }
+
         }
     }//GEN-LAST:event_btnAgregarAgenteActionPerformed
 
