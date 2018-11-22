@@ -30,8 +30,8 @@ public class CursoDaoImp implements BaseDao<Curso> {
             String sql = "{call PR_AGREGAR_CURSO(?,?,?)}";
             CallableStatement proc = con.prepareCall(sql);
             proc.setInt(1, dto.getMonto_recaudado());
-            proc.setObject(2, dto.getColegio());
-            proc.setString(3, dto.getDescripcion());
+            proc.setObject(2, dto.getColegio().getId_colegio());
+            proc.setString(3, dto.getDescripcion());            
             proc.executeQuery();
             return true;                    
         } catch (Exception ex) {
