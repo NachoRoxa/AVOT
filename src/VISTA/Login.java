@@ -154,8 +154,8 @@ public class Login extends javax.swing.JFrame {
                 } else {
                     this.setVisible(false);
                     int admin = Administrador();
-                    String ses = RunFlag();
-                    Agente ag= new Agente();
+                    //String ses = RunFlag();
+                    //Agente ag= new Agente();
                     new Index(admin).setVisible(true);
                 }
             } else {
@@ -236,7 +236,7 @@ public class Login extends javax.swing.JFrame {
      * de "Session" 
      * @return runFlag, variable que contiene el RUN.
      */
-    public String RunFlag()
+    /*public String RunFlag()
     {
         Conexion cx = new Conexion();
         Connection con = cx.getConnection();
@@ -260,7 +260,7 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Problemas de conexion, intente mas tarde o comuniquese con el Administrador.");
             return runFlag = "";
         }
-    }
+    }*/
     
     /**
      * @param args the command line arguments
