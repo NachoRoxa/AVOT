@@ -5,6 +5,7 @@
  */
 package VISTA;
 
+import DTO.Agente;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -19,10 +20,13 @@ public class Index extends javax.swing.JFrame {
      * Creates new form Index
      */
     Login log = new Login();
-    int flag;    
+    int flag;
+    String runFlag;
     
-    public Index(int admin) {
+    public Index(//Agente ag, String ses, 
+            int admin) {
         Admin(admin);
+        //ag.Agente(ses, admin);
         initComponents();
         this.setLocationRelativeTo(null);
         Admin(flag);
@@ -40,7 +44,12 @@ public class Index extends javax.swing.JFrame {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/logout.png"));
         return retValue;
     }
-
+    
+    public String Sesion(String session)
+    {
+        this.runFlag=session;
+        return session;
+    }
 
     public boolean Admin(int admin) {
         this.flag = admin;
@@ -404,16 +413,6 @@ public class Index extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnColegiosActionPerformed
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        getIconImage();
-        Admin(flag);        
-        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea salir del sistema?", "Confirmacion salida", JOptionPane.YES_NO_OPTION);
-        if(opcion == JOptionPane.YES_OPTION)
-        {
-            System.exit(0);
-        }
-    }//GEN-LAST:event_btnSalirActionPerformed
-
     private void btnAgentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgentesActionPerformed
         Admin(flag);
         if (flag == 0) {
@@ -446,6 +445,16 @@ public class Index extends javax.swing.JFrame {
         GeneradorContratoPDF x = new GeneradorContratoPDF(flag);
         x.setVisible(true);
     }//GEN-LAST:event_btnContratoActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        getIconImage();
+        Admin(flag);
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea salir del sistema?", "Confirmacion salida", JOptionPane.YES_NO_OPTION);
+        if(opcion == JOptionPane.YES_OPTION)
+        {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

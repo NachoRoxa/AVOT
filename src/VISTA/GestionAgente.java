@@ -208,10 +208,9 @@ public class GestionAgente extends javax.swing.JFrame {
                     tablaAgentes.clearSelection();
                     MostrarAgentes();
                     ResetBotones();
-
                 }
-
             };
+            
             /*ESTA PARTE ES LA QUE AGREGA EL BOTTON ELIMINAR CON ACCION DECLARADA ANTERIORMENTE*/
             ButtonColumn buttonEliminar = new ButtonColumn(tablaAgentes, borrar, 8);
             buttonEliminar.setMnemonic(KeyEvent.VK_D);
@@ -517,7 +516,7 @@ public class GestionAgente extends javax.swing.JFrame {
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         Admin(flag);
         this.setVisible(false);
-        Index x = new Index(flag);
+        Index x = new Index(flag); 
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 

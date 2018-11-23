@@ -27,15 +27,14 @@ public class CursoDaoImp implements BaseDao<Curso> {
         Conexion cx = new Conexion();
         try {
             Connection con = cx.getConnection();
-            String sql = "{call PR_AGREGAR_CURSO(?,?,?)}";
+            String sql = "{call PR_AGREGAR_CURSO(?,?)}";
             CallableStatement proc = con.prepareCall(sql);
-            proc.setInt(1, dto.getMonto_recaudado());
-            proc.setObject(2, dto.getColegio());
-            proc.setString(3, dto.getDescripcion());
+            proc.setObject(1, dto.getColegio().getId_colegio());
+            proc.setString(2, dto.getDescripcion());            
             proc.executeQuery();
             return true;                    
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un problema con el procedimiento. Intente mas tarde");
+            JOptionPane.showMessageDialog(null, "Ocurrio un problema con el procedimiento. Intente mas tarde");//dejar mensajes en vista
             return false;
         }
     }

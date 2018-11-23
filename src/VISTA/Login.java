@@ -29,7 +29,7 @@ import javax.swing.JOptionPane;
  * @author Seba
  */
 public class Login extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Interfaz
      */
@@ -155,7 +155,7 @@ public class Login extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Usuario Inactivo. Contactese con el Administrador.");
                         } else {
                             this.setVisible(false);
-                            int admin = administrador();
+                            int admin = Administrador();
                             new Index(admin).setVisible(true);
                         }
                     } else {
@@ -210,7 +210,7 @@ public class Login extends javax.swing.JFrame {
      *
      * @return
      */
-    public int administrador() {
+    public int Administrador() {
         Conexion cx = new Conexion();
         Connection con = cx.getConnection();
         String query = "select usuario, passwd, ADMINISTRADOR from agentes where usuario =?  and passwd =?";
@@ -234,7 +234,38 @@ public class Login extends javax.swing.JFrame {
             return admin = 0;
         }
     }
-
+    
+    /***
+     * Metodo que retorna el RUN del usuario para hacer un control
+     * de "Session" 
+     * @return runFlag, variable que contiene el RUN.
+     */
+    /*public String RunFlag()
+    {
+        Conexion cx = new Conexion();
+        Connection con = cx.getConnection();
+        String query = "select usuario, passwd, ADMINISTRADOR from agentes where usuario =?  and passwd =?";
+        String user = txtUsuario.getText();
+        String pass = String.valueOf(jPassword.getPassword());
+        String runFlag;
+        try {
+            PreparedStatement st = con.prepareStatement(query);
+            st.setString(1, user);
+            st.setString(2, pass);
+            
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                runFlag = rs.getString("run");
+                return runFlag;
+            } else {
+                return runFlag = null;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Problemas de conexion, intente mas tarde o comuniquese con el Administrador.");
+            return runFlag = "";
+        }
+    }*/
+    
     /**
      * @param args the command line arguments
      */

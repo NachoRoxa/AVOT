@@ -5,19 +5,74 @@
  */
 package VISTA;
 
+import DAO.ActividadColegioDaoImp;
+import DAO.ActividadGiraDaoImp;
+import DTO.ActividadColegio;
+import DTO.ActividadGira;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Seba
  */
 public class GestionActividadColegio extends javax.swing.JFrame {
 
+    ArrayList<ActividadColegio> listaActividadColegio;
+    DefaultTableModel modelo;
+    int flag;
     /**
      * Creates new form GestionActividadColegio
      */
-    public GestionActividadColegio() {
-        initComponents();
+    public GestionActividadColegio(int admin) {
+        Admin(admin);
+        initComponents();        
     }
-
+    
+    /***
+     * Metodo para ver si el usuario posee perfil de administrador.
+     * @param admin
+     * @return 
+     */
+    public boolean Admin(int admin) {
+        this.flag = admin;
+        if (admin == 1) {
+            flag = 1;
+            return true;
+        } else {
+            flag = 0;
+            return false;
+        }
+    }
+    
+    public void MostrarActividadGira(){
+        listaActividadColegio = new ActividadColegioDaoImp().listar();
+        modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("DESCRIPCION");
+        modelo.addColumn("INVERSION");
+        modelo.addColumn("TIPO ACTIVIDAD");
+        modelo.addColumn("RECAUDACION");
+        modelo.addColumn("MONTO DEPOSITO");
+        modelo.addColumn("NUMERO DEPOSITO");
+        modelo.addColumn("");
+        if (listaActividadColegio.size() > 0) {
+            for (ActividadColegio actividadColegio : listaActividadColegio) {
+                
+                modelo.addRow(new Object[]{
+                    actividadColegio.getDescripcion(),
+                    actividadColegio.getInversion(),
+                    actividadColegio.getId_actividad(),
+                    actividadColegio.getRecaudacion(),
+                    actividadColegio.getMonto_deposito(),
+                    actividadColegio.getNumero_deposito(),
+                    "ELIMINAR"}
+                );
+            }
+            tablaActividadesGira.setModel(modelo);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,22 +82,301 @@ public class GestionActividadColegio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        PanelTitulo4 = new javax.swing.JPanel();
+        lblAVOT4 = new javax.swing.JLabel();
+        btnInicio4 = new javax.swing.JButton();
+        PanelTabla = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaActividadesGira = new javax.swing.JTable();
+        PanelInsertar = new javax.swing.JPanel();
+        txtInversion = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        btnAgregarActividad = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
+        cbColegio = new javax.swing.JComboBox<>();
+        lblColegio = new javax.swing.JLabel();
+        txtRecaudacion = new javax.swing.JTextField();
+        txtDeposito = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtNumDeposito = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        cbActividad = new javax.swing.JComboBox<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1121, 506));
+
+        PanelTitulo4.setBackground(new java.awt.Color(30, 160, 250));
+
+        lblAVOT4.setBackground(new java.awt.Color(255, 255, 255));
+        lblAVOT4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblAVOT4.setForeground(new java.awt.Color(255, 255, 255));
+        lblAVOT4.setText("A.V.O.T.");
+
+        btnInicio4.setText("Inicio");
+        btnInicio4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicio4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelTitulo4Layout = new javax.swing.GroupLayout(PanelTitulo4);
+        PanelTitulo4.setLayout(PanelTitulo4Layout);
+        PanelTitulo4Layout.setHorizontalGroup(
+            PanelTitulo4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelTitulo4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAVOT4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnInicio4)
+                .addContainerGap())
+        );
+        PanelTitulo4Layout.setVerticalGroup(
+            PanelTitulo4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelTitulo4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelTitulo4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAVOT4)
+                    .addComponent(btnInicio4))
+                .addContainerGap())
+        );
+
+        PanelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista Actividades Gira"));
+
+        tablaActividadesGira.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tablaActividadesGira);
+
+        javax.swing.GroupLayout PanelTablaLayout = new javax.swing.GroupLayout(PanelTabla);
+        PanelTabla.setLayout(PanelTablaLayout);
+        PanelTablaLayout.setHorizontalGroup(
+            PanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
+        );
+        PanelTablaLayout.setVerticalGroup(
+            PanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+
+        PanelInsertar.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Actividad Gira"));
+
+        jLabel3.setText("Tipo Actividad");
+
+        jLabel4.setText("Inversion");
+
+        jLabel5.setText("Descripcion");
+
+        btnAgregarActividad.setText("Agregar");
+        btnAgregarActividad.setPreferredSize(new java.awt.Dimension(80, 25));
+        btnAgregarActividad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActividadActionPerformed(evt);
+            }
+        });
+
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane2.setViewportView(txtDescripcion);
+
+        cbColegio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Colegio" }));
+
+        lblColegio.setText("Colegio");
+
+        jLabel1.setText("Recaudacion");
+
+        jLabel2.setText("Monto Deposito");
+
+        jLabel6.setText("Numero Deposito");
+
+        cbActividad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Actividad" }));
+
+        javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
+        PanelInsertar.setLayout(PanelInsertarLayout);
+        PanelInsertarLayout.setHorizontalGroup(
+            PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
+                        .addComponent(lblColegio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbColegio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelInsertarLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtInversion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6))
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNumDeposito, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                    .addComponent(txtRecaudacion)
+                                    .addComponent(txtDeposito)))
+                            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(cbActividad, 0, 150, Short.MAX_VALUE))))))
+            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addComponent(btnAgregarActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        PanelInsertarLayout.setVerticalGroup(
+            PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelInsertarLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelInsertarLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtInversion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtRecaudacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNumDeposito)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbColegio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblColegio, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(btnAgregarActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(PanelTitulo4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PanelInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(PanelTitulo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PanelInsertar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnInicio4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicio4ActionPerformed
+        Admin(flag);
+        this.setVisible(false);
+        Index x = new Index(flag);
+        x.setVisible(true);
+    }//GEN-LAST:event_btnInicio4ActionPerformed
+
+    private void btnAgregarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActividadActionPerformed
+        ActividadColegio actividad = new ActividadColegio();
+        if(cbActividad.getSelectedIndex()==0){
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese una Actividad");
+        }else if(txtInversion.getText().trim().isEmpty()){
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Costo");
+        }else if(txtDescripcion.getText().trim().isEmpty()){
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese una Descripcion");
+        }else{
+            actividad.setDescripcion(txtDescripcion.getText());
+            actividad.setInversion(Integer.valueOf(txtInversion.getText()));
+            actividad.setMonto_deposito(Integer.valueOf(txtDeposito.getText()));
+            actividad.setNumero_deposito(txtNumDeposito.getText());
+            new ActividadColegioDaoImp().insertar(actividad);
+            txtDeposito.setText(null);
+            txtInversion.setText(null);
+            txtDescripcion.setText(null);
+            cbActividad.setEditor(null);
+            //              Limpimpia la tabla
+            tablaActividadesGira.clearSelection();
+            //              Setea nuevamente la tabla
+            MostrarActividadGira();
+        }
+    }//GEN-LAST:event_btnAgregarActividadActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelInsertar;
+    private javax.swing.JPanel PanelTabla;
+    private javax.swing.JPanel PanelTitulo;
+    private javax.swing.JPanel PanelTitulo1;
+    private javax.swing.JPanel PanelTitulo2;
+    private javax.swing.JPanel PanelTitulo3;
+    private javax.swing.JPanel PanelTitulo4;
+    private javax.swing.JButton btnAgregarActividad;
+    private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnInicio1;
+    private javax.swing.JButton btnInicio2;
+    private javax.swing.JButton btnInicio3;
+    private javax.swing.JButton btnInicio4;
+    private javax.swing.JComboBox<String> cbActividad;
+    private javax.swing.JComboBox<String> cbColegio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblAVOT;
+    private javax.swing.JLabel lblAVOT1;
+    private javax.swing.JLabel lblAVOT2;
+    private javax.swing.JLabel lblAVOT3;
+    private javax.swing.JLabel lblAVOT4;
+    private javax.swing.JLabel lblColegio;
+    private javax.swing.JTable tablaActividadesGira;
+    private javax.swing.JTextField txtDeposito;
+    private javax.swing.JTextArea txtDescripcion;
+    private javax.swing.JTextField txtInversion;
+    private javax.swing.JTextField txtNumDeposito;
+    private javax.swing.JTextField txtRecaudacion;
     // End of variables declaration//GEN-END:variables
 }

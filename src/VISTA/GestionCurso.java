@@ -6,6 +6,7 @@
 package VISTA;
 
 import CONEXION.Conexion;
+import DAO.ColegioDaoImp;
 import DAO.CursoDaoImp;
 import DTO.Colegio;
 import DTO.Curso;
@@ -21,29 +22,34 @@ import javax.swing.table.DefaultTableModel;
  * @author Seba
  */
 public class GestionCurso extends javax.swing.JFrame {
+
     ArrayList<Curso> listaCursos;
-    ArrayList<Colegio> Colegios;
+    ArrayList<Colegio> listaColegios;
     Conexion obj = new Conexion();
+    Colegio colegio;
+    Curso curso;
     DefaultTableModel modelo;
     int flag;
 
     /**
      * Creates new form GestionCurso
+     *
      * @param admin
      */
-    public GestionCurso(int admin)
-    {
+    public GestionCurso(int admin) {
         Admin(admin);
         initComponents();
         this.setLocationRelativeTo(null);
-        MostrarCursos();
-        datosCombobox();
+        MostrarCursos();        
+        datosCombobox();        
     }
-    
-    /***
+
+    /**
+     * *
      * Metodo para ver si el usuario posee perfil de administrador.
+     *
      * @param admin
-     * @return 
+     * @return
      */
     public boolean Admin(int admin) {
         this.flag = admin;
@@ -55,8 +61,8 @@ public class GestionCurso extends javax.swing.JFrame {
             return false;
         }
     }
-    
-    public void MostrarCursos(){
+
+    public void MostrarCursos() {
         listaCursos = new CursoDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("ID");
@@ -77,35 +83,19 @@ public class GestionCurso extends javax.swing.JFrame {
             tablaCursos.setModel(modelo);
         }
     }
-    
-    /***
+
+    /**
+     * *
      * Metodo para poblar el comboBox con los nombre de los colegios.
-     * 
+     *
      */
     public void datosCombobox() {
-        Conexion con = new Conexion();
-        String sql = "select nombre from colegios";
-        try {
-            Connection c = con.getConnection();
-            Statement st = c.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-                String nombre = rs.getString("nombre");
-                cbColegio.addItem(nombre);
-            }
-            
-        } catch (Exception ex) {
-            Admin(flag);
-            this.setVisible(false);
-            JOptionPane.showMessageDialog(null, "Problemas de conexion");
-            Index in = new Index(flag);
-            
-            in.setVisible(true);
+        listaColegios = new ColegioDaoImp().listar();
+        for (Colegio colegio : listaColegios) {
+            cbColegio.addItem(colegio.getNombre());
         }
-
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,14 +113,14 @@ public class GestionCurso extends javax.swing.JFrame {
         tablaCursos = new javax.swing.JTable();
         PanelInsertar = new javax.swing.JPanel();
         txtCurso = new javax.swing.JTextField();
-        btnAgregarAgente = new javax.swing.JButton();
+        btnAgregarColegio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cbColegio = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         txtMonto = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtDescripciom = new javax.swing.JTextArea();
+        txtDescripcion = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -204,10 +194,10 @@ public class GestionCurso extends javax.swing.JFrame {
 
         PanelInsertar.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Curso"));
 
-        btnAgregarAgente.setText("Agregar");
-        btnAgregarAgente.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarColegio.setText("Agregar");
+        btnAgregarColegio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarAgenteActionPerformed(evt);
+                btnAgregarColegioActionPerformed(evt);
             }
         });
 
@@ -223,9 +213,9 @@ public class GestionCurso extends javax.swing.JFrame {
 
         jLabel10.setText("Monto Recaudado");
 
-        txtDescripciom.setColumns(20);
-        txtDescripciom.setRows(5);
-        jScrollPane2.setViewportView(txtDescripciom);
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane2.setViewportView(txtDescripcion);
 
         jLabel2.setText("Descripcion");
 
@@ -248,7 +238,7 @@ public class GestionCurso extends javax.swing.JFrame {
                             .addComponent(txtCurso)))
                     .addGroup(PanelInsertarLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAgregarAgente)
+                        .addComponent(btnAgregarColegio)
                         .addGap(85, 85, 85))
                     .addGroup(PanelInsertarLayout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -276,7 +266,7 @@ public class GestionCurso extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(btnAgregarAgente)
+                .addComponent(btnAgregarColegio)
                 .addGap(27, 27, 27))
         );
 
@@ -313,14 +303,15 @@ public class GestionCurso extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
-    private void btnAgregarAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAgenteActionPerformed
-        Curso curso = new Curso();
-        if(txtCurso.getText().trim().isEmpty())
-        {
-            
-        }
-                
-    }//GEN-LAST:event_btnAgregarAgenteActionPerformed
+    private void btnAgregarColegioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarColegioActionPerformed
+        colegio =listaColegios.get(cbColegio.getSelectedIndex());
+        curso = new Curso();
+//        JOptionPane.showMessageDialog(null, colegio.getId_colegio());
+        curso.setMonto_recaudado(Integer.parseInt(txtMonto.getText()));
+        curso.setDescripcion(txtDescripcion.getText());
+        curso.setColegio(colegio);
+        new CursoDaoImp().insertar(curso);
+    }//GEN-LAST:event_btnAgregarColegioActionPerformed
 
     private void cbColegioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbColegioActionPerformed
         // TODO add your handling code here:
@@ -330,7 +321,7 @@ public class GestionCurso extends javax.swing.JFrame {
     private javax.swing.JPanel PanelInsertar;
     private javax.swing.JPanel PanelTabla;
     private javax.swing.JPanel PanelTitulo;
-    private javax.swing.JButton btnAgregarAgente;
+    private javax.swing.JButton btnAgregarColegio;
     private javax.swing.JButton btnInicio;
     private javax.swing.JComboBox<String> cbColegio;
     private javax.swing.JLabel jLabel1;
@@ -342,7 +333,7 @@ public class GestionCurso extends javax.swing.JFrame {
     private javax.swing.JLabel lblAVOT;
     private javax.swing.JTable tablaCursos;
     private javax.swing.JTextField txtCurso;
-    private javax.swing.JTextArea txtDescripciom;
+    private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtMonto;
     // End of variables declaration//GEN-END:variables
 }

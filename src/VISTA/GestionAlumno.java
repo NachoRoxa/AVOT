@@ -7,7 +7,13 @@ package VISTA;
 
 import CONEXION.Conexion;
 import DAO.AlumnoDaoImp;
+import DAO.ApoderadoDaoImp;
+import DAO.CursoDaoImp;
+import DAO.TourDaoImp;
 import DTO.Alumno;
+import DTO.Apoderado;
+import DTO.Curso;
+import DTO.Tour;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +23,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GestionAlumno extends javax.swing.JFrame {
     ArrayList<Alumno> listaAlumnos;
+    ArrayList<Apoderado> listaApoderados;
+    ArrayList<Curso> listaCurso;
+    ArrayList<Tour> listaTour;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
     int flag;
@@ -31,6 +40,7 @@ public class GestionAlumno extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarAlumnos();
+        datosComboBox();
     }
     
     /***
@@ -75,6 +85,28 @@ public class GestionAlumno extends javax.swing.JFrame {
         }
     }
     
+    public void datosComboBox()
+    {
+        listaApoderados= new ApoderadoDaoImp().listar();
+        for(Apoderado apod : listaApoderados)
+        {
+            cbApoderado.addItem(apod.getNombre());
+        }
+        
+        listaCurso=new CursoDaoImp().listar();
+        for(Curso curso:listaCurso)
+        {
+            cbCurso.addItem(curso.getDescripcion());
+        }
+        
+        listaTour=new TourDaoImp().listar();
+        for(Tour tour:listaTour)
+        {
+            cbTour.addItem(tour.getDescripcion());
+        }
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -105,9 +137,9 @@ public class GestionAlumno extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        ComboBoxCurso = new javax.swing.JComboBox<>();
-        ComboBoxApoderado = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbCurso = new javax.swing.JComboBox<>();
+        cbApoderado = new javax.swing.JComboBox<>();
+        cbTour = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -203,11 +235,16 @@ public class GestionAlumno extends javax.swing.JFrame {
 
         jLabel8.setText("Apoderado");
 
-        ComboBoxCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Curso" }));
+        cbCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCursoActionPerformed(evt);
+            }
+        });
 
-        ComboBoxApoderado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbApoderado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Apoderado" }));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Tour" }));
 
         javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
         PanelInsertar.setLayout(PanelInsertarLayout);
@@ -236,18 +273,16 @@ public class GestionAlumno extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtMontoPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelInsertarLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ComboBoxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1, 0, 140, Short.MAX_VALUE)
-                            .addComponent(ComboBoxApoderado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(cbCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbTour, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbApoderado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(PanelInsertarLayout.createSequentialGroup()
                 .addGap(100, 100, 100)
@@ -280,15 +315,15 @@ public class GestionAlumno extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(ComboBoxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(ComboBoxApoderado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbApoderado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnAgregarCurso)
                 .addContainerGap(37, Short.MAX_VALUE))
@@ -331,17 +366,21 @@ public class GestionAlumno extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAgregarCursoActionPerformed
 
+    private void cbCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCursoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCursoActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ComboBoxApoderado;
-    private javax.swing.JComboBox<String> ComboBoxCurso;
     private javax.swing.JPanel PanelInsertar;
     private javax.swing.JPanel PanelTabla;
     private javax.swing.JPanel PanelTitulo;
     private javax.swing.JButton btnAgregarCurso;
     private javax.swing.JButton btnInicio;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbApoderado;
+    private javax.swing.JComboBox<String> cbCurso;
+    private javax.swing.JComboBox<String> cbTour;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
