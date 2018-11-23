@@ -7,6 +7,7 @@ package VISTA;
 
 import CONEXION.Conexion;
 import DAO.CursoDaoImp;
+import DTO.Colegio;
 import DTO.Curso;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GestionCurso extends javax.swing.JFrame {
     ArrayList<Curso> listaCursos;
+    ArrayList<Colegio> Colegios;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
     int flag;
