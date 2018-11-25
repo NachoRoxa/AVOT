@@ -6,14 +6,20 @@
 package VISTA;
 
 import CONEXION.Conexion;
+import DAO.ApoderadoDaoImp;
 import DAO.ColegioDaoImp;
 import DAO.CursoDaoImp;
 import DTO.Colegio;
 import DTO.Curso;
+import VISTA.CONTROLES.ButtonColumn;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -40,8 +46,8 @@ public class GestionCurso extends javax.swing.JFrame {
         Admin(admin);
         initComponents();
         this.setLocationRelativeTo(null);
-        MostrarCursos();        
-        datosCombobox();        
+        MostrarCursos();
+        datosCombobox();
     }
 
     /**
@@ -62,9 +68,25 @@ public class GestionCurso extends javax.swing.JFrame {
         }
     }
 
+    /*ocultar guardar y cancelar, mostrar agregar*/
+    public void ResetBotones() {
+        btnAgregarCurso.setVisible(true);
+        btnCancelar.setVisible(false);
+        btnGuardar.setVisible(false);
+    }
+
+    /*metodo nuevo pa limpiar*/
+    public void LimpiarFormulario() {
+        txtCurso.setText(null);
+        txtDescripcion.setText(null);
+        txtMonto.setText(null);//lo dejo mientras, pero deberíamos borrarlo
+        
+    }
+
     public void MostrarCursos() {
         listaCursos = new CursoDaoImp().listar();
         modelo = new DefaultTableModel();
+        modelo.addColumn("");
         modelo.addColumn("ID");
         modelo.addColumn("MONTO RECAUDADO");
         modelo.addColumn("COLEGIO");
@@ -73,6 +95,7 @@ public class GestionCurso extends javax.swing.JFrame {
         if (listaCursos.size() > 0) {
             for (Curso curso : listaCursos) {
                 modelo.addRow(new Object[]{
+                    "EDITAR",
                     curso.getId_curso(),
                     curso.getMonto_recaudado(),
                     curso.getColegio().getNombre(),
@@ -81,7 +104,49 @@ public class GestionCurso extends javax.swing.JFrame {
                 );
             }
             tablaCursos.setModel(modelo);
+
+            /* AGREGA LA ACCION DEL BOTTON ELIMINAR*/
+            Action borrar = new AbstractAction() {
+                @Override
+                /*ESTE ES EL METODO DEL BOTON CUANDO SE PRESIONA*/
+                public void actionPerformed(ActionEvent e) {
+                    int fila = Integer.valueOf(e.getActionCommand());
+                    Curso curso = new Curso();
+                    curso = listaCursos.get(fila);
+                    new CursoDaoImp().eliminar(curso);
+                    LimpiarFormulario();
+                    tablaCursos.clearSelection();
+                    MostrarCursos();
+                    ResetBotones();
+
+                }
+
+            };
+            /*ESTA PARTE ES LA QUE AGREGA EL BOTTON ELIMINAR CON ACCION DECLARADA ANTERIORMENTE*/
+            ButtonColumn buttonEliminar = new ButtonColumn(tablaCursos, borrar, 5);
+            buttonEliminar.setMnemonic(KeyEvent.VK_D);
+
+            /* AGREGA LA ACCION AL BOTTON editar*/
+            Action editar = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int fila = Integer.valueOf(e.getActionCommand());
+                    Curso curso = new Curso();
+                    curso = listaCursos.get(fila);
+                    txtMonto.setText(String.valueOf(curso.getMonto_recaudado()));
+                    txtDescripcion.setText(curso.getDescripcion());
+                    cbColegio.setSelectedItem(colegio.getNombre());
+                    btnAgregarCurso.setVisible(false);
+                    btnCancelar.setVisible(true);
+                    btnGuardar.setVisible(true);
+                }
+
+            };
+            /*AGREGA EL BOTTON EDITAR A LA COLUMNA CON LA ACCION DECLARADA ANTERIORMENTE*/
+            ButtonColumn buttonEditar = new ButtonColumn(tablaCursos, editar, 0);
+            buttonEditar.setMnemonic(KeyEvent.VK_D);
         }
+
     }
 
     /**
@@ -113,7 +178,7 @@ public class GestionCurso extends javax.swing.JFrame {
         tablaCursos = new javax.swing.JTable();
         PanelInsertar = new javax.swing.JPanel();
         txtCurso = new javax.swing.JTextField();
-        btnAgregarColegio = new javax.swing.JButton();
+        btnAgregarCurso = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cbColegio = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
@@ -122,6 +187,8 @@ public class GestionCurso extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -194,10 +261,10 @@ public class GestionCurso extends javax.swing.JFrame {
 
         PanelInsertar.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Curso"));
 
-        btnAgregarColegio.setText("Agregar");
-        btnAgregarColegio.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarCurso.setText("Agregar");
+        btnAgregarCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarColegioActionPerformed(evt);
+                btnAgregarCursoActionPerformed(evt);
             }
         });
 
@@ -219,14 +286,22 @@ public class GestionCurso extends javax.swing.JFrame {
 
         jLabel2.setText("Descripcion");
 
+        btnCancelar.setText("Cancelar");
+
+        btnGuardar.setText("Guardar");
+
         javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
         PanelInsertar.setLayout(PanelInsertarLayout);
         PanelInsertarLayout.setHorizontalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
+            .addGroup(PanelInsertarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelInsertarLayout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGuardar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel9)
@@ -236,11 +311,11 @@ public class GestionCurso extends javax.swing.JFrame {
                             .addComponent(txtMonto)
                             .addComponent(cbColegio, 0, 140, Short.MAX_VALUE)
                             .addComponent(txtCurso)))
-                    .addGroup(PanelInsertarLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAgregarColegio)
+                        .addComponent(btnAgregarCurso)
                         .addGap(85, 85, 85))
-                    .addGroup(PanelInsertarLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -266,8 +341,11 @@ public class GestionCurso extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(btnAgregarColegio)
-                .addGap(27, 27, 27))
+                .addComponent(btnAgregarCurso)
+                .addGap(2, 2, 2)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardar)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -303,15 +381,15 @@ public class GestionCurso extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
-    private void btnAgregarColegioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarColegioActionPerformed
-        colegio =listaColegios.get(cbColegio.getSelectedIndex());
+    private void btnAgregarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCursoActionPerformed
+        colegio = listaColegios.get(cbColegio.getSelectedIndex());
         curso = new Curso();
 //        JOptionPane.showMessageDialog(null, colegio.getId_colegio());
-        curso.setMonto_recaudado(Integer.parseInt(txtMonto.getText()));
+//        curso.setMonto_recaudado(Integer.parseInt(txtMonto.getText())); //deberiamos borrar ese pero esperaré para hacerlo
         curso.setDescripcion(txtDescripcion.getText());
         curso.setColegio(colegio);
         new CursoDaoImp().insertar(curso);
-    }//GEN-LAST:event_btnAgregarColegioActionPerformed
+    }//GEN-LAST:event_btnAgregarCursoActionPerformed
 
     private void cbColegioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbColegioActionPerformed
         // TODO add your handling code here:
@@ -321,7 +399,9 @@ public class GestionCurso extends javax.swing.JFrame {
     private javax.swing.JPanel PanelInsertar;
     private javax.swing.JPanel PanelTabla;
     private javax.swing.JPanel PanelTitulo;
-    private javax.swing.JButton btnAgregarColegio;
+    private javax.swing.JButton btnAgregarCurso;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JComboBox<String> cbColegio;
     private javax.swing.JLabel jLabel1;
