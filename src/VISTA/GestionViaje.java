@@ -395,7 +395,7 @@ public class GestionViaje extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        agente.setRun(txtOrigen.getText());
+        /*agente.setRun(txtOrigen.getText());
         agente.setNombre(txtDestino.getText());
         agente.setApellido_paterno(txtCosto.getText());
         agente.setApellido_materno(txtApellidoM.getText());
@@ -415,7 +415,7 @@ public class GestionViaje extends javax.swing.JFrame {
         ResetBotones();
         LimpiarFormulario();
         tablaAgentes.clearSelection();
-        MostrarAgentes();
+        MostrarAgentes();*/
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 
