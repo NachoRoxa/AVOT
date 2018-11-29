@@ -35,6 +35,8 @@ public class GestionTour extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         MostrarTours();
         datosComboBox();
+        
+        
     }
     
     /***

@@ -93,7 +93,7 @@ public class GestionAgente extends javax.swing.JFrame {
                             texto = rut;
                             break;
                         default:
-                            texto = texto.replace(".", "").replace("-", "");
+                            texto = texto.replace(".", "").replace("-", "").replace("k", "");
                             break;
                     }
                     txtRun.setText(texto);

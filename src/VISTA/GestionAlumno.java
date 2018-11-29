@@ -14,6 +14,8 @@ import DTO.Alumno;
 import DTO.Apoderado;
 import DTO.Curso;
 import DTO.Tour;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -41,6 +43,68 @@ public class GestionAlumno extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         MostrarAlumnos();
         datosComboBox();
+        txtRun.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='k' && e.getKeyCode()!=75 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+                    e.consume();
+                } 
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='k' && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+                    e.consume();
+                } else {
+                    String texto;
+                    texto = txtRun.getText();
+                    texto = texto.replace(".", "").replace("-", "");
+                    String[] array = texto.split("");
+                    String rut = "";
+                    switch (texto.length()) {
+                        case 8:
+                            for (int i = 0; i < array.length; i++) {
+                                rut = rut + array[i];
+                                if (i == 0 || i == 3) {
+                                    rut = rut + ".";
+                                }
+                                if (i == 6) {
+                                    rut = rut + "-";
+                                }
+                            }
+                            texto = rut;
+                            break;
+                        case 9:
+                            for (int i = 0; i < array.length; i++) {
+                                rut = rut + array[i];
+                                if (i == 1 || i == 4) {
+                                    rut = rut + ".";
+                                }
+                                if(i == 7) {
+                                    rut = rut + "-";
+                                }
+                            }
+                            texto = rut;
+                            break;
+                        default:
+                            texto = texto.replace(".", "").replace("-", "").replace("k", "");
+                            break;
+                    }
+                    txtRun.setText(texto);
+
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+//                String texto;
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='k' && e.getKeyCode()!=75 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+                    e.consume();
+                } 
+            }
+        });
+        
     }
     
     /***
