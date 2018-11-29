@@ -118,6 +118,7 @@ public class GestionEstadia extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1090, 505));
 
         PanelTitulo.setBackground(new java.awt.Color(30, 160, 250));
 

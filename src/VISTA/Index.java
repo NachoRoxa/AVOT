@@ -158,6 +158,7 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
+        btnContrato.setBackground(new java.awt.Color(0, 204, 255));
         btnContrato.setText("Generar Contrato");
         btnContrato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,13 +182,13 @@ public class Index extends javax.swing.JFrame {
         PanelAgenciaLayout.setVerticalGroup(
             PanelAgenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelAgenciaLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(44, 44, 44)
                 .addComponent(btnAgentes)
-                .addGap(50, 50, 50)
+                .addGap(65, 65, 65)
                 .addComponent(btnEmpresasTransporte)
-                .addGap(50, 50, 50)
+                .addGap(65, 65, 65)
                 .addComponent(btnAseguradora)
-                .addGap(74, 74, 74)
+                .addGap(65, 65, 65)
                 .addComponent(btnContrato)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -242,13 +243,13 @@ public class Index extends javax.swing.JFrame {
         PanelColegioLayout.setVerticalGroup(
             PanelColegioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelColegioLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(44, 44, 44)
                 .addComponent(btnApoderados)
-                .addGap(50, 50, 50)
+                .addGap(65, 65, 65)
                 .addComponent(btnCursos)
-                .addGap(60, 60, 60)
+                .addGap(65, 65, 65)
                 .addComponent(btnAlumnos)
-                .addGap(50, 50, 50)
+                .addGap(65, 65, 65)
                 .addComponent(btnColegios)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -312,7 +313,7 @@ public class Index extends javax.swing.JFrame {
         PanelToursLayout.setVerticalGroup(
             PanelToursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelToursLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addComponent(btnTours)
                 .addGap(50, 50, 50)
                 .addComponent(btnEstadias)

@@ -19,46 +19,48 @@ import javax.swing.table.DefaultTableModel;
  * @author Seba
  */
 public class GestionViaje extends javax.swing.JFrame {
+
     ArrayList<Viaje> listaViajes;
     ArrayList<EmpresaTransporte> listaEmpresa;
     Conexion obj = new Conexion();
     EmpresaTransporte empresa;
+    Viaje viaje;
     DefaultTableModel modelo;
     int flag;
 
     /**
      * Creates new form GestionViaje
+     *
      * @param admin
-     */    
-    public GestionViaje(int admin)
-    {
+     */
+    public GestionViaje(int admin) {
         Admin(admin);
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarViajes();
+        datosComboBox();
     }
-    
-    public void LimpiarFormulario()
-    {
+
+    public void LimpiarFormulario() {
         txtOrigen.setText(null);
         txtDestino.setText(null);
         txtCosto.setText(null);
         cbEmpresa.setSelectedIndex(0);
     }
-    
-    public void datosComboBox()
-    {
-        listaEmpresa=new EmpresaTransporteDaoImp().listar();
-        for(EmpresaTransporte empresa : listaEmpresa)
-        {
+
+    public void datosComboBox() {
+        listaEmpresa = new EmpresaTransporteDaoImp().listar();
+        for (EmpresaTransporte empresa : listaEmpresa) {
             cbEmpresa.addItem(empresa.getNombre_empresa());
         }
     }
-    
-    /***
+
+    /**
+     * *
      * Metodo para ver si el usuario posee perfil de administrador.
+     *
      * @param admin
-     * @return 
+     * @return
      */
     public boolean Admin(int admin) {
         this.flag = admin;
@@ -70,8 +72,8 @@ public class GestionViaje extends javax.swing.JFrame {
             return false;
         }
     }
-    
-    public void MostrarViajes(){
+
+    public void MostrarViajes() {
         listaViajes = new ViajeDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("ID");
@@ -194,7 +196,7 @@ public class GestionViaje extends javax.swing.JFrame {
             PanelTabla6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelTabla6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
                 .addContainerGap())
         );
         PanelTabla6Layout.setVerticalGroup(
@@ -247,10 +249,6 @@ public class GestionViaje extends javax.swing.JFrame {
         PanelInsertar.setLayout(PanelInsertarLayout);
         PanelInsertarLayout.setHorizontalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(btnAgregarAgente)
-                .addGap(126, 126, 126))
             .addGroup(PanelInsertarLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,7 +265,7 @@ public class GestionViaje extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCosto)
-                            .addComponent(cbEmpresa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(cbEmpresa, 0, 172, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -282,6 +280,10 @@ public class GestionViaje extends javax.swing.JFrame {
                         .addGap(107, 107, 107)
                         .addComponent(btnGuardar)))
                 .addGap(25, 25, 25))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAgregarAgente)
+                .addGap(134, 134, 134))
         );
         PanelInsertarLayout.setVerticalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,9 +309,9 @@ public class GestionViaje extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(RBActivo)
                     .addComponent(RBInactivo))
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(btnAgregarAgente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGuardar)))
@@ -322,8 +324,8 @@ public class GestionViaje extends javax.swing.JFrame {
             .addComponent(PanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(PanelTabla6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelTabla6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PanelInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -350,15 +352,17 @@ public class GestionViaje extends javax.swing.JFrame {
 
     private void btnAgregarAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAgenteActionPerformed
         //Crea un nuevo objetoAgente
-        empresa=listaEmpresa.get(cbEmpresa.getSelectedIndex());
-        Viaje viaje = new Viaje();
-        if (txtOrigen.getText().trim().isEmpty()) {           
+        empresa = listaEmpresa.get(cbEmpresa.getSelectedIndex());
+        viaje = new Viaje();
+        if (txtOrigen.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor ingrese el Origen.");
         } else if (txtDestino.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Nombre");
         } else if (txtCosto.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Apellido Paterno");
-        } else if (cbEmpresa.getSelectedIndex()==-1) {
+        } else if (cbEmpresa.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione una Empresa de Transportes");
+        } else if (cbEmpresa.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Por favor seleccione una Empresa de Transportes");
         } else {
 
@@ -377,7 +381,7 @@ public class GestionViaje extends javax.swing.JFrame {
                 //Limpia los datos de los txtBox
                 LimpiarFormulario();
                 //Limpimpia la tabla
-                tablaAgentes.clearSelection();
+                tablaViajes.clearSelection();
                 //Setea nuevamente la tabla
                 MostrarViajes();
             } catch (Exception e) {
@@ -390,43 +394,29 @@ public class GestionViaje extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         //ResetBotones();
         LimpiarFormulario();
-        tablaAgentes.clearSelection();
+        tablaViajes.clearSelection();
         MostrarViajes();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        /*agente.setRun(txtOrigen.getText());
-        agente.setNombre(txtDestino.getText());
-        agente.setApellido_paterno(txtCosto.getText());
-        agente.setApellido_materno(txtApellidoM.getText());
-        agente.setUser(txtUsuario.getText());
-        agente.setPasswd(txtContraseña.getText());
-        if (chbAdministrador.isSelected()) {
-            agente.setAdministrador(1);
-        } else {
-            agente.setAdministrador(0);
-        }
+        viaje.setOrigen(txtOrigen.getText());
+        viaje.setDestino(txtDestino.getText());
+        viaje.setCosto(Integer.parseInt(txtCosto.getText()));
         if (RBActivo.isSelected()) {
-            agente.setEstado(1);
+            viaje.setEstado(1);
         } else {
-            agente.setEstado(0);
+            viaje.setEstado(0);
         }
-        new AgenteDaoImp().modificar(agente);
-        ResetBotones();
+        new ViajeDaoImp().modificar(viaje);
+
         LimpiarFormulario();
-        tablaAgentes.clearSelection();
-        MostrarAgentes();*/
+        tablaViajes.clearSelection();
+        MostrarViajes();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelInsertar;
-    private javax.swing.JPanel PanelTabla;
-    private javax.swing.JPanel PanelTabla1;
-    private javax.swing.JPanel PanelTabla2;
-    private javax.swing.JPanel PanelTabla3;
-    private javax.swing.JPanel PanelTabla4;
-    private javax.swing.JPanel PanelTabla5;
     private javax.swing.JPanel PanelTabla6;
     private javax.swing.JPanel PanelTitulo;
     private javax.swing.JRadioButton RBActivo;
@@ -441,20 +431,8 @@ public class GestionViaje extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JLabel lblAVOT;
-    private javax.swing.JTable tablaAgentes;
-    private javax.swing.JTable tablaAgentes1;
-    private javax.swing.JTable tablaAgentes2;
-    private javax.swing.JTable tablaAgentes3;
-    private javax.swing.JTable tablaAgentes4;
-    private javax.swing.JTable tablaAgentes5;
     private javax.swing.JTable tablaViajes;
     private javax.swing.JTextField txtCosto;
     private javax.swing.JTextField txtDestino;
