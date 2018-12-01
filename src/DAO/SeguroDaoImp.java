@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import oracle.jdbc.OracleTypes;
 
 /**
@@ -23,7 +24,24 @@ public class SeguroDaoImp implements BaseDao<Seguro> {
 
     @Override
     public boolean insertar(Seguro dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion cx = new Conexion();
+        try
+        {
+            Connection con = cx.getConnection();
+            String sql = "{call PR_AGREGAR_SEGURO(?,?,?,?,?)}";
+            CallableStatement proc=con.prepareCall(sql);
+            proc.setInt(1, dto.getDias_cobertura());
+            proc.setInt(2, dto.getCosto());
+            proc.setString(3, dto.getDescripcion());
+            proc.setInt(4, dto.getEstado());
+            proc.setObject(5, dto.getAseguradora().getRut());
+            proc.executeQuery();
+            return true;
+        }catch(Exception ex)
+        {
+            System.out.println("Hubo un problema con el procedimiento, intente mas tarde.");
+            return false;
+        }
     }
 
     @Override
