@@ -126,7 +126,11 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        System.exit(0);
+        /*int opcion = JOptionPane.showConfirmDialog(null, "¿Desea cerrar la aplicación AVOT?", "Confirmacion salida", JOptionPane.YES_NO_OPTION);
+        if(opcion == JOptionPane.YES_OPTION)
+        {*/
+            System.exit(0);
+        //}
     }//GEN-LAST:event_btnSalirActionPerformed
 
     //Boton para iniciar el login del usuario

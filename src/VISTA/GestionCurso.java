@@ -40,8 +40,8 @@ public class GestionCurso extends javax.swing.JFrame {
         Admin(admin);
         initComponents();
         this.setLocationRelativeTo(null);
-        MostrarCursos();        
-        datosCombobox();        
+        MostrarCursos();
+        datosCombobox();
     }
 
     /**
@@ -83,14 +83,13 @@ public class GestionCurso extends javax.swing.JFrame {
             tablaCursos.setModel(modelo);
         }
     }
-    
-    public void LimpiarFormulario()
-    {
+
+    public void LimpiarFormulario() {
         txtCurso.setText(null);
         txtMonto.setText(null);
         cbColegio.setSelectedIndex(0);
     }
-    
+
     /**
      * *
      * Metodo para poblar el comboBox con los nombre de los colegios.
@@ -293,23 +292,19 @@ public class GestionCurso extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnAgregarColegioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarColegioActionPerformed
-        colegio =listaColegios.get(cbColegio.getSelectedIndex());
+        colegio = listaColegios.get(cbColegio.getSelectedIndex());
         curso = new Curso();
-        
-        if(txtCurso.getText().trim().isEmpty())
-        {
+
+        if (txtCurso.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor ingrese el Nombre del Curso.");
-        }else if(cbColegio.getSelectedIndex()==-1)
-        {
+        } else if (cbColegio.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un Colegio.");
-        }else if(cbColegio.getSelectedIndex()==0)
-        {
+        } else if (cbColegio.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un Colegio.");
-        }else
-        {
+        } else {
             curso.setDescripcion(txtCurso.getText());
             curso.setColegio(colegio);
-            
+
             try {
                 //Agrega un Agente
                 new CursoDaoImp().insertar(curso);
