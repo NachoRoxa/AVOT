@@ -125,7 +125,7 @@ public class TourDaoImp implements BaseDao<Tour> {
             Statement st = con.createStatement();
             ResultSet re = st.executeQuery("select t.id_tour,t.valor_total,t.des"
                     + "cripcion,t.numero_contrato,a.nombre,a.apellido_paterno,a."
-                    + "apellido_materno,t.fecha_creacion,t.fecha_inicio from tou"
+                    + "apellido_materno,t.fecha_creacion,t.fecha_inicio,t.fecha_termino from tou"
                     + "rs t join agentes a on t.agentes_run = a.run");
             while (re.next()) {
                 Tour tour = new Tour();
@@ -139,7 +139,8 @@ public class TourDaoImp implements BaseDao<Tour> {
                 agente.setApellido_paterno(re.getString(6));
                 agente.setApellido_materno(re.getString(7));
                 tour.setFecha_creacion(re.getDate(8));
-                tour.setFecha_inicio(re.getDate(8));
+                tour.setFecha_inicio(re.getDate(9));
+                tour.setFechaTermino(re.getDate(10));
                 lista.add(tour);
             }
 

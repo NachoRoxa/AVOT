@@ -5,6 +5,7 @@
  */
 package VISTA;
 
+import Atxy2k.CustomTextField.RestrictedTextField;
 import CONEXION.Conexion;
 import DAO.AgenteDaoImp;
 import DAO.TourDaoImp;
@@ -13,10 +14,15 @@ import DTO.Tour;
 import VISTA.CONTROLES.ButtonColumn;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.stream.IntStream;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,6 +37,132 @@ public class GestionTour extends javax.swing.JFrame {
     DefaultTableModel modelo;
     int flag;
     Tour tour;
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    KeyListener key = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+                    e.consume();
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+                    e.consume();
+                } else {
+                    int[] mesesUp = {1,3,5,7,8,10,12};
+                    int[] mesesDn = {4,6,9,11};
+                    String texto;
+                    texto = ((JTextField)(e.getSource())).getText();
+                    texto = texto.replace("/", "");
+                    String dia;
+                    String mes;
+                    String ano;
+                    int anoInt;
+                    int mesInt;
+                    boolean bisiesto = false;
+                    GregorianCalendar calendar = new GregorianCalendar();
+                    switch (texto.length()) {
+                        case 8:
+                            String[] array = texto.split("");
+                            dia = array[0] + array[1];
+                            mes = array[2] + array[3];
+                            ano = array[4] + array[5] + array[6] + array[7];
+                            anoInt = Integer.parseInt(ano);
+                            if (calendar.isLeapYear(anoInt)) {
+                                bisiesto = true;
+                            }
+                            if (Integer.parseInt(mes) > 12) {
+                                mes = "12";
+                               
+                            } else if (Integer.parseInt(mes) < 1) {
+                                mes = "01";
+                                
+                            }
+                            mesInt = Integer.parseInt(mes);
+                            if (Integer.parseInt(mes) == 2) {
+                                if (bisiesto && Integer.parseInt(dia) > 29) {
+                                    dia = "29";
+                                } else if (Integer.parseInt(dia) > 28) {
+                                    dia = "28";
+                                }
+
+                            } else if (IntStream.of(mesesUp).anyMatch(x -> x == mesInt) && Integer.parseInt(dia)>31 ) {
+                                dia = "31"; 
+                            } else if (IntStream.of(mesesDn).anyMatch(x -> x == mesInt) && Integer.parseInt(dia)>30 ) {
+                                dia = "30";
+                            } else if (Integer.parseInt(dia)<1 ) {
+                                dia = "01"; 
+                            } 
+                            ((JTextField)(e.getSource())).setText(dia+"/"+mes+"/"+ano);
+                            
+                        default:
+                            texto = texto.replace("/", "");
+                            
+                    }
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+                    e.consume();
+                }else{
+                {
+                    int[] mesesUp = {1,3,5,7,8,10,12};
+                    int[] mesesDn = {4,6,9,11};
+                    String texto;
+                    texto = ((JTextField)(e.getSource())).getText();
+                    texto = texto.replace("/", "");
+                    String dia;
+                    String mes;
+                    String ano;
+                    int anoInt;
+                    int mesInt;
+                    boolean bisiesto = false;
+                    GregorianCalendar calendar = new GregorianCalendar();
+                    switch (texto.length()) {
+                        case 8:
+                            String[] array = texto.split("");
+                            dia = array[0] + array[1];
+                            mes = array[2] + array[3];
+                            ano = array[4] + array[5] + array[6] + array[7];
+                            anoInt = Integer.parseInt(ano);
+                            if (calendar.isLeapYear(anoInt)) {
+                                bisiesto = true;
+                            }
+                            if (Integer.parseInt(mes) > 12) {
+                                mes = "12";
+                               
+                            } else if (Integer.parseInt(mes) < 1) {
+                                mes = "01";
+                                
+                            }
+                            mesInt = Integer.parseInt(mes);
+                            if (Integer.parseInt(mes) == 2) {
+                                if (bisiesto && Integer.parseInt(dia) > 29) {
+                                    dia = "29";
+                                } else if (Integer.parseInt(dia) > 28) {
+                                    dia = "28";
+                                }
+                            } else if (IntStream.of(mesesUp).anyMatch(x -> x == mesInt) && Integer.parseInt(dia)>31 ) {
+                                dia = "31"; 
+                            } else if (IntStream.of(mesesDn).anyMatch(x -> x == mesInt) && Integer.parseInt(dia)>30 ) {
+                                dia = "30";
+                            } else if (Integer.parseInt(dia)<1 ) {
+                                dia = "01"; 
+                            } 
+                            ((JTextField)(e.getSource())).setText(dia+"/"+mes+"/"+ano);
+                            
+                        default:
+                            texto = texto.replace("/", "");
+                            
+                    }
+                }
+                }
+            }
+        };
     /**
      * Creates new form GestionTour
      * @param admin
@@ -43,6 +175,12 @@ public class GestionTour extends javax.swing.JFrame {
         MostrarTours();
         datosComboBox();
         ResetBotones();
+        RestrictedTextField restrictedInit = new RestrictedTextField(txtFechaInicio);
+        restrictedInit.setLimit(10);
+        RestrictedTextField restrictedTer = new RestrictedTextField(txtFechaTermino);
+        restrictedTer.setLimit(10);
+        txtFechaInicio.addKeyListener(key);
+        txtFechaTermino.addKeyListener(key);
     }
     
     public void LimpiarFormulario()
@@ -87,18 +225,21 @@ public class GestionTour extends javax.swing.JFrame {
         modelo.addColumn("APELLIDO P");
         modelo.addColumn("CREACION");
         modelo.addColumn("INICIO");
+        modelo.addColumn("TERMINO");
         modelo.addColumn("");
         if (listaTour.size() > 0) {
             for (Tour tour : listaTour) {
                 modelo.addRow(new Object[]{
                     "EDITAR",
-                    tour.getId_tour(),                    
+                    tour.getId_tour(),
+                    tour.getValor_total(),
                     tour.getDescripcion(),
                     tour.getNumero_contrato(),
                     tour.getAgente().getNombre(),
                     tour.getAgente().getApellido_paterno(),
                     tour.getFecha_creacion(),
                     tour.getFecha_inicio(),
+                    tour.getFechaTermino(),
                     "ELIMINAR"}
                 );
             }
@@ -116,7 +257,7 @@ public class GestionTour extends javax.swing.JFrame {
                 }
             };
             
-            ButtonColumn buttonEliminar = new ButtonColumn(tablaTours, borrar, 9);            
+            ButtonColumn buttonEliminar = new ButtonColumn(tablaTours, borrar, 10);            
             buttonEliminar.setMnemonic(KeyEvent.VK_D);
             
                     
@@ -127,9 +268,8 @@ public class GestionTour extends javax.swing.JFrame {
                     tour = listaTour.get(fila);
                     txtDescripcion.setText(tour.getDescripcion());
                     cbAgente.setSelectedItem(tour.getAgente());
-                    dpFechaInicio.setDate(tour.getFecha_inicio());
-                    dpFechaTermino.setDate(tour.getFecha_creacion());
-                    
+                    txtFechaInicio.setText(formato.format(tour.getFecha_inicio()));
+                    txtFechaTermino.setText(formato.format(tour.getFechaTermino()));
                     btnAgregarActividad.setVisible(false);
                     btnCancelar.setVisible(true);
                     btnGuardar.setVisible(true);
@@ -174,10 +314,10 @@ public class GestionTour extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         cbAgente = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        dpFechaInicio = new com.toedter.calendar.JDateChooser();
-        dpFechaTermino = new com.toedter.calendar.JDateChooser();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        txtFechaInicio = new javax.swing.JTextField();
+        txtFechaTermino = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -282,19 +422,6 @@ public class GestionTour extends javax.swing.JFrame {
             .addGroup(PanelInsertarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
-                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelInsertarLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE))
-                            .addGroup(PanelInsertarLayout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(81, 81, 81)))
-                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(cbAgente, javax.swing.GroupLayout.Alignment.LEADING, 0, 150, Short.MAX_VALUE)
-                            .addComponent(dpFechaInicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dpFechaTermino, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(PanelInsertarLayout.createSequentialGroup()
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
@@ -303,8 +430,23 @@ public class GestionTour extends javax.swing.JFrame {
                                 .addGap(15, 15, 15)
                                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardar)
-                        .addGap(23, 23, 23)))
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
+                                .addComponent(btnGuardar)
+                                .addGap(23, 23, 23))
+                            .addComponent(txtFechaInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFechaTermino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE))
+                            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                                .addGap(81, 81, 81)))
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(cbAgente, javax.swing.GroupLayout.Alignment.LEADING, 0, 150, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(PanelInsertarLayout.createSequentialGroup()
                 .addGap(131, 131, 131)
@@ -315,25 +457,24 @@ public class GestionTour extends javax.swing.JFrame {
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelInsertarLayout.createSequentialGroup()
                 .addGap(104, 104, 104)
-                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(PanelInsertarLayout.createSequentialGroup()
-                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
-                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbAgente)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dpFechaTermino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cbAgente)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFechaTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnAgregarActividad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGuardar)))
@@ -391,19 +532,20 @@ public class GestionTour extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un Agente");
         }else
         {
+            Agente agente = new Agente();
+            agente = listaAgente.get(cbAgente.getSelectedIndex()-1);
             //tour.setValor_total(Integer.parseInt(txtCosto.getText()));
             tour.setDescripcion(txtDescripcion.getText());
             tour.setAgente(agente);
-            tour.setFecha_inicio(dpFechaInicio.getDate());
-            tour.setFecha_creacion(dpFechaTermino.getDate());
             try{
+            tour.setFecha_inicio(formato.parse(txtFechaInicio.getText()));
+            tour.setFechaTermino(formato.parse(txtFechaTermino.getText()));
                 new TourDaoImp().insertar(tour);
                 LimpiarFormulario();
                 tablaTours.clearSelection();
                 MostrarTours();
-            }catch(Exception ex)
-            {
-                
+            }catch(Exception ex){
+                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
         
@@ -419,8 +561,6 @@ public class GestionTour extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JComboBox<String> cbAgente;
-    private com.toedter.calendar.JDateChooser dpFechaInicio;
-    private com.toedter.calendar.JDateChooser dpFechaTermino;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
@@ -430,5 +570,7 @@ public class GestionTour extends javax.swing.JFrame {
     private javax.swing.JLabel lblAVOT;
     private javax.swing.JTable tablaTours;
     private javax.swing.JTextArea txtDescripcion;
+    private javax.swing.JTextField txtFechaInicio;
+    private javax.swing.JTextField txtFechaTermino;
     // End of variables declaration//GEN-END:variables
 }
