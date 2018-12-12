@@ -185,7 +185,7 @@ public class GestionAlumno extends javax.swing.JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     int fila = Integer.valueOf(e.getActionCommand());
-                    Alumno alumno = new Alumno();
+                    alumno = new Alumno();
                     alumno = listaAlumnos.get(fila);
                     new AlumnoDaoImp().eliminar(alumno);
                     LimpiarFormulario();
@@ -234,7 +234,7 @@ public class GestionAlumno extends javax.swing.JFrame {
 
         listaTour = new TourDaoImp().listar();
         for (Tour tour : listaTour) {
-            cbTour.addItem(tour.getDescripcion());
+            cbTour.addItem(String.valueOf(tour.getId_tour()));
         }
     }
 
@@ -512,10 +512,11 @@ public class GestionAlumno extends javax.swing.JFrame {
         curso = listaCurso.get(cbCurso.getSelectedIndex());
         apoderado = listaApoderados.get(cbApoderado.getSelectedIndex());
         tour = listaTour.get(cbTour.getSelectedIndex());
+        alumno = new Alumno();
         if (txtRun.getText().trim().isEmpty()) {
 
         } else {
-            alumno = new Alumno();
+            
             alumno.setRun(txtRun.getText());
             alumno.setNombre(txtNombre.getText());
             alumno.setApellido_paterno(txtApellidoP.getText());
@@ -526,6 +527,7 @@ public class GestionAlumno extends javax.swing.JFrame {
             try {
                 new AlumnoDaoImp().insertar(alumno);
                 LimpiarFormulario();
+                tablaAlumnos.clearSelection();
                 MostrarAlumnos();
                 ResetBotones();
 

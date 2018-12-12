@@ -108,7 +108,7 @@ public class GestionTour extends javax.swing.JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     int fila = Integer.valueOf(e.getActionCommand());
-                    Tour tour = new Tour();
+                    tour = new Tour();
                     tour = listaTour.get(fila);
                     new TourDaoImp().eliminar(tour);
                     LimpiarFormulario();

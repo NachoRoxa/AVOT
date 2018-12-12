@@ -146,7 +146,7 @@ public class GestionApoderado extends javax.swing.JFrame {
     public void MostrarApoderados() {
         listaApoderados = new ApoderadoDaoImp().listar();
         modelo = new DefaultTableModel();
-        modelo.addColumn("");
+        modelo.addColumn("EDITAR");
         modelo.addColumn("RUN");
         modelo.addColumn("NOMBRE");
         modelo.addColumn("APELLIDO");
@@ -154,7 +154,7 @@ public class GestionApoderado extends javax.swing.JFrame {
         modelo.addColumn("CORREO");
         modelo.addColumn("TELEFONO");
         modelo.addColumn("REPRESENTANTE");
-        modelo.addColumn("");
+        modelo.addColumn("ELIMINAR");
         if (listaApoderados.size() > 0) {
             for (Apoderado apoderado : listaApoderados) {
                 String rep;

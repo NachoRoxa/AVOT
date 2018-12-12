@@ -61,8 +61,7 @@ public class AgenteDaoImp implements BaseDao<Agente> {
         CONEXION.Conexion obj = new Conexion();
         try {
             Connection con = obj.getConnection();
-            String sql;
-            sql = "{call PR_BORRAR_AGENTE(?)}";
+            String sql = "{call PR_BORRAR_AGENTE(?)}";
             CallableStatement proc = con.prepareCall(sql);
             proc.setString(1, dto.getRun());
             proc.executeUpdate();
@@ -142,12 +141,4 @@ public class AgenteDaoImp implements BaseDao<Agente> {
         }
         return lista;
     }
-    
-//    public boolean ValidarUsuario(){
-//        try {
-//            
-//        } catch (Exception e) {
-//        
-//        }
-//    }
 }

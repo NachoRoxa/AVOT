@@ -12,19 +12,28 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Atxy2k.CustomTextField.RestrictedTextField;
+import DTO.Tour;
+import VISTA.CONTROLES.ButtonColumn;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 /**
  *
  * @author Seba
  */
 public class GestionEstadia extends javax.swing.JFrame {
+
     ArrayList<Estadia> listaEstadia;
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
     int flag;
+    Estadia estadia;
 
     /**
      * Creates new form GestionEstadia
+     *
      * @param admin
      */
     public GestionEstadia(int admin) {
@@ -32,16 +41,20 @@ public class GestionEstadia extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarEstadias();
-        RestrictedTextField restricted1= new RestrictedTextField(txtCapacidad);
+        RestrictedTextField restricted1 = new RestrictedTextField(txtCapacidad);
         restricted1.setOnlyNums(rootPaneCheckingEnabled);
-        RestrictedTextField restricted2= new RestrictedTextField(txtCostoPorDia);
+        RestrictedTextField restricted2 = new RestrictedTextField(txtCostoPorDia);
         restricted2.setOnlyNums(rootPaneCheckingEnabled);
+        btnCancelar.setVisible(false);
+        btnGuardar.setVisible(false);
     }
-    
-    /***
+
+    /**
+     * *
      * Metodo para ver si el usuario posee perfil de administrador.
+     *
      * @param admin
-     * @return 
+     * @return
      */
     public boolean Admin(int admin) {
         this.flag = admin;
@@ -53,10 +66,25 @@ public class GestionEstadia extends javax.swing.JFrame {
             return false;
         }
     }
-    
-    public void MostrarEstadias(){
+
+    public void LimpiarFormulario() {
+        txtNombre.setText(null);
+        txtCapacidad.setText(null);
+        txtCostoPorDia.setText(null);
+        txtDireccion.setText(null);
+        RBActivo.setSelected(false);
+        RBInactivo.setSelected(false);
+    }
+
+    public void ResetBotones() {
+        btnAgregarEstadia.setVisible(true);
+
+    }
+
+    public void MostrarEstadias() {
         listaEstadia = new EstadiaDaoImp().listar();
         modelo = new DefaultTableModel();
+        modelo.addColumn("");
         modelo.addColumn("ID");
         modelo.addColumn("NOMBRE");
         modelo.addColumn("DIRECCION");
@@ -73,6 +101,7 @@ public class GestionEstadia extends javax.swing.JFrame {
                     estado = "ACTIVO";
                 }
                 modelo.addRow(new Object[]{
+                    "EDITAR",
                     estadia.getId_estadia(),
                     estadia.getNombre(),
                     estadia.getDireccion(),
@@ -83,6 +112,41 @@ public class GestionEstadia extends javax.swing.JFrame {
                 );
             }
             tablaEstadias.setModel(modelo);
+
+            Action borrar = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int fila = Integer.valueOf(e.getActionCommand());
+                    estadia = new Estadia();
+                    estadia = listaEstadia.get(fila);
+                    new EstadiaDaoImp().eliminar(estadia);
+                    LimpiarFormulario();
+                    tablaEstadias.clearSelection();
+                    MostrarEstadias();
+                    ResetBotones();
+                }
+            };
+
+            ButtonColumn buttonEliminar = new ButtonColumn(tablaEstadias, borrar, 7);
+            buttonEliminar.setMnemonic(KeyEvent.VK_D);
+
+            Action editar = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int fila = Integer.valueOf(e.getActionCommand());
+                    estadia = listaEstadia.get(fila);
+                    txtNombre.setText(estadia.getNombre());
+                    txtDireccion.setText(estadia.getDireccion());
+                    txtCapacidad.setText(String.valueOf(estadia.getCapacidad()));
+                    txtCostoPorDia.setText(String.valueOf(estadia.getCosto_por_dia()));
+                    btnAgregarEstadia.setVisible(false);
+                    btnCancelar.setVisible(true);
+                    btnGuardar.setVisible(true);
+                }
+            };
+
+            ButtonColumn buttonEditar = new ButtonColumn(tablaEstadias, editar, 0);
+            buttonEditar.setMnemonic(KeyEvent.VK_D);
         }
     }
 
@@ -115,6 +179,8 @@ public class GestionEstadia extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         RBActivo = new javax.swing.JRadioButton();
         RBInactivo = new javax.swing.JRadioButton();
+        btnCancelar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -211,64 +277,90 @@ public class GestionEstadia extends javax.swing.JFrame {
         buttonGroup1.add(RBInactivo);
         RBInactivo.setText("Inactivo");
 
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
         PanelInsertar.setLayout(PanelInsertarLayout);
         PanelInsertarLayout.setHorizontalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelInsertarLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelInsertarLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCostoPorDia, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(106, 106, 106)
+                        .addComponent(btnAgregarEstadia))
                     .addGroup(PanelInsertarLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(75, 75, 75)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelInsertarLayout.createSequentialGroup()
-                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap()
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(PanelInsertarLayout.createSequentialGroup()
-                                .addComponent(RBActivo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(RBInactivo))
-                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregarEstadia))))
-                .addContainerGap(14, Short.MAX_VALUE))
+                                .addComponent(btnCancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnGuardar))
+                            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtCostoPorDia, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(75, 75, 75)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(PanelInsertarLayout.createSequentialGroup()
+                                        .addComponent(RBActivo)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(RBInactivo))
+                                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         PanelInsertarLayout.setVerticalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGap(45, 45, 45)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCostoPorDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(50, 50, 50)
+                .addGap(45, 45, 45)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(50, 50, 50)
+                .addGap(45, 45, 45)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(RBActivo)
                     .addComponent(RBInactivo))
-                .addGap(50, 50, 50)
+                .addGap(45, 45, 45)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addComponent(btnAgregarEstadia)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -306,25 +398,25 @@ public class GestionEstadia extends javax.swing.JFrame {
 
     private void btnAgregarEstadiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEstadiaActionPerformed
         Estadia estadia = new Estadia();
-        if(txtNombre.getText().trim().isEmpty()){
+        if (txtNombre.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Nombre");
-        }else if(txtCostoPorDia.getText().trim().isEmpty()){
+        } else if (txtCostoPorDia.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Costo por dia");
-        }else if(txtDireccion.getText().trim().isEmpty()){
+        } else if (txtDireccion.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese una Direccion");
-        }else if(txtCapacidad.getText().trim().isEmpty()){
+        } else if (txtCapacidad.getText().trim().isEmpty()) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(null, "Por favor, ingrese Capasidad de alojamiento");
-        }else{
+        } else {
             estadia.setNombre(txtNombre.getText());
             estadia.setCosto_por_dia(Integer.valueOf(txtCostoPorDia.getText()));
             estadia.setDireccion(txtDireccion.getText());
-            if(RBActivo.isSelected()){
+            if (RBActivo.isSelected()) {
                 estadia.setEstado(1);
-            }else{
+            } else {
                 estadia.setEstado(0);
             }
             estadia.setCapacidad(Integer.valueOf(txtCapacidad.getText()));
@@ -339,6 +431,34 @@ public class GestionEstadia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAgregarEstadiaActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        ResetBotones();
+        LimpiarFormulario();
+        tablaEstadias.clearSelection();
+        MostrarEstadias();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        estadia.setNombre(txtNombre.getText());
+        estadia.setDireccion(txtDireccion.getText());
+        estadia.setCosto_por_dia(Integer.parseInt(txtCostoPorDia.getText()));
+        estadia.setCapacidad(Integer.parseInt(txtCapacidad.getText()));
+        if (RBActivo.isSelected()) {
+            estadia.setEstado(1);
+        } else {
+            estadia.setEstado(0);
+        }
+        if (RBInactivo.isSelected()) {
+            estadia.setEstado(0);
+        } else {
+            estadia.setEstado(1);
+        }
+        new EstadiaDaoImp().modificar(estadia);
+        ResetBotones();
+        LimpiarFormulario();
+        tablaEstadias.clearSelection();
+        MostrarEstadias();
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelInsertar;
@@ -347,6 +467,8 @@ public class GestionEstadia extends javax.swing.JFrame {
     private javax.swing.JRadioButton RBActivo;
     private javax.swing.JRadioButton RBInactivo;
     private javax.swing.JButton btnAgregarEstadia;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnInicio;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
