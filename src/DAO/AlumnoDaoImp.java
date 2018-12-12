@@ -8,6 +8,7 @@ package DAO;
 import CONEXION.Conexion;
 import DTO.Alumno;
 import DTO.Apoderado;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -21,7 +22,24 @@ public class AlumnoDaoImp implements BaseDao<Alumno> {
 
     @Override
     public boolean insertar(Alumno dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion obj = new Conexion();
+        try{
+            Connection con = obj.getConnection();
+            String sql="{call PR_AGREGAR_ALUMNO(?,?,?,?,?,?,?}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setString(1, dto.getRun());
+            proc.setString(2, dto.getNombre());
+            proc.setString(3, dto.getApellido_paterno());
+            proc.setString(4, dto.getApellido_materno());
+            proc.setObject(5, dto.getCursos_id_curso());
+            proc.setObject(6, dto.getApoderado());
+            proc.setObject(7, dto.getTour());
+            proc.executeQuery();
+            return true;
+        }catch(Exception ex)
+        {
+            return false;
+        }
     }
 
     @Override

@@ -220,8 +220,7 @@ public class GestionTour extends javax.swing.JFrame {
             for (Tour tour : listaTour) {
                 modelo.addRow(new Object[]{
                     "EDITAR",
-                    tour.getId_tour(),
-                    //tour.getValor_total(),
+                    tour.getId_tour(),                    
                     tour.getDescripcion(),
                     tour.getNumero_contrato(),
                     tour.getAgente().getNombre(),

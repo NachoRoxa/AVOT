@@ -14,9 +14,14 @@ import DTO.Alumno;
 import DTO.Apoderado;
 import DTO.Curso;
 import DTO.Tour;
+import VISTA.CONTROLES.ButtonColumn;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Seba
  */
 public class GestionAlumno extends javax.swing.JFrame {
+
     ArrayList<Alumno> listaAlumnos;
     ArrayList<Apoderado> listaApoderados;
     ArrayList<Curso> listaCurso;
@@ -31,30 +37,38 @@ public class GestionAlumno extends javax.swing.JFrame {
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
     int flag;
+    Curso curso;
+    Apoderado apoderado;
+    Tour tour;
+    Alumno alumno;
 
     /**
      * Creates new form GestionAlumno
+     *
      * @param admin
      */
-    public GestionAlumno(int admin)
-    {
+    public GestionAlumno(int admin) {
         Admin(admin);
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarAlumnos();
         datosComboBox();
+        lblMonto.setVisible(false);
+        txtMontoPersonal.setVisible(false);
+        btnCancelar.setVisible(false);
+        btnGuardar.setVisible(false);
         txtRun.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='k' && e.getKeyCode()!=75 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar() != 'k' && e.getKeyCode() != 75 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
                     e.consume();
-                } 
+                }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                
-                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='k' && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar() != 'k' && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
                     e.consume();
                 } else {
                     String texto;
@@ -81,7 +95,7 @@ public class GestionAlumno extends javax.swing.JFrame {
                                 if (i == 1 || i == 4) {
                                     rut = rut + ".";
                                 }
-                                if(i == 7) {
+                                if (i == 7) {
                                     rut = rut + "-";
                                 }
                             }
@@ -99,18 +113,20 @@ public class GestionAlumno extends javax.swing.JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
 //                String texto;
-                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='k' && e.getKeyCode()!=75 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar() != 'k' && e.getKeyCode() != 75 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
                     e.consume();
-                } 
+                }
             }
         });
-        
+
     }
-    
-    /***
+
+    /**
+     * *
      * Metodo para ver si el usuario posee perfil de administrador.
+     *
      * @param admin
-     * @return 
+     * @return
      */
     public boolean Admin(int admin) {
         this.flag = admin;
@@ -122,55 +138,106 @@ public class GestionAlumno extends javax.swing.JFrame {
             return false;
         }
     }
-    
-    public void MostrarAlumnos(){
+
+    public void LimpiarFormulario() {
+        txtRun.setText(null);
+        txtNombre.setText(null);
+        txtApellidoP.setText(null);
+        txtApellidoM.setText(null);
+        cbApoderado.setSelectedIndex(0);
+        cbCurso.setSelectedIndex(0);
+        cbTour.setSelectedIndex(0);
+    }
+
+    public void ResetBotones() {
+        btnAgregar.setVisible(true);
+        btnCancelar.setVisible(false);
+        btnGuardar.setVisible(false);
+        lblMonto.setVisible(false);
+        txtMontoPersonal.setVisible(false);
+    }
+
+    public void MostrarAlumnos() {
         listaAlumnos = new AlumnoDaoImp().listar();
         modelo = new DefaultTableModel();
+        modelo.addColumn("");
         modelo.addColumn("RUN");
         modelo.addColumn("NOMBRE");
         modelo.addColumn("APELLIDO");
-        modelo.addColumn("MONTO PERSONAL");
         modelo.addColumn("NOMBRE APODERADO");
         modelo.addColumn("APELLIDO APODERADO");
         modelo.addColumn("");
         if (listaAlumnos.size() > 0) {
             for (Alumno alumno : listaAlumnos) {
                 modelo.addRow(new Object[]{
+                    "EDITAR",
                     alumno.getRun(),
                     alumno.getNombre(),
                     alumno.getApellido_paterno(),
-                    alumno.getMonto_personal(),
                     alumno.getApoderado().getNombre(),
                     alumno.getApoderado().getApellido(),
                     "ELIMINAR"}
                 );
             }
             tablaAlumnos.setModel(modelo);
+            
+            Action borrar = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int fila = Integer.valueOf(e.getActionCommand());
+                    Alumno alumno = new Alumno();
+                    alumno = listaAlumnos.get(fila);
+                    new AlumnoDaoImp().eliminar(alumno);
+                    LimpiarFormulario();
+                    MostrarAlumnos();
+                }
+            };
+
+            ButtonColumn buttonEliminar = new ButtonColumn(tablaAlumnos, borrar, 6);
+            buttonEliminar.setMnemonic(KeyEvent.VK_D);
+
+            Action editar = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    lblMonto.setVisible(true);
+                    txtMontoPersonal.setVisible(true);
+                    int fila = Integer.valueOf(e.getActionCommand());
+                    alumno = listaAlumnos.get(fila);
+                    txtRun.setText(alumno.getRun());
+                    txtNombre.setText(alumno.getNombre());
+                    txtApellidoP.setText(alumno.getApellido_paterno());
+                    txtApellidoM.setText(alumno.getApellido_materno());
+                    cbApoderado.setSelectedItem(alumno.getApoderado());
+                    cbCurso.setSelectedItem(alumno.getCursos_id_curso());
+                    cbTour.setSelectedItem(alumno.getTour());
+                    btnAgregar.setVisible(false);
+                    btnCancelar.setVisible(true);
+                    btnGuardar.setVisible(true);
+                }
+            };
+
+            ButtonColumn buttonEditar = new ButtonColumn(tablaAlumnos, editar, 0);
+            buttonEditar.setMnemonic(KeyEvent.VK_D);
         }
     }
-    
-    public void datosComboBox()
-    {
-        listaApoderados= new ApoderadoDaoImp().listar();
-        for(Apoderado apod : listaApoderados)
-        {
+
+    public void datosComboBox() {
+        listaApoderados = new ApoderadoDaoImp().listar();
+        for (Apoderado apod : listaApoderados) {
             cbApoderado.addItem(apod.getNombre());
         }
-        
-        listaCurso=new CursoDaoImp().listar();
-        for(Curso curso:listaCurso)
-        {
+
+        listaCurso = new CursoDaoImp().listar();
+        for (Curso curso : listaCurso) {
             cbCurso.addItem(curso.getDescripcion());
         }
-        
-        listaTour=new TourDaoImp().listar();
-        for(Tour tour:listaTour)
-        {
+
+        listaTour = new TourDaoImp().listar();
+        for (Tour tour : listaTour) {
             cbTour.addItem(tour.getDescripcion());
         }
-        
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -190,20 +257,22 @@ public class GestionAlumno extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtRun = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        lblMonto = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtApellidoP = new javax.swing.JTextField();
         txtApellidoM = new javax.swing.JTextField();
         txtMontoPersonal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        btnAgregarCurso = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         cbCurso = new javax.swing.JComboBox<>();
         cbApoderado = new javax.swing.JComboBox<>();
         cbTour = new javax.swing.JComboBox<>();
+        btnCancelar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -278,7 +347,7 @@ public class GestionAlumno extends javax.swing.JFrame {
 
         jLabel2.setText("Run");
 
-        jLabel3.setText("Monto Personal");
+        lblMonto.setText("Monto Personal");
 
         jLabel4.setText("Curso");
 
@@ -286,10 +355,10 @@ public class GestionAlumno extends javax.swing.JFrame {
 
         jLabel6.setText("Tour");
 
-        btnAgregarCurso.setText("Agregar");
-        btnAgregarCurso.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarCursoActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
@@ -309,6 +378,10 @@ public class GestionAlumno extends javax.swing.JFrame {
         cbApoderado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Apoderado" }));
 
         cbTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Tour" }));
+
+        btnCancelar.setText("Cancelar");
+
+        btnGuardar.setText("Guardar");
 
         javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
         PanelInsertar.setLayout(PanelInsertarLayout);
@@ -334,7 +407,7 @@ public class GestionAlumno extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                         .addComponent(txtApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelInsertarLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(lblMonto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtMontoPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
@@ -346,11 +419,16 @@ public class GestionAlumno extends javax.swing.JFrame {
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbTour, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbApoderado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(cbApoderado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(PanelInsertarLayout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGuardar)
+                        .addGap(13, 13, 13)))
                 .addContainerGap())
             .addGroup(PanelInsertarLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(btnAgregarCurso)
+                .addGap(111, 111, 111)
+                .addComponent(btnAgregar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelInsertarLayout.setVerticalGroup(
@@ -374,7 +452,7 @@ public class GestionAlumno extends javax.swing.JFrame {
                     .addComponent(txtApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(lblMonto)
                     .addComponent(txtMontoPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -389,8 +467,12 @@ public class GestionAlumno extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(cbTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnAgregarCurso)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addComponent(btnAgregar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -426,28 +508,52 @@ public class GestionAlumno extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
-    private void btnAgregarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCursoActionPerformed
-        
-    }//GEN-LAST:event_btnAgregarCursoActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        curso = listaCurso.get(cbCurso.getSelectedIndex());
+        apoderado = listaApoderados.get(cbApoderado.getSelectedIndex());
+        tour = listaTour.get(cbTour.getSelectedIndex());
+        if (txtRun.getText().trim().isEmpty()) {
+
+        } else {
+            alumno = new Alumno();
+            alumno.setRun(txtRun.getText());
+            alumno.setNombre(txtNombre.getText());
+            alumno.setApellido_paterno(txtApellidoP.getText());
+            alumno.setApellido_materno(txtApellidoM.getText());
+            alumno.setCursos_id_curso(curso.getId_curso());
+            alumno.setApoderado(apoderado);
+            alumno.setTour(tour);
+            try {
+                new AlumnoDaoImp().insertar(alumno);
+                LimpiarFormulario();
+                MostrarAlumnos();
+                ResetBotones();
+
+            } catch (Exception ex) {
+                
+            }
+        }
+
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void cbCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCursoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCursoActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelInsertar;
     private javax.swing.JPanel PanelTabla;
     private javax.swing.JPanel PanelTitulo;
-    private javax.swing.JButton btnAgregarCurso;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JComboBox<String> cbApoderado;
     private javax.swing.JComboBox<String> cbCurso;
     private javax.swing.JComboBox<String> cbTour;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -455,6 +561,7 @@ public class GestionAlumno extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAVOT;
+    private javax.swing.JLabel lblMonto;
     private javax.swing.JTable tablaAlumnos;
     private javax.swing.JTextField txtApellidoM;
     private javax.swing.JTextField txtApellidoP;
