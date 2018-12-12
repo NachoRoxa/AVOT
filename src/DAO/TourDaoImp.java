@@ -12,10 +12,12 @@ import DTO.Apoderado;
 import DTO.Tour;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,7 +27,23 @@ public class TourDaoImp implements BaseDao<Tour> {
 
     @Override
     public boolean insertar(Tour dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion obj = new Conexion();
+        try
+        {
+            Connection con = obj.getConnection();
+            String sql="{call PR_AGREGAR_TOUR(?,?,?,?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setString(1, dto.getDescripcion());
+            proc.setString(2, dto.getAgente().getRun());
+            proc.setDate(3, (Date) dto.getFecha_inicio());
+            proc.setDate(4, (Date) dto.getFechaTermino());
+            proc.executeQuery();            
+            return true;
+        }catch(Exception ex)
+        {
+            System.out.println("Ocurrio un problema con el procedimiento, intente mas tarde o comuniquese con el administrador.");
+            return false;
+        }
     }
 
     @Override

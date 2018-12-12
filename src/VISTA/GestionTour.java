@@ -13,10 +13,16 @@ import DTO.Agente;
 import DTO.Tour;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import VISTA.CONTROLES.ButtonColumn;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.stream.IntStream;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,7 +37,7 @@ public class GestionTour extends javax.swing.JFrame {
     Conexion obj = new Conexion();
     DefaultTableModel modelo;
     int flag;
-
+    Tour tour;
     /**
      * Creates new form GestionTour
      *
@@ -162,6 +168,14 @@ public class GestionTour extends javax.swing.JFrame {
             }
         });
 
+        ResetBotones();
+    }
+    
+    public void LimpiarFormulario()
+    {
+        //txtCosto.setText(null);        
+        txtDescripcion.setText(null);
+        cbAgente.setSelectedIndex(0);        
     }
 
     /**
@@ -181,36 +195,78 @@ public class GestionTour extends javax.swing.JFrame {
             return false;
         }
     }
-
-    public void MostrarTours() {
+    
+    public void ResetBotones()
+    {
+        btnAgregarActividad.setVisible(true);
+        btnCancelar.setVisible(false);
+        btnGuardar.setVisible(false);
+    }
+    
+    public void MostrarTours(){
         listaTour = new TourDaoImp().listar();
         modelo = new DefaultTableModel();
+        modelo.addColumn("");
         modelo.addColumn("ID");
-        modelo.addColumn("TOTAL");
+        modelo.addColumn("VALOR");
         modelo.addColumn("DESCRIPCION");
         modelo.addColumn("NUMERO CONTRATO");
         modelo.addColumn("NOMBRE AGENTE");
         modelo.addColumn("APELLIDO P");
-        modelo.addColumn("APELLIDO M");
         modelo.addColumn("CREACION");
         modelo.addColumn("INICIO");
         modelo.addColumn("");
         if (listaTour.size() > 0) {
             for (Tour tour : listaTour) {
                 modelo.addRow(new Object[]{
+                    "EDITAR",
                     tour.getId_tour(),
-                    tour.getValor_total(),
+                    //tour.getValor_total(),
                     tour.getDescripcion(),
                     tour.getNumero_contrato(),
                     tour.getAgente().getNombre(),
                     tour.getAgente().getApellido_paterno(),
-                    tour.getAgente().getApellido_materno(),
                     tour.getFecha_creacion(),
                     tour.getFecha_inicio(),
                     "ELIMINAR"}
                 );
             }
             tablaTours.setModel(modelo);
+            
+            Action borrar = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int fila = Integer.valueOf(e.getActionCommand());
+                    Tour tour = new Tour();
+                    tour = listaTour.get(fila);
+                    new TourDaoImp().eliminar(tour);
+                    LimpiarFormulario();
+                    MostrarTours();                    
+                }
+            };
+            
+            ButtonColumn buttonEliminar = new ButtonColumn(tablaTours, borrar, 9);            
+            buttonEliminar.setMnemonic(KeyEvent.VK_D);
+            
+                    
+            Action editar = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int fila = Integer.valueOf(e.getActionCommand());
+                    tour = listaTour.get(fila);
+                    txtDescripcion.setText(tour.getDescripcion());
+                    cbAgente.setSelectedItem(tour.getAgente());
+                    dpFechaInicio.setDate(tour.getFecha_inicio());
+                    dpFechaTermino.setDate(tour.getFecha_creacion());
+                    
+                    btnAgregarActividad.setVisible(false);
+                    btnCancelar.setVisible(true);
+                    btnGuardar.setVisible(true);
+                }
+            };
+            
+            ButtonColumn buttonEditar = new ButtonColumn(tablaTours, editar, 0);
+            buttonEditar.setMnemonic(KeyEvent.VK_D);
         }
     }
 
@@ -237,11 +293,7 @@ public class GestionTour extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaTours = new javax.swing.JTable();
         PanelInsertar = new javax.swing.JPanel();
-        txtActividad = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtCosto = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         btnAgregarActividad = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -252,6 +304,8 @@ public class GestionTour extends javax.swing.JFrame {
         dpFechaInicio = new com.toedter.calendar.JDateChooser();
         dpFechaTermino = new com.toedter.calendar.JDateChooser();
         txtFechaInicio = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -291,7 +345,7 @@ public class GestionTour extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        PanelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista  Actividades Gira"));
+        PanelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista Tours"));
 
         tablaTours.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -322,11 +376,7 @@ public class GestionTour extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        PanelInsertar.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Actividad Gira"));
-
-        jLabel3.setText("Id");
-
-        jLabel4.setText("Costo");
+        PanelInsertar.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Tour"));
 
         jLabel5.setText("Descripcion");
 
@@ -349,63 +399,54 @@ public class GestionTour extends javax.swing.JFrame {
 
         jLabel2.setText("Fecha Termino");
 
+        btnCancelar.setText("Cancelar");
+
+        btnGuardar.setText("Guardar");
+
         javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
         PanelInsertar.setLayout(PanelInsertarLayout);
         PanelInsertarLayout.setHorizontalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelInsertarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(PanelInsertarLayout.createSequentialGroup()
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(txtActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelInsertarLayout.createSequentialGroup()
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PanelInsertarLayout.createSequentialGroup()
-                                .addGap(112, 112, 112)
-                                .addComponent(btnAgregarActividad))
-                            .addGroup(PanelInsertarLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel6)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelInsertarLayout.createSequentialGroup()
-                                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
+                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE))
                             .addGroup(PanelInsertarLayout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                                 .addGap(81, 81, 81)))
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtCosto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                             .addComponent(cbAgente, javax.swing.GroupLayout.Alignment.LEADING, 0, 150, Short.MAX_VALUE)
                             .addComponent(dpFechaInicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(dpFechaTermino, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtFechaInicio))))
+                            .addComponent(dpFechaTermino, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(PanelInsertarLayout.createSequentialGroup()
+                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel2)
+                            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGuardar)
+                        .addGap(23, 23, 23)))
                 .addContainerGap())
+            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                .addGap(131, 131, 131)
+                .addComponent(btnAgregarActividad)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelInsertarLayout.setVerticalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelInsertarLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(104, 104, 104)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(PanelInsertarLayout.createSequentialGroup()
-                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
-                        .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
                         .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -423,8 +464,12 @@ public class GestionTour extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnAgregarActividad)
-                .addGap(28, 28, 28))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardar)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -460,8 +505,41 @@ public class GestionTour extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        
+    }
+    
+    private void buttonEliminarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        
+    }
     private void btnAgregarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActividadActionPerformed
-
+        Tour tour = new Tour();
+        if(txtDescripcion.getText().trim().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null,"Por favor ingrese una descripcion del tour");
+        }else if(cbAgente.getSelectedIndex()==0)
+        {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione un Agente");
+        }else
+        {
+            //tour.setValor_total(Integer.parseInt(txtCosto.getText()));
+            tour.setDescripcion(txtDescripcion.getText());
+            tour.setAgente(agente);
+            tour.setFecha_inicio(dpFechaInicio.getDate());
+            tour.setFecha_creacion(dpFechaTermino.getDate());
+            try{
+                new TourDaoImp().insertar(tour);
+                LimpiarFormulario();
+                tablaTours.clearSelection();
+                MostrarTours();
+            }catch(Exception ex)
+            {
+                
+            }
+        }
+        
     }//GEN-LAST:event_btnAgregarActividadActionPerformed
 
 
@@ -470,22 +548,20 @@ public class GestionTour extends javax.swing.JFrame {
     private javax.swing.JPanel PanelTabla;
     private javax.swing.JPanel PanelTitulo;
     private javax.swing.JButton btnAgregarActividad;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JComboBox<String> cbAgente;
     private com.toedter.calendar.JDateChooser dpFechaInicio;
     private com.toedter.calendar.JDateChooser dpFechaTermino;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAVOT;
     private javax.swing.JTable tablaTours;
-    private javax.swing.JTextField txtActividad;
-    private javax.swing.JTextField txtCosto;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtFechaInicio;
     // End of variables declaration//GEN-END:variables

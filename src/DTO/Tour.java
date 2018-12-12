@@ -20,6 +20,7 @@ public class Tour {
     private Agente agente;
     private Date fecha_creacion;
     private Date fecha_inicio;
+    private Date fecha_termino;
     private ArrayList<Viaje> viajes;
     private ArrayList<Seguro> seguros;
     private ArrayList<Estadia> estadias;
@@ -29,7 +30,7 @@ public class Tour {
     public Tour() {
     }
 
-    public Tour(int id_tour, int valor_total, String descripcion, int numero_contrato, Agente agente, Date fecha_creacion, Date fecha_inicio) {
+    public Tour(int id_tour, int valor_total, String descripcion, int numero_contrato, Agente agente, Date fecha_creacion, Date fecha_inicio, Date fecha_termino) {
         this.id_tour = id_tour;
         this.valor_total = valor_total;
         this.descripcion = descripcion;
@@ -37,6 +38,7 @@ public class Tour {
         this.agente = agente;
         this.fecha_creacion = fecha_creacion;
         this.fecha_inicio = fecha_inicio;
+        this.fecha_termino=fecha_termino;
     }
 
     public int getId_tour() {
@@ -127,6 +129,13 @@ public class Tour {
         this.actividades = actividades;
     }
     
+    public Date getFechaTermino()
+    {
+        return fecha_termino;
+    }
     
-    
+    public void setFechaTermino(Date fecha_termino)
+    {
+        this.fecha_termino=fecha_termino;
+    }
 }
