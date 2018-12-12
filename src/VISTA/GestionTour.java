@@ -5,6 +5,7 @@
  */
 package VISTA;
 
+import Atxy2k.CustomTextField.RestrictedTextField;
 import CONEXION.Conexion;
 import DAO.AgenteDaoImp;
 import DAO.TourDaoImp;
@@ -42,6 +43,8 @@ public class GestionTour extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         MostrarTours();
         datosComboBox();
+        RestrictedTextField restricted = new RestrictedTextField(txtFechaInicio);
+        restricted.setLimit(10);
         txtFechaInicio.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -100,7 +103,6 @@ public class GestionTour extends javax.swing.JFrame {
                         default:
                             texto = texto.replace("/", "");
                     }
-
                 }
             }
 
@@ -108,6 +110,54 @@ public class GestionTour extends javax.swing.JFrame {
             public void keyReleased(KeyEvent e) {
                 if (!Character.isDigit(e.getKeyChar()) && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
                     e.consume();
+                }else{
+                {
+                    int[] mesesUp = {1,3,5,7,8,10,12};
+                    int[] mesesDn = {4,6,9,11};
+                    String texto;
+                    texto = txtFechaInicio.getText();
+                    texto = texto.replace("/", "");
+                    String dia;
+                    String mes;
+                    int ano;
+                    int diaInt;
+                    int mesInt;
+                    boolean bisiesto = false;
+                    GregorianCalendar calendar = new GregorianCalendar();
+                    switch (texto.length()) {
+                        case 8:
+                            String[] array = texto.split("");
+                            dia = array[0] + array[1];
+                            diaInt = Integer.parseInt(dia);
+                            mes = array[2] + array[3];
+                            mesInt = Integer.parseInt(mes);
+                            ano = Integer.parseInt(array[4] + array[5] + array[6] + array[7]);
+                            if (calendar.isLeapYear(ano)) {
+                                bisiesto = true;
+                            }
+                            if (Integer.parseInt(mes) > 12) {
+                                mes = "12";
+                            } else if (Integer.parseInt(mes) < 1) {
+                                mes = "01";
+                            }
+                            if (Integer.parseInt(mes) == 2) {
+                                if (bisiesto && Integer.parseInt(dia) > 29) {
+                                    dia = "29";
+                                } else if (Integer.parseInt(dia) > 28) {
+                                    dia = "28";
+                                }
+
+                            } else if (IntStream.of(mesesUp).anyMatch(x -> x == mesInt) && mesInt>31 ) {
+                                dia = "31"; 
+                            } else if (IntStream.of(mesesDn).anyMatch(x -> x == mesInt) && mesInt>30 ) {
+                                dia = "30";
+                            }
+                            txtFechaInicio.setText(dia+"/"+mes+"/"+ano);
+                            
+                        default:
+                            texto = texto.replace("/", "");
+                    }
+                }
                 }
             }
         });
