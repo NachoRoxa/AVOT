@@ -534,7 +534,7 @@ public class GestionTour extends javax.swing.JFrame {
         }else
         {
             Agente agente = new Agente();
-            agente = listaAgente.get(cbAgente.getSelectedIndex()-1);
+            agente = listaAgente.get(cbAgente.getSelectedIndex());
             //tour.setValor_total(Integer.parseInt(txtCosto.getText()));
             tour.setDescripcion(txtDescripcion.getText());
             tour.setAgente(agente);

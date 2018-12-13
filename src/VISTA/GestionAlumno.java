@@ -234,7 +234,7 @@ public class GestionAlumno extends javax.swing.JFrame {
 
         listaTour = new TourDaoImp().listar();
         for (Tour tour : listaTour) {
-            cbTour.addItem(String.valueOf(tour.getId_tour()));
+            cbTour.addItem(tour.getDescripcion());
         }
     }
 
@@ -509,9 +509,9 @@ public class GestionAlumno extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        curso = listaCurso.get(cbCurso.getSelectedIndex());
-        apoderado = listaApoderados.get(cbApoderado.getSelectedIndex());
-        tour = listaTour.get(cbTour.getSelectedIndex());
+        curso = listaCurso.get(cbCurso.getSelectedIndex()-1);
+        apoderado = listaApoderados.get(cbApoderado.getSelectedIndex()-1);
+        tour = listaTour.get(cbTour.getSelectedIndex()-1);
         alumno = new Alumno();
         if (txtRun.getText().trim().isEmpty()) {
 

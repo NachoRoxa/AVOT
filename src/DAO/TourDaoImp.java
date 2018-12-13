@@ -104,7 +104,18 @@ public class TourDaoImp implements BaseDao<Tour> {
     
     @Override
     public boolean eliminar(Tour dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CONEXION.Conexion obj = new Conexion();
+        try {
+            Connection con = obj.getConnection();
+            String sql = "{call PR_BORRAR_TOUR(?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setInt(1, dto.getId_tour());
+            proc.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Ocurrio un problema con el procedure PR_BORRAR_AGENTE: " + ex.getMessage());
+            return false;
+        }
     }
 
     @Override
