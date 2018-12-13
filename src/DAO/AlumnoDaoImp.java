@@ -25,15 +25,15 @@ public class AlumnoDaoImp implements BaseDao<Alumno> {
         Conexion obj = new Conexion();
         try{
             Connection con = obj.getConnection();
-            String sql="{call PR_AGREGAR_ALUMNO(?,?,?,?,?,?,?}";
+            String sql="{call PR_AGREGAR_ALUMNO(?,?,?,?,?,?,?)}";
             CallableStatement proc = con.prepareCall(sql);
             proc.setString(1, dto.getRun());
             proc.setString(2, dto.getNombre());
             proc.setString(3, dto.getApellido_paterno());
             proc.setString(4, dto.getApellido_materno());
-            proc.setObject(5, dto.getCursos_id_curso());
-            proc.setObject(6, dto.getApoderado());
-            proc.setObject(7, dto.getTour());
+            proc.setInt(5, dto.getCursos_id_curso());
+            proc.setString(6, dto.getApoderado().getRun());
+            proc.setInt(7, dto.getTour().getId_tour());
             proc.executeQuery();
             return true;
         }catch(Exception ex)
@@ -49,7 +49,18 @@ public class AlumnoDaoImp implements BaseDao<Alumno> {
 
     @Override
     public boolean eliminar(Alumno dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CONEXION.Conexion obj = new Conexion();
+        try {
+            Connection con = obj.getConnection();
+            String sql = "{call PR_BORRAR_ALUMNO(?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setString(1, dto.getRun());
+            proc.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Ocurrio un problema con el procedure PR_BORRAR_AGENTE: " + ex.getMessage());
+            return false;
+        }
     }
 
     @Override

@@ -44,6 +44,7 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
         Admin(admin);
         initComponents();
         datosCombobox();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -81,6 +82,7 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
         cbTourContrato = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         PanelTitulo.setBackground(new java.awt.Color(30, 160, 250));
 
@@ -103,7 +105,7 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
             .addGroup(PanelTituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblAVOT)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 949, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
                 .addComponent(btnInicio)
                 .addContainerGap())
         );
@@ -144,7 +146,7 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
                 .addComponent(cbTourContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(102, 102, 102)
                 .addComponent(btnGenerarContrato)
-                .addContainerGap(239, Short.MAX_VALUE))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,7 +206,7 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
         listaTour = new TourDaoImp().listar();
         if (listaTour.size() > 0) {
             for (Tour tour : listaTour) {
-                cbTourContrato.addItem(String.valueOf(tour.getId_tour()));
+                cbTourContrato.addItem(tour.getDescripcion());
             }
         }
     }
