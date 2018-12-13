@@ -49,7 +49,7 @@ public class GenerarContratoPDF {
         parrafo1 ="En ciudad de Santiago de Chile,"+dateFormat+" entre Agencia de viajes on Tour Operador "
                 + "Turístico, Rol Único Tributario N°xx.xxx.xxx-x, empresa del giro de su denominación,rep"
                 + "resentada legalmente por el Sr.John Snow, Cédula de Identidad Nº xx.xxx.xxx-x, nacional"
-                + "idad chilena y con domicilio comercial en esta ciudad, Avda. Antonio Varas N°666, local"
+                + "idad chilena y con domicilio comercial en esta ciudad, Avda. Andres Bello N°2711, Piso 9, local"
                 + " 15, comuna de Providencia, en adelante “AVOT” y el señor (a) "+apJefe.getNombre()+"   "
                 + apJefe.getApellido()+", Cédula de Identidad Nº: "+apJefe.getRun()+", fono Móvil : "
                 + ""+apJefe.getTelefono()+" GADO DEL GRUPO”,quien en calidad de representante de la Comisi"
