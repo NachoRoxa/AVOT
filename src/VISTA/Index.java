@@ -453,7 +453,9 @@ public class Index extends javax.swing.JFrame {
         int opcion = JOptionPane.showConfirmDialog(null, "¿Desea salir del sistema?", "Confirmacion salida", JOptionPane.YES_NO_OPTION);
         if(opcion == JOptionPane.YES_OPTION)
         {
-            System.exit(0);
+            Login x = new Login();
+            x.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btnSalirActionPerformed
 

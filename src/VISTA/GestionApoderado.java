@@ -571,6 +571,7 @@ public class GestionApoderado extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         LimpiarFormulario();
         ResetBotones();
+        tablaApoderados.clearSelection();     
         MostrarApoderados();
     }//GEN-LAST:event_btnCancelarActionPerformed
 

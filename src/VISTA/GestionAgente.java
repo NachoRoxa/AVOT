@@ -277,9 +277,9 @@ public class GestionAgente extends javax.swing.JFrame {
         chbAdministrador = new javax.swing.JCheckBox();
         RBActivo = new javax.swing.JRadioButton();
         RBInactivo = new javax.swing.JRadioButton();
-        txtContraseña = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        txtContraseña = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -417,10 +417,10 @@ public class GestionAgente extends javax.swing.JFrame {
                                     .addComponent(txtApellidoP, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtApellidoM, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtUsuario)
-                                    .addComponent(txtContraseña)
                                     .addGroup(PanelInsertarLayout.createSequentialGroup()
                                         .addComponent(chbAdministrador)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtContraseña)))
                             .addGroup(PanelInsertarLayout.createSequentialGroup()
                                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
@@ -633,7 +633,7 @@ public class GestionAgente extends javax.swing.JFrame {
     private javax.swing.JTable tablaAgentes;
     private javax.swing.JTextField txtApellidoM;
     private javax.swing.JTextField txtApellidoP;
-    private javax.swing.JTextField txtContraseña;
+    private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRun;
     private javax.swing.JTextField txtUsuario;

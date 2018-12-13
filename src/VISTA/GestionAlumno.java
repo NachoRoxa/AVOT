@@ -380,6 +380,11 @@ public class GestionAlumno extends javax.swing.JFrame {
         cbTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Tour" }));
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
 
@@ -541,6 +546,13 @@ public class GestionAlumno extends javax.swing.JFrame {
     private void cbCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCursoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCursoActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        ResetBotones();
+        LimpiarFormulario();
+        tablaAlumnos.clearSelection();
+        MostrarAlumnos();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
