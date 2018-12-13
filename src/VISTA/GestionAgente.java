@@ -222,6 +222,7 @@ public class GestionAgente extends javax.swing.JFrame {
                     int fila = Integer.valueOf(e.getActionCommand());
                     agente = listaAgentes.get(fila);
                     txtRun.setText(agente.getRun());
+                    txtRun.setEditable(false);
                     txtRun.enableInputMethods(false);
                     txtNombre.setText(agente.getNombre());
                     txtApellidoP.setText(agente.getApellido_paterno());
@@ -544,7 +545,7 @@ public class GestionAgente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un Pasword");
         } else {
 
-            agente.setRun(txtRun.getText());
+            agente.setRun(txtRun.getText());            
             agente.setNombre(txtNombre.getText());
             agente.setApellido_paterno(txtApellidoP.getText());
             agente.setApellido_materno(txtApellidoM.getText());

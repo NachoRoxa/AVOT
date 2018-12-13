@@ -48,12 +48,32 @@ public class EstadiaDaoImp implements BaseDao<Estadia> {
 
     @Override
     public boolean eliminar(Estadia dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion obj = new Conexion();
+        try
+        {
+            Connection con = obj.getConnection();
+            String sql="{call PR_BORRAR_ESTADIA(?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setInt(1, dto.getId_estadia());
+            proc.executeUpdate();
+            return true;
+        }catch(Exception ex)
+        {
+            return false;
+        }
     }
 
     @Override
     public boolean modificar(Estadia dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion obj = new Conexion();
+        try{
+            Connection con = obj.getConnection();
+            String sql="call PR_UPDATE_ESTADIA(?,?,?)";
+            return true;
+        }catch(Exception ex)
+        {
+            return false;
+        }
     }
 
     @Override
