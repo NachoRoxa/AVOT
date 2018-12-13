@@ -19,6 +19,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
+
 /**
  *
  * @author Seba
@@ -35,8 +36,8 @@ public class TourDaoImp implements BaseDao<Tour> {
             CallableStatement proc = con.prepareCall(sql);
             proc.setString(1, dto.getDescripcion());
             proc.setString(2, dto.getAgente().getRun());
-            proc.setDate(3, (Date) dto.getFecha_inicio());
-            proc.setDate(4, (Date) dto.getFechaTermino());
+            proc.setDate(3, new java.sql.Date(dto.getFecha_inicio().getTime()));
+            proc.setDate(4, new java.sql.Date(dto.getFechaTermino().getTime()));
             proc.executeQuery();            
             return true;
         }catch(Exception ex)

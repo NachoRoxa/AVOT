@@ -214,6 +214,7 @@ public class GestionTour extends javax.swing.JFrame {
     }
     
     public void MostrarTours(){
+        boolean vacio = false;
         listaTour = new TourDaoImp().listar();
         modelo = new DefaultTableModel();
         modelo.addColumn("");
