@@ -47,12 +47,11 @@ public class GenerarContratoPDF {
         titulo ="CONTRATO DE PRESTACION DE SERVICIOS";
         saltoLinea="                                                                                      ";
         parrafo1 ="En ciudad de Santiago de Chile,"+dateFormat+" entre Agencia de viajes on Tour Operador "
-                + "Turístico, Rol Único Tributario N°xx.xxx.xxx-x, empresa del giro de su denominación,rep"
-                + "resentada legalmente por el Sr.John Snow, Cédula de Identidad Nº xx.xxx.xxx-x, nacional"
+                + "Turístico, Rol Único Tributario N°95.457.298-7, empresa del giro de su denominación, rep"
+                + "resentada legalmente por el Sr. Michael Johanssen, Cédula de Identidad Nº 8.528.344-4, nacional"
                 + "idad chilena y con domicilio comercial en esta ciudad, Avda. Andres Bello N°2711, Piso 9, local"
-                + " 15, comuna de Providencia, en adelante “AVOT” y el señor (a) "+apJefe.getNombre()+"   "
-                + apJefe.getApellido()+", Cédula de Identidad Nº: "+apJefe.getRun()+", fono Móvil : "
-                + ""+apJefe.getTelefono()+" GADO DEL GRUPO”,quien en calidad de representante de la Comisi"
+                + " 15, comuna de Las Condes, en adelante “AVOT” y el señor (a) "+apJefe.getNombre()+"   "
+                + apJefe.getApellido()+", Cédula de Identidad Nº: "+apJefe.getRun()+", quien en calidad de representante de la Comisi"
                 + "ón de apoderados, convienen en celebrar el siguiente contrato de prestación de servicio"
                 + "s, para la Gira de Estudios, que se regirá por las siguientes cláusulas:";
         subtitulo1="CONSIDERACIONES GENERALES";

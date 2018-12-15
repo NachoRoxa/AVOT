@@ -10,10 +10,15 @@ import DAO.ColegioDaoImp;
 import DAO.CursoDaoImp;
 import DTO.Colegio;
 import DTO.Curso;
+import VISTA.CONTROLES.ButtonColumn;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -65,6 +70,7 @@ public class GestionCurso extends javax.swing.JFrame {
     public void MostrarCursos() {
         listaCursos = new CursoDaoImp().listar();
         modelo = new DefaultTableModel();
+        modelo.addColumn("");
         modelo.addColumn("ID");
         modelo.addColumn("MONTO RECAUDADO");
         modelo.addColumn("COLEGIO");
@@ -73,6 +79,7 @@ public class GestionCurso extends javax.swing.JFrame {
         if (listaCursos.size() > 0) {
             for (Curso curso : listaCursos) {
                 modelo.addRow(new Object[]{
+                    "EDITAR",
                     curso.getId_curso(),
                     curso.getMonto_recaudado(),
                     curso.getColegio().getNombre(),
@@ -81,12 +88,37 @@ public class GestionCurso extends javax.swing.JFrame {
                 );
             }
             tablaCursos.setModel(modelo);
+            
+            Action borrar = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int fila = Integer.valueOf(e.getActionCommand());
+                    curso= new Curso();
+                    curso=listaCursos.get(fila);
+                    new CursoDaoImp().eliminar(curso);
+                    LimpiarFormulario();
+                    MostrarCursos();
+                }
+            };
+            
+            ButtonColumn buttonEliminar = new ButtonColumn(tablaCursos, borrar, 5);
+            buttonEliminar.setMnemonic(KeyEvent.VK_D);
+            
+            Action editar = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+            };
+            
+            ButtonColumn buttonEditar = new ButtonColumn(tablaCursos, editar, 0);
+            buttonEditar.setMnemonic(KeyEvent.VK_D);
         }
     }
 
     public void LimpiarFormulario() {
         txtCurso.setText(null);
-        txtMonto.setText(null);
+        
         cbColegio.setSelectedIndex(0);
     }
 
@@ -123,8 +155,6 @@ public class GestionCurso extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         cbColegio = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        txtMonto = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -215,47 +245,39 @@ public class GestionCurso extends javax.swing.JFrame {
 
         jLabel9.setText("Colegio");
 
-        jLabel10.setText("Monto Recaudado");
-
         javax.swing.GroupLayout PanelInsertarLayout = new javax.swing.GroupLayout(PanelInsertar);
         PanelInsertar.setLayout(PanelInsertarLayout);
         PanelInsertarLayout.setHorizontalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
-                .addContainerGap(111, Short.MAX_VALUE)
-                .addComponent(btnAgregarColegio)
-                .addGap(111, 111, 111))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInsertarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtMonto)
                     .addComponent(cbColegio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCurso))
                 .addContainerGap())
+            .addGroup(PanelInsertarLayout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addComponent(btnAgregarColegio)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelInsertarLayout.setVerticalGroup(
             PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelInsertarLayout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addContainerGap(128, Short.MAX_VALUE)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(76, 76, 76)
+                .addGap(69, 69, 69)
                 .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbColegio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addGap(76, 76, 76)
-                .addGroup(PanelInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addGap(57, 57, 57)
                 .addComponent(btnAgregarColegio)
-                .addGap(27, 27, 27))
+                .addGap(99, 99, 99))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -332,12 +354,10 @@ public class GestionCurso extends javax.swing.JFrame {
     private javax.swing.JButton btnInicio;
     private javax.swing.JComboBox<String> cbColegio;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAVOT;
     private javax.swing.JTable tablaCursos;
     private javax.swing.JTextField txtCurso;
-    private javax.swing.JTextField txtMonto;
     // End of variables declaration//GEN-END:variables
 }

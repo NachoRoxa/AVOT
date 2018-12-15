@@ -46,7 +46,18 @@ public class CursoDaoImp implements BaseDao<Curso> {
 
     @Override
     public boolean eliminar(Curso dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CONEXION.Conexion obj = new Conexion();
+        try {
+            Connection con = obj.getConnection();
+            String sql = "{call PR_BORRAR_CURSO(?)}";
+            CallableStatement proc = con.prepareCall(sql);
+            proc.setInt(1, dto.getId_curso());
+            proc.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Ocurrio un problema con el procedure PR_BORRAR_AGENTE: " + ex.getMessage());
+            return false;
+        }
     }
 
     @Override

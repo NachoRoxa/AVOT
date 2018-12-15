@@ -173,7 +173,7 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
 
     private void btnGenerarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarContratoActionPerformed
 
-        tour = listaTour.get(cbTourContrato.getSelectedIndex());
+        tour = listaTour.get(cbTourContrato.getSelectedIndex()-1);
         tour.setActividades(new ActividadGiraDaoImp().listarActividadesTour(tour.getId_tour()));
         tour.setEstadias(new EstadiaDaoImp().listarEstadiasTour(tour.getId_tour()));
         tour.setSeguros(new SeguroDaoImp().listarSegurosTour(tour.getId_tour()));
@@ -190,7 +190,7 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
 
         if (colegio.getCurso().getAlumnos().size() > 0) {
             new GenerarContratoPDF().generarPDF(tour, colegio, apoderadojefe);
-            JOptionPane.showMessageDialog(null, "PDF Creado Correctamente, Habemus alumnos, con apoderados, solo faltan datos de prueba");
+            JOptionPane.showMessageDialog(null, "PDF Creado Correctamente.");
         }
     }//GEN-LAST:event_btnGenerarContratoActionPerformed
 
@@ -202,7 +202,7 @@ public class GeneradorContratoPDF extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioActionPerformed
 
     public void datosCombobox() {
-        cbTourContrato.removeAllItems();
+        
         listaTour = new TourDaoImp().listar();
         if (listaTour.size() > 0) {
             for (Tour tour : listaTour) {

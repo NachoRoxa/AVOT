@@ -22,7 +22,7 @@ public class Index extends javax.swing.JFrame {
     Login log = new Login();
     int flag;
     String runFlag;
-    
+
     public Index(//Agente ag, String ses, 
             int admin) {
         Admin(admin);
@@ -36,6 +36,7 @@ public class Index extends javax.swing.JFrame {
             btnSeguro.setEnabled(false);
             btnEstadias.setEnabled(false);
             btnActividadesGira.setEnabled(false);
+            btnAgentes.setEnabled(false);
         } else {
         }
     }
@@ -44,10 +45,9 @@ public class Index extends javax.swing.JFrame {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/logout.png"));
         return retValue;
     }
-    
-    public String Sesion(String session)
-    {
-        this.runFlag=session;
+
+    public String Sesion(String session) {
+        this.runFlag = session;
         return session;
     }
 
@@ -356,7 +356,7 @@ public class Index extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnApoderadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApoderadosActionPerformed
-        Admin(flag);        
+        Admin(flag);
         this.setVisible(false);
         GestionApoderado x = new GestionApoderado(flag);
         x.setVisible(true);
@@ -370,27 +370,27 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_btnToursActionPerformed
 
     private void btnViajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViajesActionPerformed
-            this.setVisible(false);
-            GestionViaje x = new GestionViaje(flag);
-            x.setVisible(true);
+        this.setVisible(false);
+        GestionViaje x = new GestionViaje(flag);
+        x.setVisible(true);
     }//GEN-LAST:event_btnViajesActionPerformed
 
     private void btnSeguroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeguroActionPerformed
-            this.setVisible(false);
-            GestionSeguro x = new GestionSeguro(flag);
-            x.setVisible(true);
+        this.setVisible(false);
+        GestionSeguro x = new GestionSeguro(flag);
+        x.setVisible(true);
     }//GEN-LAST:event_btnSeguroActionPerformed
 
     private void btnEstadiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadiasActionPerformed
-            this.setVisible(false);
-            GestionEstadia x = new GestionEstadia(flag);
-            x.setVisible(true);
+        this.setVisible(false);
+        GestionEstadia x = new GestionEstadia(flag);
+        x.setVisible(true);
     }//GEN-LAST:event_btnEstadiasActionPerformed
 
     private void btnActividadesGiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActividadesGiraActionPerformed
-            this.setVisible(false);
-            GestionActividadGira x = new GestionActividadGira(flag);
-            x.setVisible(true);
+        this.setVisible(false);
+        GestionActividadGira x = new GestionActividadGira(flag);
+        x.setVisible(true);
     }//GEN-LAST:event_btnActividadesGiraActionPerformed
 
     private void btnCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCursosActionPerformed
@@ -416,14 +416,9 @@ public class Index extends javax.swing.JFrame {
 
     private void btnAgentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgentesActionPerformed
         Admin(flag);
-        if (flag == 0) {
-            this.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Accion no permitida para su perfil.");
-        } else {
-            this.setVisible(false);
-            GestionAgente x = new GestionAgente(flag);
-            x.setVisible(true);
-        }
+        this.setVisible(false);
+        GestionAgente x = new GestionAgente(flag);
+        x.setVisible(true);
     }//GEN-LAST:event_btnAgentesActionPerformed
 
     private void btnEmpresasTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresasTransporteActionPerformed
@@ -451,8 +446,7 @@ public class Index extends javax.swing.JFrame {
         getIconImage();
         Admin(flag);
         int opcion = JOptionPane.showConfirmDialog(null, "¿Desea salir del sistema?", "Confirmacion salida", JOptionPane.YES_NO_OPTION);
-        if(opcion == JOptionPane.YES_OPTION)
-        {
+        if (opcion == JOptionPane.YES_OPTION) {
             Login x = new Login();
             x.setVisible(true);
             this.dispose();

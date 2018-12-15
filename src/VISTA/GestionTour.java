@@ -187,7 +187,9 @@ public class GestionTour extends javax.swing.JFrame {
     {
         //txtCosto.setText(null);        
         txtDescripcion.setText(null);
-        cbAgente.setSelectedIndex(0);        
+        cbAgente.setSelectedIndex(0);
+        txtFechaInicio.setText(null);
+        txtFechaTermino.setText(null);
     }
     
     /***
@@ -535,8 +537,8 @@ public class GestionTour extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un Agente");
         }else
         {
-            Agente agente = new Agente();
-            agente = listaAgente.get(cbAgente.getSelectedIndex());
+            agente = new Agente();
+            agente = listaAgente.get(cbAgente.getSelectedIndex()-1);
             //tour.setValor_total(Integer.parseInt(txtCosto.getText()));
             tour.setDescripcion(txtDescripcion.getText());
             tour.setAgente(agente);
